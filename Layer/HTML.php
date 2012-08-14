@@ -278,14 +278,19 @@ class Layer_HTML extends \app\Layer
 		$body = "\n\n";
 		if ( ! empty($this->params['scripts']))
 		{
-			$body .= '<script type="text/javascript">yepnope({ load: [';
+//			$body .= '<script type="text/javascript">yepnope({ load: [';
+//			$scripts = $this->params['scripts'];
+//			$body .= '\''.\addslashes(\array_shift($scripts)).'\'';
+//			foreach ($scripts as $script)
+//			{
+//				$body .= ', \''.\addslashes($script).'\'';
+//			}
+//			$body .= '] });</script>';
 			$scripts = $this->params['scripts'];
-			$body .= '\''.\addslashes(\array_shift($scripts)).'\'';
 			foreach ($scripts as $script)
 			{
-				$body .= ', \''.\addslashes($script).'\'';
+				$body .= '<script type="text/javascript" src="'.\addslashes($script).'"></script>';
 			}
-			$body .= '] });</script>';
 		}
 		$body .= "</body></html>\n";
 		
