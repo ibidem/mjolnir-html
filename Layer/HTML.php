@@ -27,10 +27,56 @@ class Layer_HTML extends \app\Layer
 	/**
 	 * @return \ibidem\base\Layer_HTML
 	 */
-	public static function instance()
+	static function instance()
 	{
 		$instance = parent::instance();
 		$instance->params = \app\CFS::config('ibidem/html');
+		
+		// register event handlers
+		\app\GlobalEvent::listener('webpage:title', function ($title) use ($instance) {
+			$instance->title($title);
+		});
+		
+		\app\GlobalEvent::listener('webpage:description', function ($description) use ($instance) {
+			$instance->description($description);
+		});
+		
+		\app\GlobalEvent::listener('webpage:keywords', function (array $keywords) use ($instance) {
+			$instance->keywords($keywords);
+		});
+		
+		\app\GlobalEvent::listener('webpage:script', function ($src) use ($instance) {
+			$instance->add_script($src);
+		});
+		
+		\app\GlobalEvent::listener('webpage:style', function ($src) use ($instance) {
+			$instance->add_stylesheet($src);
+		});
+		
+		\app\GlobalEvent::listener('webpage:humanstxt', function ($enabled) use ($instance) {
+			$instance->humanstxt($enabled);
+		});
+		
+		\app\GlobalEvent::listener('webpage:appcache', function ($url) use ($instance) {
+			$instance->appcache($url);
+		});
+		
+		\app\GlobalEvent::listener('webpage:atomfeed', function ($url) use ($instance) {
+			$instance->atomfeed($url);
+		});
+		
+		\app\GlobalEvent::listener('webpage:rssfeed', function ($url) use ($instance) {
+			$instance->rssfeed($url);
+		});
+		
+		\app\GlobalEvent::listener('webpage:canonical', function ($url) use ($instance) {
+			$instance->canonical($url);
+		});
+		
+		\app\GlobalEvent::listener('webpage:crawlers', function ($enabled) use ($instance) {
+			$instance->crawlers($enabled);
+		});
+		
 		return $instance;
 	}
 
@@ -249,7 +295,7 @@ class Layer_HTML extends \app\Layer
 	/**
 	 * Execute the layer.
 	 */
-	public function execute()
+	function execute()
 	{
 		try
 		{
@@ -304,7 +350,7 @@ class Layer_HTML extends \app\Layer
 	 * 
 	 * @param \Exception
 	 */
-	public function exception(\Exception $exception, $no_throw = false, $origin = false)
+	function exception(\Exception $exception, $no_throw = false, $origin = false)
 	{
 		if (\is_a($exception, '\ibidem\types\Exception'))
 		{
@@ -333,41 +379,6 @@ class Layer_HTML extends \app\Layer
 		// default execution from Layer
 		parent::exception($exception, $no_throw);
 	}
-		
-	/**
-	 * @param \ibidem\types\Event
-	 */
-	public function dispatch(\ibidem\types\Event $event)
-	{
-		switch ($event->get_subject())
-		{
-			case \ibidem\types\Event::canonical_url:
-				$this->canonical($event->get_contents());
-				break;
-			
-			case \ibidem\types\Event::title:
-				$this->title($event->get_contents());
-				break;
-			
-			case \ibidem\types\Event::tags:
-				$this->add_keywords($event->get_contents());
-				break;
-			
-			case \ibidem\types\Event::css_style:
-				$this->add_stylesheet($event->get_contents());
-				break;
-			
-			case \ibidem\types\Event::js_script:
-				$this->add_script($event->get_contents());
-				break;
-			
-			case \ibidem\types\Event::head_tag:
-				$this->add_extra_markup($event->get_contents());
-		}
-		
-		// pass to default handling
-		parent::dispatch($event);
-	}
 	
 	/**
 	 * Sets the doctype. See: \ibidem\types\HTML for constants.
@@ -375,7 +386,7 @@ class Layer_HTML extends \app\Layer
 	 * @param string doctype
 	 * @return \ibidem\base\Layer_HTML $this
 	 */
-	public function doctype($doctype)
+	function doctype($doctype)
 	{
 		return $this->set('doctype', $doctype);
 	}
@@ -386,7 +397,7 @@ class Layer_HTML extends \app\Layer
 	 * @param string url
 	 * @return \ibidem\base\Layer_HTML $this
 	 */
-	public function appcache($url = null)
+	function appcache($url = null)
 	{
 		return $this->set('appcache', $url);
 	}
@@ -397,7 +408,7 @@ class Layer_HTML extends \app\Layer
 	 * @param string url
 	 * @return \ibidem\base\Layer_HTML $this
 	 */
-	public function sitemap($url = null)
+	function sitemap($url = null)
 	{
 		return $this->set('sitemap', $url);
 	}
@@ -406,7 +417,7 @@ class Layer_HTML extends \app\Layer
 	 * @param array domains
 	 * @return \ibidem\base\Layer_HTML $this
 	 */
-	public function add_dns_prefetch_domains(array $domains)
+	function add_dns_prefetch_domains(array $domains)
 	{
 		foreach ($domains as $domain)
 		{
@@ -420,7 +431,7 @@ class Layer_HTML extends \app\Layer
 	 * @param string favicon uri
 	 * @return \ibidem\base\Layer_HTML $this
 	 */
-	public function favicon($url = null)
+	function favicon($url = null)
 	{
 		return $this->set('favicon', $url);
 	}
@@ -429,7 +440,7 @@ class Layer_HTML extends \app\Layer
 	 * @param string title 
 	 * @return \ibidem\base\Layer_HTML $this
 	 */
-	public function title($title)
+	function title($title)
 	{
 		return $this->set('title', $title);
 	}
@@ -438,7 +449,7 @@ class Layer_HTML extends \app\Layer
 	 * @param string
 	 * @return \ibidem\base\Layer_HTML $this
 	 */
-	public function add_stylesheet($href, $type = "text/css")
+	function add_stylesheet($href, $type = "text/css")
 	{
 		$this->params['stylesheets'][] = array('href' => $href, 'type' => $type);
 		return $this;
@@ -448,7 +459,7 @@ class Layer_HTML extends \app\Layer
 	 * @param string markup
 	 * @return \ibidem\base\Layer_HTML $this
 	 */
-	public function add_extra_markup($markup)
+	function add_extra_markup($markup)
 	{
 		$this->params['extra_markup'][] = $markup;
 		return $this;
@@ -458,7 +469,7 @@ class Layer_HTML extends \app\Layer
 	 * @param string
 	 * @return \ibidem\base\Layer_HTML $this
 	 */
-	public function add_script($src)
+	function add_script($src)
 	{
 		$this->params['scripts'][] = $src;
 		return $this;
@@ -468,7 +479,7 @@ class Layer_HTML extends \app\Layer
 	 * @param string description 
 	 * @return \ibidem\base\Layer_HTML $this
 	 */
-	public function description($desc = null)
+	function description($desc = null)
 	{
 		return $this->set('description', $desc);
 	}
@@ -477,7 +488,7 @@ class Layer_HTML extends \app\Layer
 	 * @param array new keywards
 	 * @return \ibidem\base\Layer_HTML $this
 	 */
-	public function add_keywords(array $keywords)
+	function add_keywords(array $keywords)
 	{
 		foreach ($keywords as $keyword)
 		{
@@ -491,7 +502,7 @@ class Layer_HTML extends \app\Layer
 	 * @param string canonical url 
 	 * @return \ibidem\base\Layer_HTML $this
 	 */
-	public function canonical($url = null)
+	function canonical($url = null)
 	{
 		return $this->set('canonical', $url);
 	}
@@ -500,7 +511,7 @@ class Layer_HTML extends \app\Layer
 	 * @param boolean enabled?
 	 * @return \ibidem\base\Layer_HTML $this
 	 */
-	public function crawlers($enabled = true)
+	function crawlers($enabled = true)
 	{
 		return $this->set('crawlers', $enabled);
 	}
@@ -509,7 +520,7 @@ class Layer_HTML extends \app\Layer
 	 * @param string url
 	 * @return \ibidem\base\Layer_HTML $this
 	 */
-	public function rssfeed($url = null)
+	function rssfeed($url = null)
 	{
 		return $this->set('rssfeed', $url);
 	}
@@ -518,7 +529,7 @@ class Layer_HTML extends \app\Layer
 	 * @param string url
 	 * @return \ibidem\base\Layer_HTML $this
 	 */
-	public function atomfeed($url = null)
+	function atomfeed($url = null)
 	{
 		return $this->set('atomfeed', $url);
 	}
@@ -527,7 +538,7 @@ class Layer_HTML extends \app\Layer
 	 * @param string url
 	 * @return \ibidem\base\Layer_HTML $this
 	 */
-	public function pingback($url = null)
+	function pingback($url = null)
 	{
 		return $this->set('pingback', $url);
 	}
@@ -536,7 +547,7 @@ class Layer_HTML extends \app\Layer
 	 * @param boolean enabled?
 	 * @return \ibidem\base\Layer_HTML $this
 	 */
-	public function humanstxt($enabled = true)
+	function humanstxt($enabled = true)
 	{
 		return $this->set('humanstxt', $enabled);
 	}
@@ -547,7 +558,7 @@ class Layer_HTML extends \app\Layer
 	 * @param string name
 	 * @return \ibidem\base\Layer_HTML $this
 	 */
-	public function application_name($name = null)
+	function application_name($name = null)
 	{
 		return $this->set('application_name', $name);
 	}
@@ -558,7 +569,7 @@ class Layer_HTML extends \app\Layer
 	 * @param string tooltip
 	 * @return \ibidem\base\Layer_HTML $this
 	 */
-	public function application_tooltip($tooltip = null)
+	function application_tooltip($tooltip = null)
 	{
 		return $this->set('application_tooltip', $tooltip);
 	}
@@ -569,7 +580,7 @@ class Layer_HTML extends \app\Layer
 	 * @param string starturl
 	 * @return \ibidem\base\Layer_HTML $this
 	 */
-	public function application_starturl($starturl = null)
+	function application_starturl($starturl = null)
 	{
 		return $this->set('application_starturl', $starturl);
 	}
@@ -582,7 +593,7 @@ class Layer_HTML extends \app\Layer
 	 * @param string document body
 	 * @return \ibidem\base\Layer_HTML $this
 	 */
-	public function body($body)
+	function body($body)
 	{
 		if ($this->layer !== null)
 		{

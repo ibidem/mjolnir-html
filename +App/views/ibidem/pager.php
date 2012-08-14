@@ -20,7 +20,7 @@
 	
 		<? if ($currentpage != 1): ?>
 			<div class="previous-page enabled">
-				<a href="<?= $url_base.$querie ?>page=<?= $currentpage - 1 ?>" rel="prev"><span><?= $buttons['prev'] ?></span></a>
+				<a href="<?= $url_base.$querie ?><?= $page_query ?>=<?= $currentpage - 1 ?>" rel="prev"><span><?= $buttons['prev'] ?></span></a>
 			</div>
 		<? else: # current page is 1 ?>
 			<div class="previous-page disabled">
@@ -96,7 +96,7 @@
 
 						if ($i == $bookmark['page']):
 							?><span class="target pager-page"><?
-								?><a href="<?= $url_base.$querie ?>page=<?= $i ?><?= '#'.$bookmark['entry'] ?>" <?
+								?><a href="<?= $url_base.$querie ?><?= $page_query ?>=<?= $i ?><?= '#'.$bookmark['entry'] ?>" <?
 								?>title="<?= Lang::tr($title, array(':number' => $number, ':number_end' => $number_end, ':bookmark' => $bookmark)) ?>"><?= $i ?></a><?
 							?></span><?
 						endif;
@@ -105,7 +105,7 @@
 					elseif ($i == $bookmark['page']):
 
 						?><span class="target pager-page"><?
-							?><a href="<?= $url_base.$querie ?>page=<?= $i ?><?= '#'.$bookmark['entry'] ?>" <?
+							?><a href="<?= $url_base.$querie ?><?= $page_query ?>=<?= $i ?><?= '#'.$bookmark['entry'] ?>" <?
 							?>title="<?= Lang::tr($title, array(':number' => $number, ':number_end' => $number_end, ':bookmark' => $bookmark)) ?>"><?= $i ?></a><?
 						?></span><?
 
@@ -114,12 +114,12 @@
 						// check if current page
 						if ($i == $currentpage):
 							?><span class="this<?= ($bookmark['page'] == $i ? ' target' : '') ?> pager-page"><?
-								?><a href="<?= $url_base.$querie ?>page=<?= $i ?><?= ($bookmark['page'] == $i ? '#'.$bookmark['entry'] : '') ?>" <?
+								?><a href="<?= $url_base.$querie ?><?= $page_query ?>=<?= $i ?><?= ($bookmark['page'] == $i ? '#'.$bookmark['entry'] : '') ?>" <?
 								?>title="<?= Lang::tr($title, array(':number' => $number, ':number_end' => $number_end, ':bookmark' => $bookmark)) ?>"><?= $i ?></a><?
 							?></span></span><?
 						else: # $i != $currentpage
 							?><span class="pager-page<?= ($bookmark['page'] == $i ? ' target' : '') ?>"><?
-								?><a href="<?= $url_base.$querie ?>page=<?= $i ?><?= ($bookmark['page'] == $i ? '#'.$bookmark['entry'] : '') ?>" <?
+								?><a href="<?= $url_base.$querie ?><?= $page_query ?>=<?= $i ?><?= ($bookmark['page'] == $i ? '#'.$bookmark['entry'] : '') ?>" <?
 								?>title="<?= Lang::tr($title, array(':number' => $number, ':number_end' => $number_end, ':bookmark' => $bookmark)) ?>"><?= $i ?></a><?
 							?></span><?
 						endif;
@@ -137,7 +137,7 @@
 	
 		<? if ($currentpage != $pagecount): ?>
 			<div class="next-page enabled">
-				<a href="<?= $url_base.$querie ?>page=<?= $currentpage + 1 ?>" rel="next"><span><?= $buttons['next'] ?></span></a>
+				<a href="<?= $url_base.$querie ?><?= $page_query ?>=<?= $currentpage + 1 ?>" rel="next"><span><?= $buttons['next'] ?></span></a>
 			</div>	
 		<? else: # last page ?>
 			<div class="next-page disabled">

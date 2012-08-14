@@ -17,12 +17,13 @@ class Pager extends \app\Instantiatable
 	/**
 	 * @var array 
 	 */
-	private $options = array
+	protected $options = array
 		(	
 			'currentpage' => null,  # selected page
 			'has_ruler'   => null,  # show ruler on pager
 			'order'       => \ibidem\types\Pager::ascending,
 			'querie'      => '?',
+			'page_query'  => 'page',
 
 			'lang' => array
 				(
@@ -61,9 +62,9 @@ class Pager extends \app\Instantiatable
 	 * @param integer url_base
 	 * @param integer pagerdiff
 	 * @param integer pagelimit 
-	 * @return \ibidem\base\Pager instance
+	 * @return \app\Pager instance
 	 */
-	public static function instance($totalitems = 0, $url_base = '', $pagediff = 3, $pagelimit = 20)
+	static function instance($totalitems = 0, $url_base = '', $pagediff = 3, $pagelimit = 20)
 	{
 		$instance = parent::instance();
 		$instance->options['totalitems'] = $totalitems;
@@ -76,9 +77,9 @@ class Pager extends \app\Instantiatable
 	
 	/**
 	 * @param boolean settings
-	 * @return \ibidem\base\Pager $this
+	 * @return \app\Pager $this
 	 */
-	public function show_jumpto($setting)
+	function show_jumpto($setting)
 	{
 		$this->options['show_jumpto'] = $setting;
 		return $this;
@@ -86,9 +87,9 @@ class Pager extends \app\Instantiatable
 	
 	/**
 	 * @param boolean settings
-	 * @return \ibidem\base\Pager $this
+	 * @return \app\Pager $this
 	 */
-	public function show_pageindex($settings)
+	function show_pageindex($settings)
 	{
 		$this->options['show_pageindex'] = $settings;
 		return $this;
@@ -96,9 +97,9 @@ class Pager extends \app\Instantiatable
 	
 	/**
 	 * @param array buttons 
-	 * @return \ibidem\base\Pager $this
+	 * @return \app\Pager $this
 	 */
-	public function buttons(array $buttons)
+	function buttons(array $buttons)
 	{
 		foreach ($buttons as $button => $text)
 		{
@@ -110,9 +111,9 @@ class Pager extends \app\Instantiatable
 		
 	/**
 	 * @param integer page
-	 * @return \ibidem\base\Pager $this 
+	 * @return \app\Pager $this 
 	 */
-	public function currentpage($page)
+	function currentpage($page)
 	{
 		$this->options['currentpage'] = $page;
 		return $this;
@@ -120,9 +121,9 @@ class Pager extends \app\Instantiatable
 	
 	/**
 	 * @param integer page
-	 * @return \ibidem\base\Pager $this 
+	 * @return \app\Pager $this 
 	 */
-	public function bookmark($page)
+	function bookmark($page)
 	{
 		$this->options['bookmark']['entry'] = $page;
 		return $this;
@@ -135,7 +136,7 @@ class Pager extends \app\Instantiatable
 	 * @param string anchor
 	 * @return \ibidem\types\Pager $this
 	 */
-	public function bookmark_anchor($anchor)
+	function bookmark_anchor($anchor)
 	{
 		$this->options['bookmark']['anchor'] = $anchor;
 		return $this;
@@ -144,9 +145,9 @@ class Pager extends \app\Instantiatable
 	/**
 	 * @param string plural version
 	 * @param string singular version; assumed plural if not specified
-	 * @return \ibidem\base\Pager $this
+	 * @return \app\Pager $this
 	 */
-	public function lang(array $lang)
+	function lang(array $lang)
 	{
 		foreach ($lang as $key => $lang)
 		{
@@ -157,10 +158,20 @@ class Pager extends \app\Instantiatable
 	}
 
 	/**
+	 * The default is "page"; this must be set on pages with multiple pagers.
+	 */
+	function page_query($page_query)
+	{
+		$this->page_query = $page_query;
+		
+		return $this;
+	}
+	
+	/**
 	 * @param string order
 	 * @return \ibidem\types\Pager $this
 	 */
-	public function order($order)
+	function order($order)
 	{
 		$this->options['order'] = $order;
 		return $this;
@@ -168,9 +179,9 @@ class Pager extends \app\Instantiatable
 	
 	/**
 	 * @param integer total items
-	 * @return \ibidem\base\Pager $this
+	 * @return \app\Pager $this
 	 */
-	public function totalitems($totalitems)
+	function totalitems($totalitems)
 	{
 		$this->options['totalitems'] = $totalitems;
 		return $this;
@@ -178,15 +189,15 @@ class Pager extends \app\Instantiatable
 	
 	/**
 	 * @param string base_url
-	 * @return \ibidem\base\Pager $this
+	 * @return \app\Pager $this
 	 */
-	public function url_base($url_base)
+	function url_base($url_base)
 	{
 		$this->options['url_base'] = $url_base;
 		return $this;
 	}
 	
-	public function querie(array $querie)
+	function querie(array $querie)
 	{
 		if (isset($querie['page']))
 		{
@@ -203,9 +214,9 @@ class Pager extends \app\Instantiatable
 
 	/**
 	 * @param integer pagediff
-	 * @return \ibidem\base\Pager $this 
+	 * @return \app\Pager $this 
 	 */
-	public function pagediff($pagediff)
+	function pagediff($pagediff)
 	{
 		$this->options['pagediff'] = $pagediff;
 		return $this;
@@ -213,9 +224,9 @@ class Pager extends \app\Instantiatable
 	
 	/**
 	 * @param integer pagelimit
-	 * @return \ibidem\base\Pager $this
+	 * @return \app\Pager $this
 	 */
-	public function pagelimit($pagelimit)
+	function pagelimit($pagelimit)
 	{
 		$this->options['pagelimit'] = $pagelimit;
 		return $this;
@@ -224,7 +235,7 @@ class Pager extends \app\Instantiatable
 	/**
 	 * @return int 
 	 */
-	public function page_count()
+	function page_count()
 	{
 		return \ceil($this->options['totalitems'] / $this->options['pagelimit']);
 	}
@@ -293,7 +304,7 @@ class Pager extends \app\Instantiatable
 	/**
 	 * @return string
 	 */
-	public function render()
+	function render()
 	{		
 		// setup pager
 		$this->setup();
@@ -323,7 +334,7 @@ class Pager extends \app\Instantiatable
 	/**
 	 * @deprecated use render always; so exceptions will work properly
 	 */
-	public final function __toString()
+	final function __toString()
 	{
 		// pagers may contain logic, by allowing __toString not only does 
 		// Exception handling become unnecesarily complicated because of how
@@ -349,7 +360,7 @@ class Pager extends \app\Instantiatable
 	 * @param string file 
 	 * @return \ibidem\base\View $this
 	 */
-	public function file($file)
+	function file($file)
 	{
 		$file_path = \app\CFS::file($file);
 		// found file?
@@ -370,7 +381,7 @@ class Pager extends \app\Instantiatable
 	 * @param string explicit file path
 	 * @return \ibidem\base\View $this
 	 */
-	public function file_path($file)
+	function file_path($file)
 	{
 		$this->file = \realpath($file);
 		if ($file !== null && ! \file_exists($this->file))
@@ -385,7 +396,7 @@ class Pager extends \app\Instantiatable
 	/**
 	 * @return string file path
 	 */
-	public function get_file()
+	function get_file()
 	{
 		return $this->file;
 	}
