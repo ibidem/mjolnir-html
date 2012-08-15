@@ -49,6 +49,10 @@ class Layer_HTML extends \app\Layer
 			$instance->add_script($src);
 		});
 		
+		\app\GlobalEvent::listener('webpage:head-script', function ($src) use ($instance) {
+			$instance->add_head_script($src);
+		});
+		
 		\app\GlobalEvent::listener('webpage:style', function ($src) use ($instance) {
 			$instance->add_stylesheet($src);
 		});
@@ -246,6 +250,12 @@ class Layer_HTML extends \app\Layer
 		{
 			// javascript loader
 			$html_before .= '<script type="text/javascript" src="//'.$ibidem_base['domain'].$ibidem_base['path'].'media/static/yepnope.latest-min.js"></script>';
+		}
+		
+		$scripts = $this->params['head_scripts'];
+		foreach ($scripts as $script)
+		{
+			$html_before .= '<script type="text/javascript" src="'.\addslashes($script).'"></script>';
 		}
 		
 		if ( ! empty($this->params['extra_markup']))
@@ -476,7 +486,17 @@ class Layer_HTML extends \app\Layer
 	 */
 	function add_script($src)
 	{
-		$this->params['scripts'][] = $src;
+		$this->params['scripts'][] = $src;		
+		return $this;
+	}
+	
+	/**
+	 * @param string
+	 * @return \ibidem\base\Layer_HTML $this
+	 */
+	function add_head_script($src)
+	{
+		$this->params['head_scripts'][] = $src;		
 		return $this;
 	}
 	

@@ -9,6 +9,7 @@
 		'favicon' => null,
 		'stylesheets' => [],
 		'scripts' => [],
+		'head_scripts' => [],
 		'viewport' => 'width=device-width, initial-scale=1.0, maximum-scale=1.0',
 	// search
 		'title' => 'Untitled',
