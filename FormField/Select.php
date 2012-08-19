@@ -33,7 +33,7 @@ class FormField_Select extends \app\FormField
 	 * @param array values 
 	 * @return \ibidem\base\FormField_Select $this
 	 */
-	public function values(array $values = null, $key = null, $valueKey = null)
+	function values(array $values = null, $key = null, $valueKey = null)
 	{
 		if ($values === null) {
 			$this->values = array();
@@ -62,7 +62,7 @@ class FormField_Select extends \app\FormField
 	 * @param string id
 	 * @return \ibidem\base\FormField_Select $this
 	 */
-	public function value($id)
+	function value($id)
 	{
 		$this->active = $id;
 		return $this;

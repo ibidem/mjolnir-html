@@ -17,7 +17,7 @@ class HTMLBlockElement extends \app\HTMLElement
 	/**
 	 * @return \ibidem\base\HTMLElement
 	 */
-	public static function instance($name = 'div', $body = '')
+	static function instance($name = 'div', $body = '')
 	{
 		$instance = parent::instance($name);
 		$instance->body = $body;
@@ -29,7 +29,7 @@ class HTMLBlockElement extends \app\HTMLElement
 	 * @param string body
 	 * @return \ibidem\base\HTMLBlockElement 
 	 */
-	public function body($body = '')
+	function body($body = '')
 	{
 		$this->body = $body;
 		return $this;
@@ -38,7 +38,7 @@ class HTMLBlockElement extends \app\HTMLElement
 	/**
 	 * @return string 
 	 */
-	public function render()
+	function render()
 	{
 		return '<'.$this->name.$this->render_attributes().'>'.$this->body.'</'.$this->name.'>';
 	}

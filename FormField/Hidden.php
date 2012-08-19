@@ -19,7 +19,7 @@ class FormField_Hidden extends \app\FormField
 	 * @param \ibidem\types\Form form 
 	 * @return \ibidem\base\FormField_Hidden
 	 */
-	public static function instance($name = null, \ibidem\types\Form $form = null)
+	static function instance($name = null, \ibidem\types\Form $form = null)
 	{
 		return parent::instance(null, $name, $form);
 	}
@@ -27,7 +27,7 @@ class FormField_Hidden extends \app\FormField
 	/**
 	 * @return string 
 	 */
-	public function render()
+	function render()
 	{
 		return $this->render_field();
 	}

@@ -23,3 +23,4 @@ class HTMLBlockElement extends \ibidem\html\HTMLBlockElement { /** @return \ibid
 class HTMLElement extends \ibidem\html\HTMLElement { /** @return \ibidem\html\HTMLElement */ static function instance($name = 'hr') { return parent::instance($name); } }
 class Layer_HTML extends \ibidem\html\Layer_HTML { /** @return \ibidem\html\Layer_HTML */ static function instance() { return parent::instance(); } }
 class Pager extends \ibidem\html\Pager { /** @return \ibidem\html\Pager */ static function instance($totalitems = 0, $url_base = '', $pagediff = 3, $pagelimit = 20) { return parent::instance($totalitems, $url_base, $pagediff, $pagelimit); } }
+class URL extends \ibidem\html\URL { /** @return \ibidem\html\URL */ static function instance() { return parent::instance(); } }

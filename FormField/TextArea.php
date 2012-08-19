@@ -30,7 +30,7 @@ class FormField_TextArea extends \app\FormField
 	 * @param \ibidem\types\Form form
 	 * @return \ibidem\base\FormField_TextArea instance
 	 */
-	public static function instance($title = null, $name = null, \ibidem\types\Form $form = null)
+	static function instance($title = null, $name = null, \ibidem\types\Form $form = null)
 	{
 		$form_config = \app\CFS::config('ibidem/form');
 		$instance = parent::instance($title, $name, $form);
@@ -40,7 +40,7 @@ class FormField_TextArea extends \app\FormField
 		return $instance;
 	}
 	
-	public function value($body = '')
+	function value($body = '')
 	{
 		return $this->body($body);
 	}
@@ -49,7 +49,7 @@ class FormField_TextArea extends \app\FormField
 	 * @param string body
 	 * @return \ibidem\base\HTMLBlockElement 
 	 */
-	public function body($body = '')
+	function body($body = '')
 	{
 		$this->body = $body;
 		return $this;

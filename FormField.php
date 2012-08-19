@@ -45,7 +45,7 @@ class FormField extends \app\HTMLElement
 	 * @param \ibidem\types\Form form
 	 * @return \ibidem\base\FormField
 	 */
-	public static function instance($title = null, $name = null, \ibidem\types\Form $form = null)
+	static function instance($title = null, $name = null, \ibidem\types\Form $form = null)
 	{
 		$instance = parent::instance(static::$tag_name);
 		$instance->title = $title;
@@ -70,7 +70,7 @@ class FormField extends \app\HTMLElement
 	 * @param string value 
 	 * @return \ibidem\base\FormField $this 
 	 */
-	public function value($value)
+	function value($value)
 	{
 		$this->attribute('value', $value);
 		return $this;
@@ -79,7 +79,7 @@ class FormField extends \app\HTMLElement
 	/**
 	 * @return \ibidem\base\FormField $this
 	 */
-	public function disabled()
+	function disabled()
 	{
 		$this->attribute('disabled');
 		return $this;
@@ -89,7 +89,7 @@ class FormField extends \app\HTMLElement
 	 * @param string template
 	 * @return \ibidem\base\FormField
 	 */
-	public function template($template)
+	function template($template)
 	{
 		$this->template = $template;
 		return $this;
@@ -98,7 +98,7 @@ class FormField extends \app\HTMLElement
 	/**
 	 * @return string 
 	 */
-	public function get_template()
+	function get_template()
 	{
 		return $this->template;
 	}
@@ -106,7 +106,7 @@ class FormField extends \app\HTMLElement
 	/**
 	 * @return \ibidem\base\FormField $this
 	 */
-	public function field()
+	function field()
 	{
 		$this->template = ':field';
 		return $this;
@@ -115,7 +115,7 @@ class FormField extends \app\HTMLElement
 	/**
 	 * @return \ibidem\base\FormField $this
 	 */
-	public function unnamed()
+	function unnamed()
 	{
 		$this->remove_attribute('name');
 		return $this;
@@ -125,7 +125,7 @@ class FormField extends \app\HTMLElement
 	 * @param bool switch
 	 * @return \ibidem\base\FormField $this
 	 */
-	public function autocomplete($switch = true)
+	function autocomplete($switch = true)
 	{
 		$this->attribute('autocomplete', $switch ? 'on' : 'off');
 		return $this;
@@ -174,7 +174,7 @@ class FormField extends \app\HTMLElement
 	/**
 	 * @return string 
 	 */
-	public function render()
+	function render()
 	{
 		return \strtr
 			(
@@ -192,7 +192,7 @@ class FormField extends \app\HTMLElement
 	 * 
 	 * @return string 
 	 */
-	public function __toString()
+	function __toString()
 	{
 		try
 		{

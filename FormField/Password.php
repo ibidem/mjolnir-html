@@ -18,7 +18,7 @@ class FormField_Password extends \app\FormField_Text
 	 * @param boolean state
 	 * @return \ibidem\base\FormField_Password $this
 	 */
-	public function autocomplete($state = true) 
+	function autocomplete($state = true) 
 	{
 		$this->attribute('autocomplete', $state ? 'on' : 'off');
 		return $this;

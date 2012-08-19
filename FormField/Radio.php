@@ -28,7 +28,7 @@ class FormField_Radio extends \app\FormField
 	 * @param string default
 	 * @return \ibidem\base\FormField_Radio $this
 	 */
-	public function value($default_value)
+	function value($default_value)
 	{
 		// default value can only be set once
 		if ($this->default_value === null)
@@ -43,7 +43,7 @@ class FormField_Radio extends \app\FormField
 	 * @param array values
 	 * @return \ibidem\base\FormField_Radio $this
 	 */
-	public function values(array $values)
+	function values(array $values)
 	{
 		$this->values = $values;	
 		return $this;

@@ -29,7 +29,7 @@ class HTMLElement extends \app\Instantiatable
 	/**
 	 * @return \ibidem\base\HTMLElement
 	 */
-	public static function instance($name = 'hr')
+	static function instance($name = 'hr')
 	{
 		$instance = parent::instance();
 		$instance->name = $name;
@@ -41,7 +41,7 @@ class HTMLElement extends \app\Instantiatable
 	 * @param string classes
 	 * @return \ibidem\base\HTMLElement 
 	 */
-	public function classes(array $classes)
+	function classes(array $classes)
 	{
 		isset($this->classes) or $this->classes = array();
 		
@@ -60,7 +60,7 @@ class HTMLElement extends \app\Instantiatable
 	 * @param string attribute 
 	 * @return \ibidem\base\HTMLBlockElement $this
 	 */
-	public function remove_attribute($attribute)
+	function remove_attribute($attribute)
 	{
 		unset($this->attributes[$attribute]);
 		
@@ -70,7 +70,7 @@ class HTMLElement extends \app\Instantiatable
 	/**
 	 * @return array 
 	 */
-	public function get_classes()
+	function get_classes()
 	{
 		return $this->classes;
 	}
@@ -80,7 +80,7 @@ class HTMLElement extends \app\Instantiatable
 	 * @param string value 
 	 * @return \ibidem\base\HTMLElement
 	 */
-	public function attribute($name, $value = null)
+	function attribute($name, $value = null)
 	{
 		if ($value !== null)
 		{
@@ -98,7 +98,7 @@ class HTMLElement extends \app\Instantiatable
 	 * @param string name
 	 * @return string
 	 */
-	public function get_attribute($name)
+	function get_attribute($name)
 	{
 		return isset($this->attributes[$name]) ? $this->attributes[$name] : null;
 	}
@@ -107,7 +107,7 @@ class HTMLElement extends \app\Instantiatable
 	 * @param string id 
 	 * @return \ibidem\base\HTMLElement
 	 */
-	public function id($id)
+	function id($id)
 	{
 		return $this->attribute('id', $id);
 	}
@@ -115,7 +115,7 @@ class HTMLElement extends \app\Instantiatable
 	/**
 	 * @return string
 	 */
-	public function render_attributes()
+	function render_attributes()
 	{
 		$attributes = '';
 		foreach ($this->attributes as $name => $value)
@@ -138,7 +138,7 @@ class HTMLElement extends \app\Instantiatable
 	/**
 	 * @return string
 	 */
-	public function render()
+	function render()
 	{
 		return '<'.$this->name.$this->render_attributes().'/>';
 	}
@@ -146,7 +146,7 @@ class HTMLElement extends \app\Instantiatable
 	/**
 	 * @return string 
 	 */
-	public function __toString()
+	function __toString()
 	{
 		try
 		{
