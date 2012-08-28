@@ -53,6 +53,10 @@ class Layer_HTML extends \app\Layer
 			$instance->add_head_script($src);
 		});
 		
+		\app\GlobalEvent::listener('webpage:head-extra', function ($value) use ($instance) {
+			$instance->add_extra_markup($value);
+		});
+		
 		\app\GlobalEvent::listener('webpage:style', function ($src) use ($instance) {
 			$instance->add_stylesheet($src);
 		});
