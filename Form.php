@@ -23,6 +23,11 @@ class Form extends \app\HTMLBlockElement
 	private static $tabindex = 1;
 	
 	/**
+	 * @var array
+	 */
+	private $saved_formats = [];
+	
+	/**
 	 * @var boolean
 	 */
 	private $secure;
@@ -68,7 +73,7 @@ class Form extends \app\HTMLBlockElement
 	private $errors;
 
 	/**
-	 * @return \ibidem\base\Form $this
+	 * @return \app\Form $this
 	 */
 	static function instance($id = null)
 	{
@@ -114,7 +119,7 @@ class Form extends \app\HTMLBlockElement
 	
 	/**
 	 * @param string standard (defined in ibidem/form[standards]
-	 * @return \ibidem\base\Form $this
+	 * @return \app\Form $this
 	 */
 	function standard($standard)
 	{
@@ -126,7 +131,7 @@ class Form extends \app\HTMLBlockElement
 	/**
 	 * Optimizes form for file upload.
 	 * 
-	 * @return \ibidem\base\Form $this
+	 * @return \app\Form $this
 	 */
 	function file_uploader()
 	{
@@ -136,7 +141,7 @@ class Form extends \app\HTMLBlockElement
 	
 	/**
 	 * @param array fields
-	 * @return \ibidem\base\Form $this
+	 * @return \app\Form $this
 	 */
 	function auto_complte(array $fields = null)
 	{
@@ -160,7 +165,7 @@ class Form extends \app\HTMLBlockElement
 	
 	/**
 	 * @param string name
-	 * @return mixed|null 
+	 * @return mixed or null 
 	 */
 	function field_value($name)
 	{
@@ -184,7 +189,7 @@ class Form extends \app\HTMLBlockElement
 	
 	/**
 	 * @param string key 
-	 * @return array|null errors
+	 * @return array or null errors
 	 */
 	function errors_for($key)
 	{
@@ -216,7 +221,7 @@ class Form extends \app\HTMLBlockElement
 	
 	/**
 	 * @param string template
-	 * @return \ibidem\base\Form $this
+	 * @return \app\Form $this
 	 */
 	function field_template($template, array $targets = null)
 	{
@@ -247,7 +252,7 @@ class Form extends \app\HTMLBlockElement
 	
 	/**
 	 * @param array field errors
-	 * @return \ibidem\base\Form $this
+	 * @return \app\Form $this
 	 */
 	function errors(array & $errors = null)
 	{
@@ -257,7 +262,7 @@ class Form extends \app\HTMLBlockElement
 	
 	/**
 	 * @param string $method
-	 * @return \ibidem\base\Form $this
+	 * @return \app\Form $this
 	 */
 	function method($method)
 	{
@@ -273,7 +278,7 @@ class Form extends \app\HTMLBlockElement
 	
 	/**
 	 * @param string action
-	 * @return \ibidem\base\Form $this
+	 * @return \app\Form $this
 	 */
 	function action($action)
 	{
@@ -282,7 +287,7 @@ class Form extends \app\HTMLBlockElement
 	}
 	
 	/**
-	 * @return \ibidem\base\Form $this
+	 * @return \app\Form $this
 	 */
 	function insecure()
 	{
@@ -291,7 +296,7 @@ class Form extends \app\HTMLBlockElement
 	}
 	
 	/**
-	 * @return \ibidem\base\Form $this
+	 * @return \app\Form $this
 	 */
 	function secure()
 	{
@@ -314,7 +319,7 @@ class Form extends \app\HTMLBlockElement
 	 * @return string
 	 */
 	function end()
-	{
+	{		
 		return $this->group_end;
 	}
 	
@@ -343,6 +348,9 @@ class Form extends \app\HTMLBlockElement
 		return "</form>";
 	}
 	
+	/**
+	 * @return string
+	 */
 	function get_field_template($name)
 	{
 		if (isset($this->targetted_field_template[$name]))
@@ -358,7 +366,7 @@ class Form extends \app\HTMLBlockElement
 	/**
 	 * @param string title
 	 * @param string name
-	 * @return \ibidem\base\FormField_Text
+	 * @return \app\FormField_Text
 	 */
 	function text($title, $name)
 	{
@@ -369,7 +377,7 @@ class Form extends \app\HTMLBlockElement
 	/**
 	 * @param string title
 	 * @param string name
-	 * @return \ibidem\base\FormField_Text
+	 * @return \app\FormField_Text
 	 */
 	function number($title, $name)
 	{
@@ -380,7 +388,7 @@ class Form extends \app\HTMLBlockElement
 	/**
 	 * @param string title
 	 * @param string name
-	 * @return \ibidem\base\FormField_Password
+	 * @return \app\FormField_Password
 	 */
 	function password($title, $name)
 	{
@@ -391,7 +399,7 @@ class Form extends \app\HTMLBlockElement
 	/**
 	 * @param string title
 	 * @param string name
-	 * @return \ibidem\base\FormField_Text
+	 * @return \app\FormField_Text
 	 */
 	function telephone($title, $name)
 	{
@@ -402,7 +410,7 @@ class Form extends \app\HTMLBlockElement
 	/**
 	 * @param string title
 	 * @param string name
-	 * @return \ibidem\base\FormField_Text
+	 * @return \app\FormField_Text
 	 */
 	function email($title, $name)
 	{
@@ -413,7 +421,7 @@ class Form extends \app\HTMLBlockElement
 	/**
 	 * @param string title
 	 * @param string name
-	 * @return \ibidem\base\FormField_Text
+	 * @return \app\FormField_Text
 	 */
 	function file($title, $name)
 	{
@@ -424,7 +432,7 @@ class Form extends \app\HTMLBlockElement
 	/**
 	 * @param string title
 	 * @param string name
-	 * @return \ibidem\base\FormField_DateTime
+	 * @return \app\FormField_DateTime
 	 */
 	function datetime($title, $name)
 	{
@@ -435,7 +443,7 @@ class Form extends \app\HTMLBlockElement
 	/**
 	 * @param string title
 	 * @param string name
-	 * @return \ibidem\base\FormField_DateTime
+	 * @return \app\FormField_DateTime
 	 */
 	function date($title, $name)
 	{
@@ -471,7 +479,7 @@ class Form extends \app\HTMLBlockElement
 	/**
 	 * @param string title
 	 * @param string name
-	 * @return \ibidem\base\FormField_Checkbox
+	 * @return \app\FormField_Checkbox
 	 */
 	function checkbox($title, $name)
 	{
@@ -483,7 +491,7 @@ class Form extends \app\HTMLBlockElement
 	 * @param string title
 	 * @param string name
 	 * @param array values
-	 * @return \ibidem\base\FormField_Select
+	 * @return \app\FormField_Select
 	 */
 	function select($title, $name, array $values = null)
 	{
@@ -495,7 +503,7 @@ class Form extends \app\HTMLBlockElement
 	/**
 	 * @param string title
 	 * @param string name
-	 * @return \ibidem\base\FormField_Submit
+	 * @return \app\FormField_Submit
 	 */
 	function submit($title, $name = null)
 	{
@@ -506,11 +514,50 @@ class Form extends \app\HTMLBlockElement
 	
 	/**
 	 * @param string name
-	 * @return \ibidem\base\FormField_Hidden
+	 * @return \app\FormField_Hidden
 	 */
 	function hidden($name)
 	{
 		return \app\FormField_Hidden::instance($name, $this);
+	}
+	
+	/**
+	 * @return \app\FormField_Composite
+	 */
+	function composite()
+	{
+		$args = \func_get_args();
+		$name = \array_shift($args);
+		
+		return \app\FormField_Composite::instance($name, null, $this)
+			->template($this->get_field_template('composite'))
+			->subfields($args);
+	}
+	
+	/**
+	 * Until endformat is called the format is temporarily changed to the 
+	 * specified format.
+	 */
+	function groupformat($format)
+	{
+		$this->saved_formats[] = $this->field_template;
+		$this->field_template = $format;
+	}
+	
+	/**
+	 * Terminates current format, and restores previous.
+	 */
+	function endformat()
+	{
+		$this->field_template = \array_pop($this->saved_formats);
+	}
+
+	/**
+	 * @return string form field signature
+	 */
+	function sign()
+	{
+		return 'tabindex="'.static::tabindex().'" form="'.$this->form_id().'"';
 	}
 	
 	/**
@@ -519,6 +566,14 @@ class Form extends \app\HTMLBlockElement
 	static function tabindex()
 	{
 		return self::$tabindex++;
+	}
+
+	/**
+	 * @return \app\Form
+	 */
+	static function i($standard, $action)
+	{
+		return static::instance()->standard($standard)->action($action);
 	}
 
 } # class

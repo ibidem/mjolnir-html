@@ -58,7 +58,7 @@ class FormField_TextArea extends \app\FormField
 	/**
 	 * @return string 
 	 */
-	protected function render_field()
+	function render_field()
 	{
 		$field = '<'.$this->name.' id="'.$this->form->form_id().'_'.$this->tabindex.'"'.$this->render_attributes().'>'
 			. $this->body

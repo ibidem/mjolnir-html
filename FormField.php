@@ -155,7 +155,7 @@ class FormField extends \app\HTMLElement
 	/**
 	 * @return string 
 	 */
-	protected function render_field()
+	function render_field()
 	{
 		$field = '<'.$this->name.' id="'.$this->form->form_id().'_'.$this->tabindex.'"'.$this->render_attributes().'/>';
 		if ($errors = $this->form->errors_for($this->get_attribute('name')))

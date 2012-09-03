@@ -7,11 +7,12 @@
 
 class Form extends \ibidem\html\Form { /** @return \ibidem\html\Form */ static function instance($id = null) { return parent::instance($id); } }
 class FormField_Checkbox extends \ibidem\html\FormField_Checkbox { /** @return \ibidem\html\FormField_Checkbox */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }
+class FormField_Composite extends \ibidem\html\FormField_Composite { /** @return \ibidem\html\FormField_Composite */ static function instance() { return parent::instance(); } }
 class FormField_DateTime extends \ibidem\html\FormField_DateTime { /** @return \ibidem\html\FormField_DateTime */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }
 class FormField_Email extends \ibidem\html\FormField_Email { /** @return \ibidem\html\FormField_Email */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }
 class FormField_File extends \ibidem\html\FormField_File { /** @return \ibidem\html\FormField_File */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }
 class FormField_Hidden extends \ibidem\html\FormField_Hidden { /** @return \ibidem\html\FormField_Hidden */ static function instance($name = null, $form = null) { return parent::instance($name, $form); } }
-class FormField_Number extends \ibidem\html\FormField_Number { /** @return \ibidem\html\FormField_Number */ static function instance() { return parent::instance(); } }
+class FormField_Number extends \ibidem\html\FormField_Number { /** @return \ibidem\html\FormField_Number */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }
 class FormField_Password extends \ibidem\html\FormField_Password { /** @return \ibidem\html\FormField_Password */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }
 class FormField_Radio extends \ibidem\html\FormField_Radio { /** @return \ibidem\html\FormField_Radio */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }
 class FormField_Select extends \ibidem\html\FormField_Select { /** @return \ibidem\html\FormField_Select */ static function instance($title = null, $name = null, $form = null) { return parent::instance($title, $name, $form); } }

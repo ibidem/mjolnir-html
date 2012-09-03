@@ -22,12 +22,12 @@ class HTMLElement extends \app\Instantiatable
 	
 	/**
 	 * @param array classes
-	 * @return \ibidem\base\HTMLElement 
+	 * @return \app\HTMLElement 
 	 */
 	private $classes;
 	
 	/**
-	 * @return \ibidem\base\HTMLElement
+	 * @return \app\HTMLElement
 	 */
 	static function instance($name = 'hr')
 	{
@@ -39,7 +39,7 @@ class HTMLElement extends \app\Instantiatable
 	
 	/**
 	 * @param string classes
-	 * @return \ibidem\base\HTMLElement 
+	 * @return \app\HTMLElement 
 	 */
 	function classes(array $classes)
 	{
@@ -78,7 +78,7 @@ class HTMLElement extends \app\Instantiatable
 	/**
 	 * @param string name
 	 * @param string value 
-	 * @return \ibidem\base\HTMLElement
+	 * @return \app\HTMLElement
 	 */
 	function attribute($name, $value = null)
 	{
@@ -95,6 +95,16 @@ class HTMLElement extends \app\Instantiatable
 	}
 	
 	/**
+	 * Shorthand for attribute
+	 * 
+	 * @return \app\HTMLElement
+	 */
+	function attr($name, $value = null)
+	{
+		return $this->attribute($name, $value);
+	}
+	
+	/**
 	 * @param string name
 	 * @return string
 	 */
@@ -105,7 +115,7 @@ class HTMLElement extends \app\Instantiatable
 	
 	/**
 	 * @param string id 
-	 * @return \ibidem\base\HTMLElement
+	 * @return \app\HTMLElement
 	 */
 	function id($id)
 	{
