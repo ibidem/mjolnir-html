@@ -57,10 +57,23 @@ class FormField_Composite extends \app\FormField
 			$field = \strtr($this->composite_format, $field_tr);
 		}
 	
-		if ($errors = $this->form->errors_for($this->get_attribute('name')))
+		$all_errors = [];
+		foreach ($this->subfields as $subfield)
+		{
+			
+			if ($errors = $this->form->errors_for($subfield->get_attribute('name')))
+			{
+				foreach ($errors as $error)
+				{
+					$all_errors[] = $error;
+				}
+			}
+		}
+		
+		if ( ! empty($all_errors))
 		{
 			$field .= '<ul class="errors">';
-			foreach ($errors as $error)
+			foreach ($all_errors as $error)
 			{
 				$field .= '<li>'.\app\Lang::tr($error).'</li>';
 			}
