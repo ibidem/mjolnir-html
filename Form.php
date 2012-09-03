@@ -369,6 +369,17 @@ class Form extends \app\HTMLBlockElement
 	/**
 	 * @param string title
 	 * @param string name
+	 * @return \ibidem\base\FormField_Text
+	 */
+	function number($title, $name)
+	{
+		return \app\FormField_Number::instance($title, $name, $this)
+			->template($this->get_field_template('text'));
+	}
+	
+	/**
+	 * @param string title
+	 * @param string name
 	 * @return \ibidem\base\FormField_Password
 	 */
 	function password($title, $name)
@@ -419,6 +430,16 @@ class Form extends \app\HTMLBlockElement
 	{
 		return \app\FormField_DateTime::instance($title, $name, $this)
 			->template($this->get_field_template('datetime'));
+	}
+	
+	/**
+	 * @param string title
+	 * @param string name
+	 * @return \ibidem\base\FormField_DateTime
+	 */
+	function date($title, $name)
+	{
+		$this->datetime();
 	}
 	
 	/**
