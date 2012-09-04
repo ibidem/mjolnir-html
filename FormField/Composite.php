@@ -28,6 +28,9 @@ class FormField_Composite extends \app\FormField
 		return $this;
 	}
 	
+	/**
+	 * @return \app\FormField_Composite
+	 */
 	function format($format)
 	{
 		$this->composite_format = $format;
