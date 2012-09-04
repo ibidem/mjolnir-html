@@ -51,7 +51,7 @@ class FormField_Composite extends \app\FormField
 			$field_tr = [];
 			for ($i = 1; $i <= $fieldcount; ++$i)
 			{
-				$field_tr['%'.$i] = $this->subfields[0]->render_field();
+				$field_tr['%'.$i] = $this->subfields[$i]->render_field();
 			}
 			
 			$field = \strtr($this->composite_format, $field_tr);
