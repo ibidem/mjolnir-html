@@ -408,6 +408,18 @@ class Layer_HTML extends \app\Layer
 					);
 			}
 		}
+		else # other type
+		{
+			if ($this->errorview !== null && ($content = $this->errorview->errorpage($exception)) !== null)
+			{
+				$this->contents
+					(
+						$this->html_before().
+						$content.
+						$this->html_after()
+					);
+			}
+		}
 		
 		// default execution from Layer
 		parent::exception($exception, $no_throw);
