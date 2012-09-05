@@ -25,6 +25,11 @@ class Layer_HTML extends \app\Layer
 	protected static $layer_name = \ibidem\types\HTML::LAYER_NAME;
 	
 	/**
+	 * @var \ibidem\types\ErrorView
+	 */
+	protected $errorview = null;
+	
+	/**
 	 * @return \ibidem\base\Layer_HTML
 	 */
 	static function instance()
@@ -85,9 +90,13 @@ class Layer_HTML extends \app\Layer
 			$instance->crawlers($enabled);
 		});
 		
+		\app\GlobalEvent::listener('webpage:errorview', function ($handler) use ($instance) {
+			$instance->errorview($handler);
+		});
+		
 		return $instance;
 	}
-
+	
 	/**
 	 * @return string
 	 */
@@ -370,7 +379,17 @@ class Layer_HTML extends \app\Layer
 		{
 			$this->title($exception->title());
 			$this->crawlers(false);
-			if ($this->layer !== null && ! $origin)
+			
+			if ($this->errorview !== null && ($content = $this->errorview->errorpage($exception)) !== null)
+			{
+				$this->contents
+					(
+						$this->html_before().
+						$content.
+						$this->html_after()
+					);
+			}
+			else if ($this->layer !== null && ! $origin)
 			{
 				$this->contents
 					(
@@ -607,6 +626,18 @@ class Layer_HTML extends \app\Layer
 	function application_starturl($starturl = null)
 	{
 		return $this->set('application_starturl', $starturl);
+	}
+	
+	/**
+	 * Set error handler (view).
+	 * 
+	 * @return \app\Layer_HTML $this
+	 */
+	function errorview($handler)
+	{
+		$this->errorview = $handler;
+		
+		return $this;
 	}
 	
 # Document trait
