@@ -47,7 +47,7 @@ class HTMLElement extends \app\Instantiatable
 		
 		foreach ($classes as $class)
 		{
-			if ( !\in_array($class, $this->classes))
+			if ( ! \in_array($class, $this->classes))
 			{
 				$this->classes[] = $class;
 			}
