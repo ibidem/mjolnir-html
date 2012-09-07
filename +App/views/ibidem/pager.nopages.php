@@ -1,6 +1,6 @@
 <? namespace app; ?>
 
-<nav class="pager">
+<div class="pager" role="navigation">
 	
 	<? if ($pagecount > 0 && $show_pageindex): ?>
 		<div class="pager-currentnav">
@@ -40,4 +40,4 @@
 
 	</div>
 	
-</nav>
+</div>

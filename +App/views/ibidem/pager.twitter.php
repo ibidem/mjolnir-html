@@ -10,7 +10,7 @@
 	 */
 ?>
 
-<nav class="pagination">
+<div class="pagination" role="navigation">
 	
 	<ul>
 		
@@ -126,4 +126,4 @@
 
 	</ul>
 	
-</nav>
+</div>
