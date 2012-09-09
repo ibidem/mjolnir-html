@@ -1,7 +1,7 @@
-<?php namespace ibidem\html;
+<?php namespace mjolnir\html;
 
 /** 
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
@@ -9,9 +9,9 @@
  */
 class Layer_HTML extends \app\Layer 
 	implements 
-		\ibidem\types\Params,
-		\ibidem\types\Document,
-		\ibidem\types\HTML
+		\mjolnir\types\Params,
+		\mjolnir\types\Document,
+		\mjolnir\types\HTML
 {
 	use \app\Trait_Params;
 	use \app\Trait_Document
@@ -22,15 +22,15 @@ class Layer_HTML extends \app\Layer
 	/**
 	 * @var string
 	 */
-	protected static $layer_name = \ibidem\types\HTML::LAYER_NAME;
+	protected static $layer_name = \mjolnir\types\HTML::LAYER_NAME;
 	
 	/**
-	 * @var \ibidem\types\ErrorView
+	 * @var \mjolnir\types\ErrorView
 	 */
 	protected $errorview = null;
 	
 	/**
-	 * @return \ibidem\base\Layer_HTML
+	 * @return \mjolnir\base\Layer_HTML
 	 */
 	static function instance()
 	{
@@ -375,7 +375,7 @@ class Layer_HTML extends \app\Layer
 	 */
 	function exception(\Exception $exception, $no_throw = false, $origin = false)
 	{
-		if (\is_a($exception, '\ibidem\types\Exception'))
+		if (\is_a($exception, '\mjolnir\types\Exception'))
 		{
 			$this->title($exception->title());
 			$this->crawlers(false);
@@ -426,10 +426,10 @@ class Layer_HTML extends \app\Layer
 	}
 	
 	/**
-	 * Sets the doctype. See: \ibidem\types\HTML for constants.
+	 * Sets the doctype. See: \mjolnir\types\HTML for constants.
 	 * 
 	 * @param string doctype
-	 * @return \ibidem\base\Layer_HTML $this
+	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function doctype($doctype)
 	{
@@ -440,7 +440,7 @@ class Layer_HTML extends \app\Layer
 	 * Appcache manifest location.
 	 * 
 	 * @param string url
-	 * @return \ibidem\base\Layer_HTML $this
+	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function appcache($url = null)
 	{
@@ -451,7 +451,7 @@ class Layer_HTML extends \app\Layer
 	 * Sitemap, be it index or simple sitemap.
 	 * 
 	 * @param string url
-	 * @return \ibidem\base\Layer_HTML $this
+	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function sitemap($url = null)
 	{
@@ -460,7 +460,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param array domains
-	 * @return \ibidem\base\Layer_HTML $this
+	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function add_dns_prefetch_domains(array $domains)
 	{
@@ -474,7 +474,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param string favicon uri
-	 * @return \ibidem\base\Layer_HTML $this
+	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function favicon($url = null)
 	{
@@ -483,7 +483,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param string title 
-	 * @return \ibidem\base\Layer_HTML $this
+	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function title($title)
 	{
@@ -492,7 +492,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param string
-	 * @return \ibidem\base\Layer_HTML $this
+	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function add_stylesheet($href, $type = "text/css")
 	{
@@ -502,7 +502,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param string markup
-	 * @return \ibidem\base\Layer_HTML $this
+	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function add_extra_markup($markup)
 	{
@@ -512,7 +512,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param string
-	 * @return \ibidem\base\Layer_HTML $this
+	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function add_script($src)
 	{
@@ -522,7 +522,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param string
-	 * @return \ibidem\base\Layer_HTML $this
+	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function add_head_script($src)
 	{
@@ -532,7 +532,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param string description 
-	 * @return \ibidem\base\Layer_HTML $this
+	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function description($desc = null)
 	{
@@ -541,7 +541,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param array new keywards
-	 * @return \ibidem\base\Layer_HTML $this
+	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function add_keywords(array $keywords)
 	{
@@ -555,7 +555,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param string canonical url 
-	 * @return \ibidem\base\Layer_HTML $this
+	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function canonical($url = null)
 	{
@@ -564,7 +564,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param boolean enabled?
-	 * @return \ibidem\base\Layer_HTML $this
+	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function crawlers($enabled = true)
 	{
@@ -573,7 +573,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param string url
-	 * @return \ibidem\base\Layer_HTML $this
+	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function rssfeed($url = null)
 	{
@@ -582,7 +582,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param string url
-	 * @return \ibidem\base\Layer_HTML $this
+	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function atomfeed($url = null)
 	{
@@ -591,7 +591,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param string url
-	 * @return \ibidem\base\Layer_HTML $this
+	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function pingback($url = null)
 	{
@@ -600,7 +600,7 @@ class Layer_HTML extends \app\Layer
 	
 	/**
 	 * @param boolean enabled?
-	 * @return \ibidem\base\Layer_HTML $this
+	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function humanstxt($enabled = true)
 	{
@@ -611,7 +611,7 @@ class Layer_HTML extends \app\Layer
 	 * Metadata for application running as desktop.
 	 * 
 	 * @param string name
-	 * @return \ibidem\base\Layer_HTML $this
+	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function application_name($name = null)
 	{
@@ -622,7 +622,7 @@ class Layer_HTML extends \app\Layer
 	 * Metadata for application running as desktop.
 	 * 
 	 * @param string tooltip
-	 * @return \ibidem\base\Layer_HTML $this
+	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function application_tooltip($tooltip = null)
 	{
@@ -633,7 +633,7 @@ class Layer_HTML extends \app\Layer
 	 * Metadata for application running as desktop.
 	 * 
 	 * @param string starturl
-	 * @return \ibidem\base\Layer_HTML $this
+	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function application_starturl($starturl = null)
 	{
@@ -658,7 +658,7 @@ class Layer_HTML extends \app\Layer
 	 * Set the document's body.
 	 * 
 	 * @param string document body
-	 * @return \ibidem\base\Layer_HTML $this
+	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function body($body)
 	{

@@ -1,7 +1,7 @@
-<?php namespace ibidem\html;
+<?php namespace mjolnir\html;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
@@ -42,10 +42,10 @@ class FormField extends \app\HTMLElement
 	/**
 	 * @param string title
 	 * @param string name
-	 * @param \ibidem\types\Form form
-	 * @return \ibidem\base\FormField
+	 * @param \mjolnir\types\Form form
+	 * @return \mjolnir\base\FormField
 	 */
-	static function instance($title = null, $name = null, \ibidem\types\Form $form = null)
+	static function instance($title = null, $name = null, \mjolnir\types\Form $form = null)
 	{
 		$instance = parent::instance(static::$tag_name);
 		$instance->title = $title;
@@ -68,7 +68,7 @@ class FormField extends \app\HTMLElement
 	
 	/**
 	 * @param string value 
-	 * @return \ibidem\base\FormField $this 
+	 * @return \mjolnir\base\FormField $this 
 	 */
 	function value($value)
 	{
@@ -77,7 +77,7 @@ class FormField extends \app\HTMLElement
 	}
 	
 	/**
-	 * @return \ibidem\base\FormField $this
+	 * @return \mjolnir\base\FormField $this
 	 */
 	function disabled()
 	{
@@ -87,7 +87,7 @@ class FormField extends \app\HTMLElement
 	
 	/**
 	 * @param string template
-	 * @return \ibidem\base\FormField
+	 * @return \mjolnir\base\FormField
 	 */
 	function template($template)
 	{
@@ -104,7 +104,7 @@ class FormField extends \app\HTMLElement
 	}
 	
 	/**
-	 * @return \ibidem\base\FormField $this
+	 * @return \mjolnir\base\FormField $this
 	 */
 	function field()
 	{
@@ -113,7 +113,7 @@ class FormField extends \app\HTMLElement
 	}
 	
 	/**
-	 * @return \ibidem\base\FormField $this
+	 * @return \mjolnir\base\FormField $this
 	 */
 	function unnamed()
 	{
@@ -123,7 +123,7 @@ class FormField extends \app\HTMLElement
 	
 	/**
 	 * @param bool switch
-	 * @return \ibidem\base\FormField $this
+	 * @return \mjolnir\base\FormField $this
 	 */
 	function autocomplete($switch = true)
 	{

@@ -1,7 +1,7 @@
-<?php namespace ibidem\html;
+<?php namespace mjolnir\html;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
@@ -9,10 +9,10 @@
  */
 class Pager extends \app\Instantiatable
 	implements 
-		\ibidem\types\Renderable, 
-		\ibidem\types\FileBased,
-		\ibidem\types\Standardized,
-		\ibidem\types\Pager
+		\mjolnir\types\Renderable, 
+		\mjolnir\types\FileBased,
+		\mjolnir\types\Standardized,
+		\mjolnir\types\Pager
 {
 	/**
 	 * @var array 
@@ -21,7 +21,7 @@ class Pager extends \app\Instantiatable
 		(	
 			'currentpage' => null,  # selected page
 			'has_ruler'   => null,  # show ruler on pager
-			'order'       => \ibidem\types\Pager::ascending,
+			'order'       => \mjolnir\types\Pager::ascending,
 			'querie'      => '?',
 			'page_query'  => 'page',
 
@@ -134,7 +134,7 @@ class Pager extends \app\Instantiatable
 	 * a '#'.$anchor in the url; other systems might behave differently.
 	 * 
 	 * @param string anchor
-	 * @return \ibidem\types\Pager $this
+	 * @return \mjolnir\types\Pager $this
 	 */
 	function bookmark_anchor($anchor)
 	{
@@ -169,7 +169,7 @@ class Pager extends \app\Instantiatable
 	
 	/**
 	 * @param string order
-	 * @return \ibidem\types\Pager $this
+	 * @return \mjolnir\types\Pager $this
 	 */
 	function order($order)
 	{
@@ -358,7 +358,7 @@ class Pager extends \app\Instantiatable
 		
 	/**
 	 * @param string file 
-	 * @return \ibidem\base\View $this
+	 * @return \mjolnir\base\View $this
 	 */
 	function file($file)
 	{
@@ -379,7 +379,7 @@ class Pager extends \app\Instantiatable
 	
 	/**
 	 * @param string explicit file path
-	 * @return \ibidem\base\View $this
+	 * @return \mjolnir\base\View $this
 	 */
 	function file_path($file)
 	{

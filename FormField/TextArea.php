@@ -1,7 +1,7 @@
-<?php namespace ibidem\html;
+<?php namespace mjolnir\html;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
@@ -27,10 +27,10 @@ class FormField_TextArea extends \app\FormField
 	/**
 	 * @param string title
 	 * @param string name
-	 * @param \ibidem\types\Form form
-	 * @return \ibidem\base\FormField_TextArea instance
+	 * @param \mjolnir\types\Form form
+	 * @return \mjolnir\base\FormField_TextArea instance
 	 */
-	static function instance($title = null, $name = null, \ibidem\types\Form $form = null)
+	static function instance($title = null, $name = null, \mjolnir\types\Form $form = null)
 	{
 		$form_config = \app\CFS::config('ibidem/form');
 		$instance = parent::instance($title, $name, $form);
@@ -47,7 +47,7 @@ class FormField_TextArea extends \app\FormField
 	
 	/**
 	 * @param string body
-	 * @return \ibidem\base\HTMLBlockElement 
+	 * @return \mjolnir\base\HTMLBlockElement 
 	 */
 	function body($body = '')
 	{

@@ -1,7 +1,7 @@
-<?php namespace ibidem\html;
+<?php namespace mjolnir\html;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
@@ -9,8 +9,8 @@
  */
 class Form extends \app\HTMLBlockElement
 	implements 
-		\ibidem\types\Form,
-		\ibidem\types\Standardized
+		\mjolnir\types\Form,
+		\mjolnir\types\Standardized
 {
 	/**
 	 * @var integer 
@@ -99,7 +99,7 @@ class Form extends \app\HTMLBlockElement
 		$instance->attribute('id', $instance->form_id);
 		
 		// register hidden field for when form is opened and method not GET
-		if ($config['method.default'] !== \ibidem\types\HTTP::GET)
+		if ($config['method.default'] !== \mjolnir\types\HTTP::GET)
 		{
 			$instance->registerd_hidden['form'] = $instance->form_id;
 		}
@@ -268,7 +268,7 @@ class Form extends \app\HTMLBlockElement
 	{
 		$this->attribute('method', $method);
 		
-		if ($method === \ibidem\types\HTTP::GET)
+		if ($method === \mjolnir\types\HTTP::GET)
 		{
 			unset($this->registerd_hidden['form']);
 		}

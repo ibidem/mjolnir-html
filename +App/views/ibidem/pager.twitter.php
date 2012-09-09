@@ -54,7 +54,7 @@
 
 				// compute title
 				if ($pagelimit > 1):
-					if ($order === \ibidem\types\Pager::ascending):
+					if ($order === \mjolnir\types\Pager::ascending):
 						$number = ($i * $pagelimit - $pagelimit + 1);
 						$number_end = $i * $pagelimit > $totalitems ? $totalitems : $i * $pagelimit;
 					else: # Pager::ascending

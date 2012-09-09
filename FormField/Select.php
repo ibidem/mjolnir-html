@@ -1,7 +1,7 @@
-<?php namespace ibidem\html;
+<?php namespace mjolnir\html;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
@@ -31,7 +31,7 @@ class FormField_Select extends \app\FormField
 
 	/**
 	 * @param array values 
-	 * @return \ibidem\base\FormField_Select $this
+	 * @return \mjolnir\base\FormField_Select $this
 	 */
 	function values(array $values = null, $key = null, $valueKey = null)
 	{
@@ -60,7 +60,7 @@ class FormField_Select extends \app\FormField
 	
 	/**
 	 * @param string id
-	 * @return \ibidem\base\FormField_Select $this
+	 * @return \mjolnir\base\FormField_Select $this
 	 */
 	function value($id)
 	{

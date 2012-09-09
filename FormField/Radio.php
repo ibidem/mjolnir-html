@@ -1,7 +1,7 @@
-<?php namespace ibidem\html;
+<?php namespace mjolnir\html;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
@@ -26,7 +26,7 @@ class FormField_Radio extends \app\FormField
 	
 	/**
 	 * @param string default
-	 * @return \ibidem\base\FormField_Radio $this
+	 * @return \mjolnir\base\FormField_Radio $this
 	 */
 	function value($default_value)
 	{
@@ -41,7 +41,7 @@ class FormField_Radio extends \app\FormField
 	
 	/**
 	 * @param array values
-	 * @return \ibidem\base\FormField_Radio $this
+	 * @return \mjolnir\base\FormField_Radio $this
 	 */
 	function values(array $values)
 	{

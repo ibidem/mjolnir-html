@@ -1,7 +1,7 @@
-<?php namespace ibidem\html;
+<?php namespace mjolnir\html;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
@@ -16,7 +16,7 @@ class FormField_Password extends \app\FormField_Text
 
 	/**
 	 * @param boolean state
-	 * @return \ibidem\base\FormField_Password $this
+	 * @return \mjolnir\base\FormField_Password $this
 	 */
 	function autocomplete($state = true) 
 	{

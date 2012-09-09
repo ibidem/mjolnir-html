@@ -1,7 +1,7 @@
-<?php namespace ibidem\html;
+<?php namespace mjolnir\html;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
@@ -16,7 +16,7 @@ class FormField_Checkbox extends \app\FormField
 	
 	/**
 	 * @param bool checked
-	 * @return \ibidem\base\FormField_Checkbox $this
+	 * @return \mjolnir\base\FormField_Checkbox $this
 	 */
 	function checked($checked = true)
 	{

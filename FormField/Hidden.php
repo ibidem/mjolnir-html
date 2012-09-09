@@ -1,7 +1,7 @@
-<?php namespace ibidem\html;
+<?php namespace mjolnir\html;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
@@ -16,10 +16,10 @@ class FormField_Hidden extends \app\FormField
 	
 	/**
 	 * @param string name
-	 * @param \ibidem\types\Form form 
-	 * @return \ibidem\base\FormField_Hidden
+	 * @param \mjolnir\types\Form form 
+	 * @return \mjolnir\base\FormField_Hidden
 	 */
-	static function instance($name = null, \ibidem\types\Form $form = null)
+	static function instance($name = null, \mjolnir\types\Form $form = null)
 	{
 		return parent::instance(null, $name, $form);
 	}

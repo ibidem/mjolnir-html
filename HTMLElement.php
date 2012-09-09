@@ -1,14 +1,14 @@
-<?php namespace ibidem\html;
+<?php namespace mjolnir\html;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class HTMLElement extends \app\Instantiatable
-	implements \ibidem\types\Renderable
+	implements \mjolnir\types\Renderable
 {	
 	/**
 	 * @var string
@@ -58,7 +58,7 @@ class HTMLElement extends \app\Instantiatable
 	
 	/**
 	 * @param string attribute 
-	 * @return \ibidem\base\HTMLBlockElement $this
+	 * @return \mjolnir\base\HTMLBlockElement $this
 	 */
 	function remove_attribute($attribute)
 	{

@@ -1,7 +1,7 @@
-<?php namespace ibidem\html;
+<?php namespace mjolnir\html;
 
 /**
- * @package    ibidem
+ * @package    mjolnir
  * @category   Base
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
@@ -15,7 +15,7 @@ class HTMLBlockElement extends \app\HTMLElement
 	private $body = '';
 	
 	/**
-	 * @return \ibidem\base\HTMLElement
+	 * @return \mjolnir\base\HTMLElement
 	 */
 	static function instance($name = 'div', $body = '')
 	{
@@ -27,7 +27,7 @@ class HTMLBlockElement extends \app\HTMLElement
 	
 	/**
 	 * @param string body
-	 * @return \ibidem\base\HTMLBlockElement 
+	 * @return \mjolnir\base\HTMLBlockElement 
 	 */
 	function body($body = '')
 	{

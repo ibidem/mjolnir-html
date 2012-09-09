@@ -2,7 +2,7 @@
 	(
 		'extra_markup' => [],
 	// general
-		'doctype' => \ibidem\types\HTML::DOCTYPE,
+		'doctype' => \mjolnir\types\HTML::DOCTYPE,
 		'appcache' => null,
 		'sitemap' => null,
 		'prefetch_domains' => [],
