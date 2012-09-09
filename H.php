@@ -17,7 +17,7 @@ class H
 	/**
 	 * @return int
 	 */
-	static function now()
+	static function current()
 	{
 		return 'h'.static::$level;
 	}
@@ -44,27 +44,45 @@ class H
 	/**
 	 * @return int
 	 */
-	static function up($level)
+	static function up($h = null)
 	{
-		if (static::$level < 6)
+		if ($h === null)
 		{
-			++static::$level;
+			$h = & static::$level;
+		}
+		else # we got a level
+		{
+			$h = \ltrim($h, 'hH');
 		}
 		
-		return 'h'.static::$level;
+		if ($h < 6)
+		{
+			++$h;
+		}
+		
+		return 'h'.$h;
 	}
 	
 	/**
 	 * @return int
 	 */
-	static function down($level)
+	static function down($h = null)
 	{
-		if (static::$level > 1)
+		if ($h === null)
 		{
-			--static::$level;
+			$h = & static::$level;
+		}
+		else # we got a level
+		{
+			$h = \ltrim($h, 'hH');
 		}
 		
-		return 'h'.static::$level;
+		if ($h > 1)
+		{
+			--$h;
+		}
+		
+		return 'h'.$h;
 	}
 
 } # class
