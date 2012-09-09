@@ -52,7 +52,7 @@ class FormField_Radio extends \app\FormField
 	/**
 	 * @return string 
 	 */
-	protected function render_field()
+	function render_field()
 	{
 		$field = '';
 		
