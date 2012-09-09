@@ -1,9 +1,9 @@
 {
-	"name": "ibidem/html",
+	"name": "mjolnir/html",
 	"version": "0.0",
-	"description": "ibidem html module",
+	"description": "Mjolnir html module",
 	"keywords": ["html"],
-	"homepage": "https://github.com/srcspider",
+	"homepage": "https://github.com/ibidem",
 	"type": "library",
 	"license": "BSD-2",
 	"authors": [
@@ -17,7 +17,7 @@
 	},
 	"autoload": {
 		"psr-0": {
-			"ibidem\\html": "../.."
+			"mjolnir\\html": "../.."
 		}
 	}
 }
