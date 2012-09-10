@@ -35,7 +35,7 @@ class Layer_HTML extends \app\Layer
 	static function instance()
 	{
 		$instance = parent::instance();
-		$instance->params = \app\CFS::config('ibidem/html');
+		$instance->params = \app\CFS::config('mjolnir/html');
 		
 		// register event handlers
 		\app\GlobalEvent::listener('webpage:title', function ($title) use ($instance) {
@@ -115,7 +115,7 @@ class Layer_HTML extends \app\Layer
 		// head section
 		$html_before .= '<head>';
 		// load base configuration
-		$ibidem_base = \app\CFS::config('ibidem/base');
+		$ibidem_base = \app\CFS::config('mjolnir/base');
 		
 		# --- Relevant to the user experience -------------------------------- #
 

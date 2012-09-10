@@ -77,7 +77,7 @@ class Form extends \app\HTMLBlockElement
 	 */
 	static function instance($id = null)
 	{
-		$config = \app\CFS::config('ibidem/form');
+		$config = \app\CFS::config('mjolnir/form');
 		$instance = parent::instance();
 		$instance->secure = $config['secure.default'];
 		$instance->field_template = $config['template.field'];
@@ -123,7 +123,7 @@ class Form extends \app\HTMLBlockElement
 	 */
 	function standard($standard)
 	{
-		$standard = \app\CFS::config('ibidem/form')['standards'][$standard];
+		$standard = \app\CFS::config('mjolnir/form')['standards'][$standard];
 		$standard($this);
 		return $this;
 	}

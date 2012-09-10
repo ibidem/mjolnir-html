@@ -248,7 +248,7 @@ class Pager extends \app\Instantiatable
 		// is file set?
 		if ( ! $this->get_file())
 		{
-			$pager_config = \app\CFS::config('ibidem/pager');
+			$pager_config = \app\CFS::config('mjolnir/pager');
 			$this->file($pager_config['view.default']);
 		}
 		
@@ -296,7 +296,7 @@ class Pager extends \app\Instantiatable
 	 */
 	function standard($standard)
 	{
-		$pager_config = \app\CFS::config('ibidem/pager');
+		$pager_config = \app\CFS::config('mjolnir/pager');
 		$this->file($pager_config['view.standards'][$standard]);
 		return $this;
 	}

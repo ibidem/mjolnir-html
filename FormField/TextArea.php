@@ -32,7 +32,7 @@ class FormField_TextArea extends \app\FormField
 	 */
 	static function instance($title = null, $name = null, \mjolnir\types\Form $form = null)
 	{
-		$form_config = \app\CFS::config('ibidem/form');
+		$form_config = \app\CFS::config('mjolnir/form');
 		$instance = parent::instance($title, $name, $form);
 		$instance->attribute('rows', $form_config['textarea.rows.default']);
 		$instance->attribute('cols', $form_config['textarea.cols.default']);
