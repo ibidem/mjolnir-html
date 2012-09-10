@@ -115,14 +115,14 @@ class Layer_HTML extends \app\Layer
 		// head section
 		$html_before .= '<head>';
 		// load base configuration
-		$ibidem_base = \app\CFS::config('mjolnir/base');
+		$mjolnir_base = \app\CFS::config('mjolnir/base');
 		
 		# --- Relevant to the user experience -------------------------------- #
 
 		// content type
 		$html_before .= '<meta http-equiv="content-type" content="'
 			. \app\Layer::find('http')->get_content_type()
-			. '; charset='.$ibidem_base['charset'].'">';
+			. '; charset='.$mjolnir_base['charset'].'">';
 		// Make a DNS handshake with a foreign domain, so the connection goes 
 		// faster when the user eventually needs to access it.
 		// eg. //ajax.googleapis.com 
@@ -137,7 +137,7 @@ class Layer_HTML extends \app\Layer
 		// standard favicon path
 		if ($this->params['favicon'] === null)
 		{
-			$html_before .= '<link rel="shortcut icon" href="//'.$ibidem_base['domain'].$ibidem_base['path'].'favicon.ico" type="image/x-icon">';
+			$html_before .= '<link rel="shortcut icon" href="//'.$mjolnir_base['domain'].$mjolnir_base['path'].'favicon.ico" type="image/x-icon">';
 		}
 		else # predefined path
 		{
@@ -146,7 +146,7 @@ class Layer_HTML extends \app\Layer
 		// title
 		$html_before .= '<title>'.$this->params['title'].'</title>';
 		// add fix for IE
-		$html_before .= '<!--[if lt IE 9]><script src="//'.$ibidem_base['domain'].$ibidem_base['path'].'media/static/html5shiv.js"></script><![endif]-->';
+		$html_before .= '<!--[if lt IE 9]><script src="//'.$mjolnir_base['domain'].$mjolnir_base['path'].'media/static/html5shiv.js"></script><![endif]-->';
 		// stylesheets
 		foreach ($this->params['stylesheets'] as $style)
 		{
@@ -236,7 +236,7 @@ class Layer_HTML extends \app\Layer
 		// see: http://humanstxt.org/
 		if ($this->params['humanstxt'])
 		{
-			$html_before .= '<link type="text/plain" rel="author" href="'.$ibidem_base['base_url'].'humans.txt">';
+			$html_before .= '<link type="text/plain" rel="author" href="'.$mjolnir_base['base_url'].'humans.txt">';
 		}
 			
 		# Pin status (IE9 etc)
@@ -262,7 +262,7 @@ class Layer_HTML extends \app\Layer
 		if ( ! empty($this->params['scripts']))
 		{
 			// javascript loader
-			$html_before .= '<script type="text/javascript" src="//'.$ibidem_base['domain'].$ibidem_base['path'].'media/static/yepnope.latest-min.js"></script>';
+			$html_before .= '<script type="text/javascript" src="//'.$mjolnir_base['domain'].$mjolnir_base['path'].'media/static/yepnope.latest-min.js"></script>';
 		}
 		
 		$scripts = $this->params['head_scripts'];

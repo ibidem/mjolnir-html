@@ -1,9 +1,9 @@
 <?php return array
 	(
-		'view.default' => 'views/ibidem/pager',
+		'view.default' => 'views/mjolnir/pager',
 		'view.standards' => array
 			(
-				'twitter' => 'views/ibidem/pager.twitter',
-				'nopages' => 'views/ibidem/pager.nopages'
+				'twitter' => 'views/mjolnir/pager.twitter',
+				'nopages' => 'views/mjolnir/pager.nopages'
 			),
 	);
