@@ -1,14 +1,14 @@
 <?php namespace mjolnir\html;
 
-/** 
+/**
  * @package    mjolnir
  * @category   Base
  * @author     Ibidem Team
  * @copyright  (c) 2012 Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
-class Layer_HTML extends \app\Layer 
-	implements 
+class Layer_HTML extends \app\Layer
+	implements
 		\mjolnir\types\Params,
 		\mjolnir\types\Document,
 		\mjolnir\types\HTML
@@ -23,12 +23,12 @@ class Layer_HTML extends \app\Layer
 	 * @var string
 	 */
 	protected static $layer_name = \mjolnir\types\HTML::LAYER_NAME;
-	
+
 	/**
 	 * @var \mjolnir\types\ErrorView
 	 */
 	protected $errorview = null;
-	
+
 	/**
 	 * @return \mjolnir\base\Layer_HTML
 	 */
@@ -36,67 +36,71 @@ class Layer_HTML extends \app\Layer
 	{
 		$instance = parent::instance();
 		$instance->params = \app\CFS::config('mjolnir/html');
-		
+
 		// register event handlers
 		\app\GlobalEvent::listener('webpage:title', function ($title) use ($instance) {
 			$instance->title($title);
 		});
-		
+
 		\app\GlobalEvent::listener('webpage:description', function ($description) use ($instance) {
 			$instance->description($description);
 		});
-		
+
 		\app\GlobalEvent::listener('webpage:keywords', function (array $keywords) use ($instance) {
 			$instance->keywords($keywords);
 		});
-		
+
 		\app\GlobalEvent::listener('webpage:script', function ($src) use ($instance) {
 			$instance->add_script($src);
 		});
-		
+
 		\app\GlobalEvent::listener('webpage:head-script', function ($src) use ($instance) {
 			$instance->add_head_script($src);
 		});
-		
+
 		\app\GlobalEvent::listener('webpage:head-extra', function ($value) use ($instance) {
 			$instance->add_extra_markup($value);
 		});
-		
+
+		\app\GlobalEvent::listener('webpage:body-extra', function ($value) use ($instance) {
+			$instance->add_footer_markup($value);
+		});
+
 		\app\GlobalEvent::listener('webpage:style', function ($src) use ($instance) {
 			$instance->add_stylesheet($src);
 		});
-		
+
 		\app\GlobalEvent::listener('webpage:humanstxt', function ($enabled) use ($instance) {
 			$instance->humanstxt($enabled);
 		});
-		
+
 		\app\GlobalEvent::listener('webpage:appcache', function ($url) use ($instance) {
 			$instance->appcache($url);
 		});
-		
+
 		\app\GlobalEvent::listener('webpage:atomfeed', function ($url) use ($instance) {
 			$instance->atomfeed($url);
 		});
-		
+
 		\app\GlobalEvent::listener('webpage:rssfeed', function ($url) use ($instance) {
 			$instance->rssfeed($url);
 		});
-		
+
 		\app\GlobalEvent::listener('webpage:canonical', function ($url) use ($instance) {
 			$instance->canonical($url);
 		});
-		
+
 		\app\GlobalEvent::listener('webpage:crawlers', function ($enabled) use ($instance) {
 			$instance->crawlers($enabled);
 		});
-		
+
 		\app\GlobalEvent::listener('webpage:errorview', function ($handler) use ($instance) {
 			$instance->errorview($handler);
 		});
-		
+
 		return $instance;
 	}
-	
+
 	/**
 	 * @return string
 	 */
@@ -116,16 +120,16 @@ class Layer_HTML extends \app\Layer
 		$html_before .= '<head>';
 		// load base configuration
 		$mjolnir_base = \app\CFS::config('mjolnir/base');
-		
+
 		# --- Relevant to the user experience -------------------------------- #
 
 		// content type
 		$html_before .= '<meta http-equiv="content-type" content="'
 			. \app\Layer::find('http')->get_content_type()
 			. '; charset='.$mjolnir_base['charset'].'">';
-		// Make a DNS handshake with a foreign domain, so the connection goes 
+		// Make a DNS handshake with a foreign domain, so the connection goes
 		// faster when the user eventually needs to access it.
-		// eg. //ajax.googleapis.com 
+		// eg. //ajax.googleapis.com
 		foreach ($this->params['prefetch_domains'] as $prefetch_domain)
 		{
 			'<link rel="dns-prefetch" href="'.$prefetch_domain.'">';
@@ -154,17 +158,17 @@ class Layer_HTML extends \app\Layer
 		}
 		// kill IE6's pop-up-on-mouseover toolbar for images
 		$html_before .= '<meta http-equiv="imagetoolbar" content="no">';
-		
+
 		# --- Relevant to search engine results ------------------------------ #
-		
+
 		if ($this->params['description'] !== null)
 		{
 			// note: it is not guranteed search engines will use it; and they
-			// won't if the content of the page is nonexistent, or this 
+			// won't if the content of the page is nonexistent, or this
 			// description is not unique enough over multiple pages.
 			$html_before .= '<meta name="description" content="'.$this->params['description'].'">';
 		}
-		
+
 		// extra garbage: keywords, generator, author
 		if ( ! empty($this->params['keywords']))
 		{
@@ -183,34 +187,34 @@ class Layer_HTML extends \app\Layer
 		{
 			$html_before .= '<meta name="author" content="'.$this->params['author'].'">';
 		}
-		
+
 		# --- Relevant to crawlers ------------------------------------------- #
-		
-		// A canonical route is the route by which search engines should  
-		// identify the current page; ragerdless of what the current url might 
+
+		// A canonical route is the route by which search engines should
+		// identify the current page; ragerdless of what the current url might
 		// look like.
 		if ($this->params['canonical'] !== null)
 		{
 			$html_before .= '<link rel="canonical" href="'.$this->params['canonical'].'">';
 		}
-		
-		// sitemap, for search engines. 
-		// see: http://www.sitemaps.org/protocol.html 
+
+		// sitemap, for search engines.
+		// see: http://www.sitemaps.org/protocol.html
 		if ($this->params['sitemap'] !== null)
 		{
 			$html_before .= '<link rel="sitemap" type="application/xml" title="Sitemap" href="'.$this->params['sitemap'].'">';
 		}
-		
+
 		// block search engines from viewing the page
 		if ($this->params['crawlers'])
 		{
 			$html_before .= '<meta name="robots" content="index, follow" />';
 		}
-		else # do not allow search engines 
+		else # do not allow search engines
 		{
 			$html_before .= '<meta name="robots" content="noindex" />';
 		}
-		
+
 		# --- Feed and callbacks --------------------------------------------- #
 
 		// http://www.rssboard.org/rss-specification
@@ -218,19 +222,19 @@ class Layer_HTML extends \app\Layer
 		{
 			$html_before .= '<link rel="alternate" type="application/rss+xml" title="RSS" href="'.$this->params['rssfeed'].'">';
 		}
-		
+
 		// http://www.atomenabled.org/developers/syndication/
 		if ($this->params['atomfeed'] !== null)
 		{
 			$html_before .= '<link rel="alternate" type="application/atom+xml" title="Atom" href="'.$this->params['atomfeed'].'">';
 		}
-		
+
 		// http://codex.wordpress.org/Introduction_to_Blogging#Pingbacks
 		if ($this->params['pingback'] !== null)
 		{
 			$html_before .= '<link rel="pingback" href="'.$this->params['pingback'].'">';
 		}
-		
+
 		# --- Extras --------------------------------------------------------- #
 
 		// see: http://humanstxt.org/
@@ -238,39 +242,39 @@ class Layer_HTML extends \app\Layer
 		{
 			$html_before .= '<link type="text/plain" rel="author" href="'.$mjolnir_base['base_url'].'humans.txt">';
 		}
-			
+
 		# Pin status (IE9 etc)
-		
+
 		// name to use when pinned
 		if ($this->params['application_name'] !== null)
-		{		
+		{
 			$html_before .= '<meta name="application-name" content="'.$this->params['application_name'].'">';
 		}
-		
+
 		// tooltip to use when pinned
 		if ($this->params['application_tooltip'] !== null)
 		{
 			$html_before .= '<meta name="msapplication-tooltip" content="'.$this->params['application_tooltip'].'">';
 		}
-		
+
 		// page to go to when pinned
 		if ($this->params['application_starturl'] !== null)
 		{
 			$html_before .= '<meta name="msapplication-starturl" content="'.$this->params['application_starturl'].'">';
 		}
-		
+
 		if ( ! empty($this->params['scripts']))
 		{
 			// javascript loader
 			$html_before .= '<script type="text/javascript" src="//'.$mjolnir_base['domain'].$mjolnir_base['path'].'media/static/yepnope.latest-min.js"></script>';
 		}
-		
+
 		$scripts = $this->params['head_scripts'];
 		foreach ($scripts as $script)
 		{
 			$html_before .= '<script type="text/javascript" src="'.\addslashes($script).'"></script>';
 		}
-		
+
 		if ( ! empty($this->params['extra_markup']))
 		{
 			foreach ($this->params['extra_markup'] as $markup)
@@ -278,7 +282,7 @@ class Layer_HTML extends \app\Layer
 				$html_before .= $markup;
 			}
 		}
-		
+
 		// close head section
 		$html_before .= '</head><body>';
 		// css switch for more streamline style transitions
@@ -287,13 +291,13 @@ class Layer_HTML extends \app\Layer
 			$html_before .= '<script type="text/javascript">document.body.id = "javascript-enabled";</script>';
 		}
 		$html_before .= "\n\n";
-  
+
 		return $html_before;
 	}
 
 	/**
-	 * Closing html. 
-	 * 
+	 * Closing html.
+	 *
 	 * @return string
 	 */
 	protected function html_after()
@@ -310,11 +314,20 @@ class Layer_HTML extends \app\Layer
 			}
 			$body .= '] });</script>';
 		}
+
+		if ( ! empty($this->params['extra_footer_markup']))
+		{
+			foreach ($this->params['extra_footer_markup'] as $markup)
+			{
+				$body .= $markup;
+			}
+		}
+
 		$body .= "</body></html>\n";
-		
+
 		return $body;
 	}
-	
+
 	/**
 	 * Execute the layer.
 	 */
@@ -339,8 +352,8 @@ class Layer_HTML extends \app\Layer
 				}
 				else # no layer contents
 				{
-					// we still output a valid html document; it's possible it's 
-					// just all javascript or something else, so there's no contents 
+					// we still output a valid html document; it's possible it's
+					// just all javascript or something else, so there's no contents
 					// becuase it's all dynamically generated
 					$this->contents
 						(
@@ -365,12 +378,12 @@ class Layer_HTML extends \app\Layer
 			$this->exception($exception);
 		}
 	}
-	
+
 	/**
-	 * Fills body and approprite calls for current layer, and passes the 
-	 * exception up to be processed by the layer above, if the layer has a 
+	 * Fills body and approprite calls for current layer, and passes the
+	 * exception up to be processed by the layer above, if the layer has a
 	 * parent.
-	 * 
+	 *
 	 * @param \Exception
 	 */
 	function exception(\Exception $exception, $no_throw = false, $origin = false)
@@ -379,7 +392,7 @@ class Layer_HTML extends \app\Layer
 		{
 			$this->title($exception->title());
 			$this->crawlers(false);
-			
+
 			if ($this->errorview !== null && ($content = $this->errorview->errorpage($exception)) !== null)
 			{
 				$this->contents
@@ -420,14 +433,14 @@ class Layer_HTML extends \app\Layer
 					);
 			}
 		}
-		
+
 		// default execution from Layer
 		parent::exception($exception, $no_throw);
 	}
-	
+
 	/**
 	 * Sets the doctype. See: \mjolnir\types\HTML for constants.
-	 * 
+	 *
 	 * @param string doctype
 	 * @return \mjolnir\base\Layer_HTML $this
 	 */
@@ -435,10 +448,10 @@ class Layer_HTML extends \app\Layer
 	{
 		return $this->set('doctype', $doctype);
 	}
-	
+
 	/**
 	 * Appcache manifest location.
-	 * 
+	 *
 	 * @param string url
 	 * @return \mjolnir\base\Layer_HTML $this
 	 */
@@ -446,10 +459,10 @@ class Layer_HTML extends \app\Layer
 	{
 		return $this->set('appcache', $url);
 	}
-	
+
 	/**
 	 * Sitemap, be it index or simple sitemap.
-	 * 
+	 *
 	 * @param string url
 	 * @return \mjolnir\base\Layer_HTML $this
 	 */
@@ -457,7 +470,7 @@ class Layer_HTML extends \app\Layer
 	{
 		return $this->set('sitemap', $url);
 	}
-	
+
 	/**
 	 * @param array domains
 	 * @return \mjolnir\base\Layer_HTML $this
@@ -468,10 +481,10 @@ class Layer_HTML extends \app\Layer
 		{
 			$this->params['prefetch_domains'][] = $domain;
 		}
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * @param string favicon uri
 	 * @return \mjolnir\base\Layer_HTML $this
@@ -480,16 +493,16 @@ class Layer_HTML extends \app\Layer
 	{
 		return $this->set('favicon', $url);
 	}
-	
+
 	/**
-	 * @param string title 
+	 * @param string title
 	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function title($title)
 	{
 		return $this->set('title', $title);
 	}
-	
+
 	/**
 	 * @param string
 	 * @return \mjolnir\base\Layer_HTML $this
@@ -499,7 +512,7 @@ class Layer_HTML extends \app\Layer
 		$this->params['stylesheets'][] = array('href' => $href, 'type' => $type);
 		return $this;
 	}
-	
+
 	/**
 	 * @param string markup
 	 * @return \mjolnir\base\Layer_HTML $this
@@ -509,36 +522,46 @@ class Layer_HTML extends \app\Layer
 		$this->params['extra_markup'][] = $markup;
 		return $this;
 	}
-	
+
+	/**
+	 * @param string markup
+	 * @return \mjolnir\base\Layer_HTML
+	 */
+	function add_footer_markup($markup)
+	{
+		$this->params['extra_footer_markup'][] = $markup;
+		return $this;
+	}
+
 	/**
 	 * @param string
 	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function add_script($src)
 	{
-		$this->params['scripts'][] = $src;		
+		$this->params['scripts'][] = $src;
 		return $this;
 	}
-	
+
 	/**
 	 * @param string
 	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function add_head_script($src)
 	{
-		$this->params['head_scripts'][] = $src;		
+		$this->params['head_scripts'][] = $src;
 		return $this;
 	}
-	
+
 	/**
-	 * @param string description 
+	 * @param string description
 	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function description($desc = null)
 	{
 		return $this->set('description', $desc);
 	}
-	
+
 	/**
 	 * @param array new keywards
 	 * @return \mjolnir\base\Layer_HTML $this
@@ -549,19 +572,19 @@ class Layer_HTML extends \app\Layer
 		{
 			$this->params['keywords'][] = $keyword;
 		}
-		
+
 		return $this;
 	}
-	
+
 	/**
-	 * @param string canonical url 
+	 * @param string canonical url
 	 * @return \mjolnir\base\Layer_HTML $this
 	 */
 	function canonical($url = null)
 	{
 		return $this->set('canonical', $url);
 	}
-	
+
 	/**
 	 * @param boolean enabled?
 	 * @return \mjolnir\base\Layer_HTML $this
@@ -570,7 +593,7 @@ class Layer_HTML extends \app\Layer
 	{
 		return $this->set('crawlers', $enabled);
 	}
-	
+
 	/**
 	 * @param string url
 	 * @return \mjolnir\base\Layer_HTML $this
@@ -579,7 +602,7 @@ class Layer_HTML extends \app\Layer
 	{
 		return $this->set('rssfeed', $url);
 	}
-	
+
 	/**
 	 * @param string url
 	 * @return \mjolnir\base\Layer_HTML $this
@@ -588,7 +611,7 @@ class Layer_HTML extends \app\Layer
 	{
 		return $this->set('atomfeed', $url);
 	}
-	
+
 	/**
 	 * @param string url
 	 * @return \mjolnir\base\Layer_HTML $this
@@ -597,7 +620,7 @@ class Layer_HTML extends \app\Layer
 	{
 		return $this->set('pingback', $url);
 	}
-	
+
 	/**
 	 * @param boolean enabled?
 	 * @return \mjolnir\base\Layer_HTML $this
@@ -606,10 +629,10 @@ class Layer_HTML extends \app\Layer
 	{
 		return $this->set('humanstxt', $enabled);
 	}
-	
+
 	/**
 	 * Metadata for application running as desktop.
-	 * 
+	 *
 	 * @param string name
 	 * @return \mjolnir\base\Layer_HTML $this
 	 */
@@ -617,10 +640,10 @@ class Layer_HTML extends \app\Layer
 	{
 		return $this->set('application_name', $name);
 	}
-	
+
 	/**
 	 * Metadata for application running as desktop.
-	 * 
+	 *
 	 * @param string tooltip
 	 * @return \mjolnir\base\Layer_HTML $this
 	 */
@@ -628,10 +651,10 @@ class Layer_HTML extends \app\Layer
 	{
 		return $this->set('application_tooltip', $tooltip);
 	}
-	
+
 	/**
 	 * Metadata for application running as desktop.
-	 * 
+	 *
 	 * @param string starturl
 	 * @return \mjolnir\base\Layer_HTML $this
 	 */
@@ -639,24 +662,24 @@ class Layer_HTML extends \app\Layer
 	{
 		return $this->set('application_starturl', $starturl);
 	}
-	
+
 	/**
 	 * Set error handler (view).
-	 * 
+	 *
 	 * @return \app\Layer_HTML $this
 	 */
 	function errorview($handler)
 	{
 		$this->errorview = $handler;
-		
+
 		return $this;
 	}
-	
+
 # Document trait
 
 	/**
 	 * Set the document's body.
-	 * 
+	 *
 	 * @param string document body
 	 * @return \mjolnir\base\Layer_HTML $this
 	 */
@@ -667,12 +690,12 @@ class Layer_HTML extends \app\Layer
 			throw new \app\Exception_NotApplicable
 				("Can't have both a body and contents.");
 		}
-		
+
 		$this->document_body($body);
-		
+
 		return $this;
 	}
-	
+
 # /Document trait
-	
+
 } # class
