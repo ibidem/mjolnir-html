@@ -143,7 +143,7 @@ class Form extends \app\HTMLBlockElement
 	 * @param array fields
 	 * @return \app\Form $this
 	 */
-	function auto_complte(array $fields = null)
+	function auto_complete(array $fields = null)
 	{
 		if ($fields === null)
 		{
@@ -152,7 +152,7 @@ class Form extends \app\HTMLBlockElement
 		
 		if ($this->auto_complete === null)
 		{
-			$this->auto_complete = array();
+			$this->auto_complete = [];
 		}
 		
 		foreach ($fields as $key => $field)

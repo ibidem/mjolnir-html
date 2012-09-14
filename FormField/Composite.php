@@ -63,7 +63,6 @@ class FormField_Composite extends \app\FormField
 		$all_errors = [];
 		foreach ($this->subfields as $subfield)
 		{
-			
 			if ($errors = $this->form->errors_for($subfield->get_attribute('name')))
 			{
 				foreach ($errors as $error)
