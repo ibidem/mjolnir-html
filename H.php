@@ -10,18 +10,23 @@
 class H
 {
 	/**
-	 * @var int 
+	 * @var int
 	 */
-	static protected $level = 1;
-	
+	static protected $level = 0;
+
 	/**
 	 * @return int
 	 */
 	static function current()
 	{
+		if (static::$level === 0)
+		{
+			static::$level = 1;
+		}
+
 		return 'h'.static::$level;
 	}
-	
+
 	/**
 	 * Set level; both tag and integer are acceptable.
 	 */
@@ -29,18 +34,18 @@ class H
 	{
 		$level = \preg_replace('#^h#', '', $level);
 		static::$level = \intval($level, 10);
-		
+
 		if (static::$level > 6)
 		{
 			static::$level = 6;
 		}
-		
+
 		if (static::$level < 1)
 		{
 			static::$level = 1;
 		}
 	}
-	
+
 	/**
 	 * @return int
 	 */
@@ -54,15 +59,15 @@ class H
 		{
 			$h = \ltrim($h, 'hH');
 		}
-		
+
 		if ($h < 6)
 		{
 			++$h;
 		}
-		
+
 		return 'h'.$h;
 	}
-	
+
 	/**
 	 * @return int
 	 */
@@ -76,12 +81,12 @@ class H
 		{
 			$h = \ltrim($h, 'hH');
 		}
-		
+
 		if ($h > 1)
 		{
 			--$h;
 		}
-		
+
 		return 'h'.$h;
 	}
 
