@@ -9,23 +9,23 @@
  */
 class HTMLElement extends \app\Instantiatable
 	implements \mjolnir\types\Renderable
-{	
+{
 	/**
 	 * @var string
 	 */
 	protected $name = 'hr';
-	
+
 	/**
-	 * @var array 
+	 * @var array
 	 */
 	private $attributes = array();
-	
+
 	/**
 	 * @param array classes
-	 * @return \app\HTMLElement 
+	 * @return \app\HTMLElement
 	 */
 	private $classes;
-	
+
 	/**
 	 * @return \app\HTMLElement
 	 */
@@ -33,18 +33,18 @@ class HTMLElement extends \app\Instantiatable
 	{
 		$instance = parent::instance();
 		$instance->name = $name;
-		
+
 		return $instance;
 	}
-	
+
 	/**
 	 * @param string classes
-	 * @return \app\HTMLElement 
+	 * @return \app\HTMLElement
 	 */
 	function classes(array $classes)
 	{
 		isset($this->classes) or $this->classes = array();
-		
+
 		foreach ($classes as $class)
 		{
 			if ( ! \in_array($class, $this->classes))
@@ -52,32 +52,32 @@ class HTMLElement extends \app\Instantiatable
 				$this->classes[] = $class;
 			}
 		}
-		
+
 		return $this;
 	}
-	
+
 	/**
-	 * @param string attribute 
+	 * @param string attribute
 	 * @return \mjolnir\base\HTMLBlockElement $this
 	 */
 	function remove_attribute($attribute)
 	{
 		unset($this->attributes[$attribute]);
-		
+
 		return $this;
 	}
-	
+
 	/**
-	 * @return array 
+	 * @return array
 	 */
 	function get_classes()
 	{
 		return $this->classes;
 	}
-	
+
 	/**
 	 * @param string name
-	 * @param string value 
+	 * @param string value
 	 * @return \app\HTMLElement
 	 */
 	function attribute($name, $value = null)
@@ -90,20 +90,20 @@ class HTMLElement extends \app\Instantiatable
 		{
 			$this->attributes[$name] = '';
 		}
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Shorthand for attribute
-	 * 
+	 *
 	 * @return \app\HTMLElement
 	 */
 	function attr($name, $value = null)
 	{
 		return $this->attribute($name, $value);
 	}
-	
+
 	/**
 	 * @param string name
 	 * @return string
@@ -112,16 +112,16 @@ class HTMLElement extends \app\Instantiatable
 	{
 		return isset($this->attributes[$name]) ? $this->attributes[$name] : null;
 	}
-	
+
 	/**
-	 * @param string id 
+	 * @param string id
 	 * @return \app\HTMLElement
 	 */
 	function id($id)
 	{
 		return $this->attribute('id', $id);
 	}
-	
+
 	/**
 	 * @return string
 	 */
@@ -141,10 +141,10 @@ class HTMLElement extends \app\Instantiatable
 			}
 			$attributes .= ' class="'.$classes.'"';
 		}
-		
+
 		return $attributes;
 	}
-	
+
 	/**
 	 * @return string
 	 */
@@ -152,9 +152,9 @@ class HTMLElement extends \app\Instantiatable
 	{
 		return '<'.$this->name.$this->render_attributes().'/>';
 	}
-	
+
 	/**
-	 * @return string 
+	 * @return string
 	 */
 	function __toString()
 	{
@@ -164,8 +164,15 @@ class HTMLElement extends \app\Instantiatable
 		}
 		catch (\Exception $e)
 		{
-			return '[ERROR: '.$e->getMessage().']';
+			if (\app\CFS::config('mjolnir/base')['development'])
+			{
+				return '[ERROR: '.$e->getMessage().']';
+			}
+			else # public
+			{
+				return '';
+			}
 		}
 	}
-	
+
 } # class

@@ -242,7 +242,14 @@ class FormField extends \app\HTMLElement
 		}
 		catch (\Exception $e)
 		{
-			return '[ERROR: '.$e->getMessage().']';
+			if (\app\CFS::config('mjolnir/base')['development'])
+			{
+				return '[ERROR: '.$e->getMessage().']';
+			}
+			else # public
+			{
+				return '';
+			}
 		}
 	}
 
