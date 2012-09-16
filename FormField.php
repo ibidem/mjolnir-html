@@ -37,18 +37,28 @@ class FormField extends \app\HTMLElement
 	/**
 	 * @var string
 	 */
-	private $template;
+	protected $template;
 
 	/**
 	 * @var string
 	 */
-	protected $error_printer = null;
+	protected $helptemplate;
+
+	/**
+	 * @var string
+	 */
+	protected $help = null;
+
+	/**
+	 * @var string
+	 */
+	protected $error_printer_handler = null;
 
 	/**
 	 * @param string title
 	 * @param string name
 	 * @param \mjolnir\types\Form form
-	 * @return \mjolnir\base\FormField
+	 * @return \app\FormField
 	 */
 	static function instance($title = null, $name = null, \mjolnir\types\Form $form = null)
 	{
@@ -60,7 +70,7 @@ class FormField extends \app\HTMLElement
 			$instance->attribute('type', $instance->type);
 		}
 		$instance->tabindex = \app\Form::tabindex();
-		$instance->attribute('tabindex', $instance->tabindex);
+
 		$instance->form = $form;
 
 		if ($instance->type !== 'hidden' && $instance->type !== 'password' && ($field_value = $form->field_value($name)) !== null)
@@ -73,7 +83,7 @@ class FormField extends \app\HTMLElement
 
 	/**
 	 * @param string value
-	 * @return \mjolnir\base\FormField $this
+	 * @return \app\FormField $this
 	 */
 	function value($value)
 	{
@@ -82,7 +92,7 @@ class FormField extends \app\HTMLElement
 	}
 
 	/**
-	 * @return \mjolnir\base\FormField $this
+	 * @return \app\FormField $this
 	 */
 	function disabled()
 	{
@@ -92,11 +102,30 @@ class FormField extends \app\HTMLElement
 
 	/**
 	 * @param string template
-	 * @return \mjolnir\base\FormField
+	 * @return \app\FormField
 	 */
 	function template($template)
 	{
 		$this->template = $template;
+		return $this;
+	}
+
+	/**
+	 * @param string template
+	 * @return \app\FormField
+	 */
+	function helptemplate($template)
+	{
+		$this->helptemplate = $template;
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	function help($help)
+	{
+		$this->help = $help;
 		return $this;
 	}
 
@@ -109,7 +138,15 @@ class FormField extends \app\HTMLElement
 	}
 
 	/**
-	 * @return \mjolnir\base\FormField $this
+	 * @return string
+	 */
+	function get_helptemplate()
+	{
+		return $this->helptemplate;
+	}
+
+	/**
+	 * @return \app\FormField $this
 	 */
 	function field()
 	{
@@ -118,7 +155,7 @@ class FormField extends \app\HTMLElement
 	}
 
 	/**
-	 * @return \mjolnir\base\FormField $this
+	 * @return \app\FormField $this
 	 */
 	function unnamed()
 	{
@@ -128,7 +165,7 @@ class FormField extends \app\HTMLElement
 
 	/**
 	 * @param bool switch
-	 * @return \mjolnir\base\FormField $this
+	 * @return \app\FormField $this
 	 */
 	function autocomplete($switch = true)
 	{
@@ -139,7 +176,7 @@ class FormField extends \app\HTMLElement
 	/**
 	 * @return string
 	 */
-	protected function render_name()
+	function render_name()
 	{
 		$classes = $this->get_classes();
 		if ($classes)
@@ -158,11 +195,20 @@ class FormField extends \app\HTMLElement
 	}
 
 	/**
+	 * @return \app\FormField $this
+	 */
+	function error_printer($error_printer)
+	{
+		$this->error_printer_handler = $error_printer;
+		return $this;
+	}
+
+	/**
 	 * @return string
 	 */
 	function print_errors($errors)
 	{
-		if ($this->error_printer === null)
+		if ($this->error_printer_handler === null)
 		{
 			$error_render = '<ul class="errors">';
 			foreach ($errors as $error)
@@ -175,7 +221,8 @@ class FormField extends \app\HTMLElement
 		}
 		else # custom error printer
 		{
-			return $this->error_printer($errors);
+			$handler = $this->error_printer_handler;
+			return $handler($errors);
 		}
 	}
 
@@ -184,14 +231,11 @@ class FormField extends \app\HTMLElement
 	 */
 	function render_errors()
 	{
-		static $error_render = null;
+		$error_render = '';
 
-		if ($error_render === null)
+		if ($errors = $this->form->errors_for($this->get_attribute('name')))
 		{
-			if ($errors = $this->form->errors_for($this->get_attribute('name')))
-			{
-				$error_render = $this->print_errors($errors);
-			}
+			$error_render = $this->print_errors($errors);
 		}
 
 		return $error_render;
@@ -212,6 +256,18 @@ class FormField extends \app\HTMLElement
 		return $field;
 	}
 
+	function render_helptext()
+	{
+		if (empty($this->help))
+		{
+			return '';
+		}
+		else # help not empty
+		{
+			return \strtr($this->helptemplate, [':help' => $this->help]);
+		}
+	}
+
 	/**
 	 * @return string
 	 */
@@ -224,7 +280,8 @@ class FormField extends \app\HTMLElement
 				(
 					':name' => $this->render_name(),
 					':field' => $this->render_field(),
-					':errors' => $this->render_errors()
+					':errors' => $this->render_errors(),
+					':help' => $this->render_helptext()
 				)
 			);
 	}

@@ -10,26 +10,32 @@
 class FormField_Hidden extends \app\FormField
 {
 	/**
-	 * @var string 
+	 * @var string
 	 */
 	protected $type = 'hidden';
-	
+
 	/**
 	 * @param string name
-	 * @param \mjolnir\types\Form form 
+	 * @param \mjolnir\types\Form form
 	 * @return \mjolnir\base\FormField_Hidden
 	 */
 	static function instance($name = null, \mjolnir\types\Form $form = null)
 	{
 		return parent::instance(null, $name, $form);
 	}
-	
+
+	function render_field()
+	{
+		$this->remove_attribute('tabindex');
+		return parent::render_field();
+	}
+
 	/**
-	 * @return string 
+	 * @return string
 	 */
 	function render()
 	{
 		return $this->render_field();
 	}
-	
+
 } # class
