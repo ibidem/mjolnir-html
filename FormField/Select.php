@@ -10,27 +10,27 @@
 class FormField_Select extends \app\FormField
 {
 	/**
-	 * @var string 
+	 * @var string
 	 */
 	protected static $tag_name = 'select';
-	
+
 	/**
-	 * @var string 
+	 * @var string
 	 */
 	protected $type = null;
-	
+
 	/**
-	 * @var array 
+	 * @var array
 	 */
 	protected $values = array();
-	
+
 	/**
-	 * @var string 
+	 * @var string
 	 */
 	protected $active;
 
 	/**
-	 * @param array values 
+	 * @param array values
 	 * @return \mjolnir\base\FormField_Select $this
 	 */
 	function values(array $values = null, $key = null, $valueKey = null)
@@ -39,7 +39,7 @@ class FormField_Select extends \app\FormField
 			$this->values = array();
 			return $this;
 		}
-		
+
 		if ($key === null)
 		{
 			foreach ($values as $key => $value)
@@ -54,10 +54,10 @@ class FormField_Select extends \app\FormField
 				$this->values[$entry[$valueKey]] = $entry[$key];
 			}
 		}
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * @param string id
 	 * @return \mjolnir\base\FormField_Select $this
@@ -67,13 +67,13 @@ class FormField_Select extends \app\FormField
 		$this->active = $id;
 		return $this;
 	}
-	
+
 	/**
-	 * @return string 
+	 * @return string
 	 */
 	function render_field()
 	{
-		$field = '<'.$this->name.' id="'.$this->form->form_id().'_'.$this->tabindex.'"'.$this->render_attributes().'>';
+		$field = '<'.$this->name.' form="'.$this->form->form_id().'" id="'.$this->form->form_id().'_'.$this->tabindex.'"'.$this->render_attributes().'>';
 		foreach ($this->values as $title => $key)
 		{
 			if ($key == $this->active)
@@ -86,18 +86,13 @@ class FormField_Select extends \app\FormField
 			}
 		}
 		$field .= '</'.$this->name.'>';
-		
-		if ($errors = $this->form->errors_for($this->get_attribute('name')))
+
+		if (\strpos($this->template, ':errors') === false)
 		{
-			$field .= '<ul class="errors">';
-			foreach ($errors as $error)
-			{
-				$field .= '<li>'.\app\Lang::tr($error).'</li>';
-			}
-			$field .= '</ul>';
+			$field .= $this->render_errors();
 		}
-		
+
 		return $field;
 	}
-	
+
 } # class

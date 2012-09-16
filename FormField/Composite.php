@@ -8,17 +8,17 @@
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class FormField_Composite extends \app\FormField
-{	
+{
 	/**
 	 * @var array
 	 */
 	protected $subfields = [];
-	
+
 	/**
-	 * @var string 
+	 * @var string
 	 */
 	protected $composite_format = null;
-	
+
 	/**
 	 * @return \app\FormField_Composite
 	 */
@@ -27,7 +27,7 @@ class FormField_Composite extends \app\FormField
 		$this->subfields = $subfields;
 		return $this;
 	}
-	
+
 	/**
 	 * @return \app\FormField_Composite
 	 */
@@ -36,9 +36,41 @@ class FormField_Composite extends \app\FormField
 		$this->composite_format = $format;
 		return $this;
 	}
-	
+
 	/**
-	 * @return string 
+	 * @return string
+	 */
+	function render_errors()
+	{
+		static $error_render = null;
+
+		if ($error_render === null)
+		{
+			$error_render = '';
+
+			$all_errors = [];
+			foreach ($this->subfields as $subfield)
+			{
+				if ($errors = $this->form->errors_for($subfield->get_attribute('name')))
+				{
+					foreach ($errors as $error)
+					{
+						$all_errors[] = $error;
+					}
+				}
+			}
+
+			if ($all_errors)
+			{
+				$error_render = $this->print_errors($errors);
+			}
+		}
+
+		return $error_render;
+	}
+
+	/**
+	 * @return string
 	 */
 	function render_field()
 	{
@@ -56,32 +88,20 @@ class FormField_Composite extends \app\FormField
 			{
 				$field_tr['%'.$i] = $this->subfields[$i - 1]->render_field();
 			}
-			
+
 			$field = \strtr($this->composite_format, $field_tr);
 		}
-	
-		$all_errors = [];
-		foreach ($this->subfields as $subfield)
-		{
-			if ($errors = $this->form->errors_for($subfield->get_attribute('name')))
-			{
-				foreach ($errors as $error)
-				{
-					$all_errors[] = $error;
-				}
-			}
-		}
-		
+
+
+
 		if ( ! empty($all_errors))
 		{
-			$field .= '<ul class="errors">';
-			foreach ($all_errors as $error)
+			if (\strpos($this->template, ':errors') === false)
 			{
-				$field .= '<li>'.\app\Lang::tr($error).'</li>';
+				$field .= $this->render_errors();
 			}
-			$field .= '</ul>';
 		}
-		
+
 		return $field;
 	}
 

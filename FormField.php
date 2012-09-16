@@ -10,35 +10,40 @@
 class FormField extends \app\HTMLElement
 {
 	/**
-	 * @var string 
+	 * @var string
 	 */
 	protected static $tag_name = 'input';
-	
+
 	/**
-	 * @var string 
+	 * @var string
 	 */
 	protected $type = 'text';
-	
+
 	/**
 	 * @var string
 	 */
 	protected $name = 'input';
-	
+
 	/**
-	 * @var type 
+	 * @var type
 	 */
 	protected $tabindex;
-	
+
 	/**
 	 * @var \app\Form
 	 */
 	protected $form;
-	
+
 	/**
 	 * @var string
 	 */
 	private $template;
-	
+
+	/**
+	 * @var string
+	 */
+	protected $error_printer = null;
+
 	/**
 	 * @param string title
 	 * @param string name
@@ -57,25 +62,25 @@ class FormField extends \app\HTMLElement
 		$instance->tabindex = \app\Form::tabindex();
 		$instance->attribute('tabindex', $instance->tabindex);
 		$instance->form = $form;
-			
+
 		if ($instance->type !== 'hidden' && $instance->type !== 'password' && ($field_value = $form->field_value($name)) !== null)
 		{
 			$instance->value($field_value);
 		}
-		
+
 		return $instance;
 	}
-	
+
 	/**
-	 * @param string value 
-	 * @return \mjolnir\base\FormField $this 
+	 * @param string value
+	 * @return \mjolnir\base\FormField $this
 	 */
 	function value($value)
 	{
 		$this->attribute('value', $value);
 		return $this;
 	}
-	
+
 	/**
 	 * @return \mjolnir\base\FormField $this
 	 */
@@ -84,7 +89,7 @@ class FormField extends \app\HTMLElement
 		$this->attribute('disabled');
 		return $this;
 	}
-	
+
 	/**
 	 * @param string template
 	 * @return \mjolnir\base\FormField
@@ -94,15 +99,15 @@ class FormField extends \app\HTMLElement
 		$this->template = $template;
 		return $this;
 	}
-	
+
 	/**
-	 * @return string 
+	 * @return string
 	 */
 	function get_template()
 	{
 		return $this->template;
 	}
-	
+
 	/**
 	 * @return \mjolnir\base\FormField $this
 	 */
@@ -111,7 +116,7 @@ class FormField extends \app\HTMLElement
 		$this->template = ':field';
 		return $this;
 	}
-	
+
 	/**
 	 * @return \mjolnir\base\FormField $this
 	 */
@@ -120,7 +125,7 @@ class FormField extends \app\HTMLElement
 		$this->remove_attribute('name');
 		return $this;
 	}
-	
+
 	/**
 	 * @param bool switch
 	 * @return \mjolnir\base\FormField $this
@@ -130,9 +135,9 @@ class FormField extends \app\HTMLElement
 		$this->attribute('autocomplete', $switch ? 'on' : 'off');
 		return $this;
 	}
-	
+
 	/**
-	 * @return string 
+	 * @return string
 	 */
 	protected function render_name()
 	{
@@ -151,46 +156,83 @@ class FormField extends \app\HTMLElement
 				->render();
 		}
 	}
-	
+
 	/**
-	 * @return string 
+	 * @return string
+	 */
+	function print_errors($errors)
+	{
+		if ($this->error_printer === null)
+		{
+			$error_render = '<ul class="errors">';
+			foreach ($errors as $error)
+			{
+				$error_render .= '<li>'.\app\Lang::tr($error).'</li>';
+			}
+			$error_render .= '</ul>';
+
+			return $error_render;
+		}
+		else # custom error printer
+		{
+			return $this->error_printer($errors);
+		}
+	}
+
+	/**
+	 * @return string
+	 */
+	function render_errors()
+	{
+		static $error_render = null;
+
+		if ($error_render === null)
+		{
+			if ($errors = $this->form->errors_for($this->get_attribute('name')))
+			{
+				$error_render = $this->print_errors($errors);
+			}
+		}
+
+		return $error_render;
+	}
+
+	/**
+	 * @return string
 	 */
 	function render_field()
 	{
-		$field = '<'.$this->name.' id="'.$this->form->form_id().'_'.$this->tabindex.'"'.$this->render_attributes().'/>';
-		if ($errors = $this->form->errors_for($this->get_attribute('name')))
+		$field = '<'.$this->name.' form="'.$this->form->form_id().'" id="'.$this->form->form_id().'_'.$this->tabindex.'"'.$this->render_attributes().'/>';
+
+		if (\strpos($this->template, ':errors') === false)
 		{
-			$field .= '<ul class="errors">';
-			foreach ($errors as $error)
-			{
-				$field .= '<li>'.\app\Lang::tr($error).'</li>';
-			}
-			$field .= '</ul>';
+			$field .= $this->render_errors();
 		}
-		
+
 		return $field;
 	}
-	
+
 	/**
-	 * @return string 
+	 * @return string
 	 */
 	function render()
 	{
 		return \strtr
 			(
-				$this->template, 
+				$this->template,
 				array
 				(
 					':name' => $this->render_name(),
-					':field' => $this->render_field()
+					':field' => $this->render_field(),
+					':errors' => $this->render_errors()
 				)
 			);
 	}
-	
+
 	/**
 	 * [!!] this is a shorhand for render; if possible just use render directly
-	 * 
-	 * @return string 
+	 *
+	 * @return string
 	 */
 	function __toString()
 	{
