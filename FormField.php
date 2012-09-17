@@ -162,7 +162,15 @@ class FormField extends \app\HTMLElement
 		$this->remove_attribute('name');
 		return $this;
 	}
-
+		
+	/**
+	 * @return string id
+	 */
+	function field_id()
+	{
+		return $this->form->form_id().'_'.$this->tabindex;
+	}
+	
 	/**
 	 * @param bool switch
 	 * @return \app\FormField $this
@@ -241,12 +249,13 @@ class FormField extends \app\HTMLElement
 		return $error_render;
 	}
 
+
 	/**
 	 * @return string
 	 */
 	function render_field()
 	{
-		$field = '<'.$this->name.' form="'.$this->form->form_id().'" id="'.$this->form->form_id().'_'.$this->tabindex.'"'.$this->render_attributes().'/>';
+		$field = '<'.$this->name.' form="'.$this->form->form_id().'" id="'.$this->field_id().'"'.$this->render_attributes().'/>';
 
 		if (\strpos($this->template, ':errors') === false)
 		{
