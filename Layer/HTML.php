@@ -539,7 +539,11 @@ class Layer_HTML extends \app\Layer
 	 */
 	function add_script($src)
 	{
-		$this->params['scripts'][] = $src;
+		if ( ! \in_array($src, $this->params['scripts']))
+		{
+			$this->params['scripts'][] = $src;
+		}
+		
 		return $this;
 	}
 
