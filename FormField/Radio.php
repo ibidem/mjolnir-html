@@ -30,6 +30,7 @@ class FormField_Radio extends \app\FormField
 	 */
 	function value($default_value)
 	{
+		$this->value_was_set = true;
 		// default value can only be set once
 		if ($this->default_value === null)
 		{
@@ -54,6 +55,8 @@ class FormField_Radio extends \app\FormField
 	 */
 	function render_field()
 	{
+		$this->resolve_autocomplete();
+		
 		$field = '';
 
 		$field_id = $this->form->form_id().'_'.$this->tabindex;

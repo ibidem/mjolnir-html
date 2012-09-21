@@ -64,6 +64,7 @@ class FormField_Select extends \app\FormField
 	 */
 	function value($id)
 	{
+		$this->value_was_set = true;
 		$this->active = $id;
 		return $this;
 	}
@@ -73,6 +74,7 @@ class FormField_Select extends \app\FormField
 	 */
 	function render_field()
 	{
+		$this->resolve_autocomplete();
 		$field = '<'.$this->name.' form="'.$this->form->form_id().'" id="'.$this->form->form_id().'_'.$this->tabindex.'"'.$this->render_attributes().'>';
 		foreach ($this->values as $title => $key)
 		{

@@ -74,6 +74,8 @@ class FormField_Composite extends \app\FormField
 	 */
 	function render_field()
 	{
+		$this->resolve_autocomplete();
+		
 		if ($this->composite_format === null)
 		{
 			$field = \app\Collection::implode(' ', $this->subfields, function ($i, $field) {
@@ -91,8 +93,6 @@ class FormField_Composite extends \app\FormField
 
 			$field = \strtr($this->composite_format, $field_tr);
 		}
-
-
 
 		if ( ! empty($all_errors))
 		{

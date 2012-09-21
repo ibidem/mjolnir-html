@@ -48,6 +48,11 @@ class FormField extends \app\HTMLElement
 	 * @var string
 	 */
 	protected $help = null;
+	
+	/**
+	 * @var boolean
+	 */
+	protected $value_was_set = false;
 
 	/**
 	 * @var string
@@ -73,11 +78,6 @@ class FormField extends \app\HTMLElement
 
 		$instance->form = $form;
 
-		if ($instance->type !== 'hidden' && $instance->type !== 'password' && ($field_value = $form->field_value($name)) !== null)
-		{
-			$instance->value($field_value);
-		}
-
 		return $instance;
 	}
 
@@ -87,6 +87,7 @@ class FormField extends \app\HTMLElement
 	 */
 	function value($value)
 	{
+		$this->value_was_set = true;
 		$this->attribute('value', $value);
 		return $this;
 	}
@@ -255,6 +256,8 @@ class FormField extends \app\HTMLElement
 	 */
 	function render_field()
 	{
+		$this->resolve_autocomplete();
+		
 		$field = '<'.$this->name.' form="'.$this->form->form_id().'" id="'.$this->field_id().'"'.$this->render_attributes().'/>';
 
 		if (\strpos($this->template, ':errors') === false)
@@ -293,6 +296,18 @@ class FormField extends \app\HTMLElement
 					':help' => $this->render_helptext()
 				)
 			);
+	}
+	
+	/**
+	 * Autocompletes values; the operation is postponed to the last second to allow
+	 * for value customization such as formatting dates etc.
+	 */
+	function resolve_autocomplete()
+	{
+		if ( ! $this->value_was_set && $this->type !== 'hidden' && $this->type !== 'password' && ($field_value = $this->form->field_value($this->get_attribute('name'))) !== null)
+		{
+			$this->value($field_value);
+		}
 	}
 
 	/**

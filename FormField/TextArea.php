@@ -42,6 +42,7 @@ class FormField_TextArea extends \app\FormField
 
 	function value($body = '')
 	{
+		$this->value_was_set = true;
 		return $this->body($body);
 	}
 
@@ -60,6 +61,8 @@ class FormField_TextArea extends \app\FormField
 	 */
 	function render_field()
 	{
+		$this->resolve_autocomplete();
+		
 		$field = '<'.$this->name.' form="'.$this->form->form_id().'" id="'.$this->form->form_id().'_'.$this->tabindex.'"'.$this->render_attributes().'>'
 			. $this->body
 			. '</'.$this->name.'>';
