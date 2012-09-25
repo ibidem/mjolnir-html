@@ -70,10 +70,14 @@ class FormField extends \app\HTMLElement
 		$instance = parent::instance(static::$tag_name);
 		$instance->title = $title;
 		$instance->attribute('name', $name);
+		
 		if ($instance->type)
 		{
 			$instance->attribute('type', $instance->type);
 		}
+		
+		$instance->attribute('autocomplete', 'off');
+		
 		$instance->tabindex = \app\Form::tabindex();
 
 		$instance->form = $form;
