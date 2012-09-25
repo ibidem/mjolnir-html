@@ -266,7 +266,7 @@ class Layer_HTML extends \app\Layer
 		if ( ! empty($this->params['scripts']))
 		{
 			// javascript loader
-			$html_before .= '<script type="text/javascript" src="//'.$mjolnir_base['domain'].$mjolnir_base['path'].'media/static/yepnope.latest-min.js"></script>';
+			$html_before .= '<script type="text/javascript" src="'.\app\CFS::config('mjolnir/html')['js-loader'].'"></script>';
 		}
 
 		$scripts = $this->params['head_scripts'];

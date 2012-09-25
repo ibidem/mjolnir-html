@@ -1,5 +1,10 @@
-<?php return array
+<?php 
+
+	$mjolnir_base = \app\CFS::config('mjolnir/base');
+
+return array
 	(
+		
 		'extra_markup' => [],
 	// general
 		'doctype' => \mjolnir\types\HTML::DOCTYPE,
@@ -31,4 +36,5 @@
 	// etc
 		'humanstxt' => false,
 		'javascript_switch' => true,
+		'js-loader' => '//'.$mjolnir_base['domain'].$mjolnir_base['path'].'media/static/yepnope.latest-min.js',
 	);
