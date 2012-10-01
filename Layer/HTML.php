@@ -97,6 +97,10 @@ class Layer_HTML extends \app\Layer
 		\app\GlobalEvent::listener('webpage:errorview', function ($handler) use ($instance) {
 			$instance->errorview($handler);
 		});
+		
+		\app\GlobalEvent::listener('webpage:body-classes', function ($classes) use ($instance) {
+			$instance->add_body_classes($classes);
+		});
 
 		return $instance;
 	}
@@ -284,7 +288,7 @@ class Layer_HTML extends \app\Layer
 		}
 
 		// close head section
-		$html_before .= '</head><body>';
+		$html_before .= '</head><body class="'.\implode(' ', $this->get('body_classes')).'">';
 		// css switch for more streamline style transitions
 		if ($this->params['javascript_switch'])
 		{
@@ -480,6 +484,19 @@ class Layer_HTML extends \app\Layer
 		foreach ($domains as $domain)
 		{
 			$this->params['prefetch_domains'][] = $domain;
+		}
+
+		return $this;
+	}
+	
+	/**
+	 * @return \mjolnir\base\Layer_HTML $this
+	 */
+	function add_body_classes(array $classes)
+	{
+		foreach ($classes as $class)
+		{
+			$this->params['body_classes'][] = $class;
 		}
 
 		return $this;

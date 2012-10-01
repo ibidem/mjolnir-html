@@ -4,13 +4,13 @@
 
 return array
 	(
-		
 		'extra_markup' => [],
 	// general
 		'doctype' => \mjolnir\types\HTML::DOCTYPE,
 		'appcache' => null,
 		'sitemap' => null,
 		'prefetch_domains' => [],
+		'body_classes' => [],
 		'favicon' => null,
 		'stylesheets' => [],
 		'scripts' => [],
