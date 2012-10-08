@@ -35,7 +35,7 @@ class FormField_Checkbox extends \app\FormField
 	/**
 	 * @return \app\FormField_Checkbox $this
 	 */
-	function value($value)
+	function check_value($value)
 	{
 		if (\is_bool($value))
 		{
