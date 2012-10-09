@@ -59,5 +59,17 @@ class FormField_Checkbox extends \app\FormField
 		
 		return $this;
 	}
+	
+	/**
+	 * Autocompletes values; the operation is postponed to the last second to allow
+	 * for value customization such as formatting dates etc.
+	 */
+	function resolve_autocomplete()
+	{
+		if ( ! $this->value_was_set && ($field_value = $this->form->field_value($this->get_attribute('name'))) !== null)
+		{
+			$this->check_value($field_value);
+		}
+	}
 
 } # class
