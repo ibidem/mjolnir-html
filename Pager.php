@@ -197,6 +197,9 @@ class Pager extends \app\Instantiatable
 		return $this;
 	}
 	
+	/**
+	 * @return \app\Pager $this
+	 */
 	function querie(array $querie)
 	{
 		if (isset($querie['page']))
