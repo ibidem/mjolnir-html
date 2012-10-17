@@ -22,21 +22,25 @@ class FormField_Select extends \app\FormField
 	/**
 	 * @var array
 	 */
-	protected $values = array();
+	protected $values = [];
 
+	/**
+	 * @var array
+	 */
+	protected $optgroups = [];
+	
 	/**
 	 * @var string
 	 */
 	protected $active;
 
 	/**
-	 * @param array values
-	 * @return \mjolnir\base\FormField_Select $this
+	 * @return \app\FormField_Select $this
 	 */
 	function values(array $values = null, $key = null, $valueKey = null)
-	{
+	{		
 		if ($values === null) {
-			$this->values = array();
+			$this->values = [];
 			return $this;
 		}
 
@@ -57,15 +61,32 @@ class FormField_Select extends \app\FormField
 
 		return $this;
 	}
+	
+	/**
+	 * @return \app\FormField_Select
+	 */
+	function optgroups(array $optgroups = null)
+	{	
+		if ($optgroups === null)
+		{
+			$this->optgroups = [];
+		}
+		else # optgroup not null
+		{
+			$this->optgroups = $optgroups;
+		}
+		
+		return $this;
+	}
 
 	/**
-	 * @param string id
-	 * @return \mjolnir\base\FormField_Select $this
+	 * @return \app\FormField_Select $this
 	 */
 	function value($id)
 	{
 		$this->value_was_set = true;
 		$this->active = $id;
+		
 		return $this;
 	}
 
@@ -76,17 +97,38 @@ class FormField_Select extends \app\FormField
 	{
 		$this->resolve_autocomplete();
 		$field = '<'.$this->name.' form="'.$this->form->form_id().'" id="'.$this->form->form_id().'_'.$this->tabindex.'"'.$this->render_attributes().'>';
+		
 		foreach ($this->values as $title => $key)
 		{
 			if ($key == $this->active)
 			{
 				$field .= '<option value="'.$key.'" selected="selected">'.$title.'</option>';
 			}
-			else
+			else # non-active
 			{
 				$field .= '<option value="'.$key.'">'.$title.'</option>';
 			}
+		}		
+		
+		foreach ($this->optgroups as $optgroup => $options)
+		{
+			$field .= '<optgroup label="'.$optgroup.'">';
+			
+			foreach ($options as $title => $key)
+			{
+				if ($key == $this->active)
+				{
+					$field .= '<option value="'.$key.'" selected="selected">'.$title.'</option>';
+				}
+				else # non-active
+				{
+					$field .= '<option value="'.$key.'">'.$title.'</option>';
+				}
+			}
+			
+			$field .= '</optgroup>';
 		}
+		
 		$field .= '</'.$this->name.'>';
 
 		if (\strpos($this->template, ':errors') === false)
