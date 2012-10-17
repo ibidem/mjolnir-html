@@ -58,6 +58,11 @@ class FormField extends \app\HTMLElement
 	 * @var string
 	 */
 	protected $error_printer_handler = null;
+	
+	/**
+	 * @var string
+	 */
+	protected $show_errors = true;
 
 	/**
 	 * @param string title
@@ -93,6 +98,16 @@ class FormField extends \app\HTMLElement
 	{
 		$this->value_was_set = true;
 		$this->attribute('value', $value);
+		return $this;
+	}
+	
+	/**
+	 * @return \app\FormField $this
+	 */
+	function show_errors($show_errors = true)
+	{
+		$this->show_errors = $show_errors;
+		
 		return $this;
 	}
 
@@ -221,6 +236,11 @@ class FormField extends \app\HTMLElement
 	 */
 	function print_errors($errors)
 	{
+		if ( ! $this->show_errors)
+		{
+			return '';
+		}
+			
 		if ($this->error_printer_handler === null)
 		{
 			$error_render = '<ul class="errors">';
@@ -264,7 +284,7 @@ class FormField extends \app\HTMLElement
 		
 		$field = '<'.$this->name.' form="'.$this->form->form_id().'" id="'.$this->field_id().'"'.$this->render_attributes().'/>';
 
-		if (\strpos($this->template, ':errors') === false)
+		if (\strpos($this->template, ':errors') === false && $this->show_errors)
 		{
 			$field .= $this->render_errors();
 		}
