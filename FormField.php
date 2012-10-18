@@ -235,7 +235,7 @@ class FormField extends \app\HTMLElement
 	 * @return string
 	 */
 	function print_errors($errors)
-	{
+	{		
 		if ( ! $this->show_errors)
 		{
 			return '';

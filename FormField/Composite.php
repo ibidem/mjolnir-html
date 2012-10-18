@@ -48,28 +48,24 @@ class FormField_Composite extends \app\FormField
 	 */
 	function render_errors()
 	{
-		static $error_render = null;
+		$error_render = '';
 
-		if ($error_render === null)
+		$all_errors = [];
+
+		foreach ($this->subfields as $subfield)
 		{
-			$error_render = '';
-
-			$all_errors = [];
-			foreach ($this->subfields as $subfield)
+			if ($errors = $this->form->errors_for($subfield->get_attribute('name')))
 			{
-				if ($errors = $this->form->errors_for($subfield->get_attribute('name')))
+				foreach ($errors as $error)
 				{
-					foreach ($errors as $error)
-					{
-						$all_errors[] = $error;
-					}
+					$all_errors[] = $error;
 				}
 			}
+		}
 
-			if ($all_errors)
-			{
-				$error_render = $this->print_errors($errors);
-			}
+		if ($all_errors)
+		{
+			$error_render = $this->print_errors($errors);
 		}
 
 		return $error_render;
