@@ -427,6 +427,7 @@ class Layer_HTML extends \app\Layer
 		}
 		else # other type
 		{
+			$this->crawlers(false);
 			if ($this->errorview !== null && ($content = $this->errorview->errorpage($exception)) !== null)
 			{
 				$this->contents
