@@ -8,17 +8,17 @@
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class Pager extends \app\Instantiatable
-	implements 
-		\mjolnir\types\Renderable, 
+	implements
+		\mjolnir\types\Renderable,
 		\mjolnir\types\FileBased,
 		\mjolnir\types\Standardized,
 		\mjolnir\types\Pager
 {
 	/**
-	 * @var array 
+	 * @var array
 	 */
 	protected $options = array
-		(	
+		(
 			'currentpage' => null,  # selected page
 			'has_ruler'   => null,  # show ruler on pager
 			'order'       => \mjolnir\types\Pager::ascending,
@@ -32,36 +32,36 @@ class Pager extends \app\Instantiatable
 					'page_x' => 'Entry :number.',
 					'page_x_bookmarked' => 'Entry :number. Bookmarked.',
 				),
-		
+
 			'bookmark' => array
 				(
 					'anchor' => null,
 					'page'   => 0,
 					'entry'  => 0,
 				),
-		
+
 			'buttons' => array
 				(
 					'next' => 'Next',
 					'prev' => 'Previous'
 				),
-		
+
 			// computed
 			'pagecount' => 0,
 			'startpoint' => 0,
 			'endpoint' => 0,
 			'startellipsis' => 0,
 			'endellipsis' => 0,
-		
+
 			'show_jumpto' => true,
 			'show_pageindex' => true,
 		);
-	
+
 	/**
 	 * @param integer totalitems
 	 * @param integer url_base
 	 * @param integer pagerdiff
-	 * @param integer pagelimit 
+	 * @param integer pagelimit
 	 * @return \app\Pager instance
 	 */
 	static function instance($totalitems = 0, $url_base = '', $pagediff = 3, $pagelimit = 20)
@@ -71,10 +71,10 @@ class Pager extends \app\Instantiatable
 		$instance->options['url_base'] = $url_base;
 		$instance->options['pagediff'] = $pagediff;
 		$instance->options['pagelimit'] = $pagelimit;
-		
+
 		return $instance;
 	}
-	
+
 	/**
 	 * @param boolean settings
 	 * @return \app\Pager $this
@@ -84,7 +84,7 @@ class Pager extends \app\Instantiatable
 		$this->options['show_jumpto'] = $setting;
 		return $this;
 	}
-	
+
 	/**
 	 * @param boolean settings
 	 * @return \app\Pager $this
@@ -94,9 +94,9 @@ class Pager extends \app\Instantiatable
 		$this->options['show_pageindex'] = $settings;
 		return $this;
 	}
-	
+
 	/**
-	 * @param array buttons 
+	 * @param array buttons
 	 * @return \app\Pager $this
 	 */
 	function buttons(array $buttons)
@@ -105,34 +105,34 @@ class Pager extends \app\Instantiatable
 		{
 			$this->options['buttons'][$button] = $text;
 		}
-		
+
 		return $this;
 	}
-		
+
 	/**
 	 * @param integer page
-	 * @return \app\Pager $this 
+	 * @return \app\Pager $this
 	 */
 	function currentpage($page)
 	{
 		$this->options['currentpage'] = $page;
 		return $this;
 	}
-	
+
 	/**
 	 * @param integer page
-	 * @return \app\Pager $this 
+	 * @return \app\Pager $this
 	 */
 	function bookmark($page)
 	{
 		$this->options['bookmark']['entry'] = $page;
 		return $this;
 	}
-	
+
 	/**
 	 * Generic anchor; for example, in the case of html this will result in
 	 * a '#'.$anchor in the url; other systems might behave differently.
-	 * 
+	 *
 	 * @param string anchor
 	 * @return \mjolnir\types\Pager $this
 	 */
@@ -141,7 +141,7 @@ class Pager extends \app\Instantiatable
 		$this->options['bookmark']['anchor'] = $anchor;
 		return $this;
 	}
-	
+
 	/**
 	 * @param string plural version
 	 * @param string singular version; assumed plural if not specified
@@ -153,7 +153,7 @@ class Pager extends \app\Instantiatable
 		{
 			$this->options['lang'][$key] = $lang;
 		}
-		
+
 		return $this;
 	}
 
@@ -163,10 +163,10 @@ class Pager extends \app\Instantiatable
 	function page_query($page_query)
 	{
 		$this->page_query = $page_query;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * @param string order
 	 * @return \mjolnir\types\Pager $this
@@ -176,7 +176,7 @@ class Pager extends \app\Instantiatable
 		$this->options['order'] = $order;
 		return $this;
 	}
-	
+
 	/**
 	 * @param integer total items
 	 * @return \app\Pager $this
@@ -185,8 +185,8 @@ class Pager extends \app\Instantiatable
 	{
 		$this->options['totalitems'] = $totalitems;
 		return $this;
-	}		
-	
+	}
+
 	/**
 	 * @param string base_url
 	 * @return \app\Pager $this
@@ -196,7 +196,7 @@ class Pager extends \app\Instantiatable
 		$this->options['url_base'] = $url_base;
 		return $this;
 	}
-	
+
 	/**
 	 * @return \app\Pager $this
 	 */
@@ -206,25 +206,25 @@ class Pager extends \app\Instantiatable
 		{
 			unset($querie['page']);
 		}
-		
+
 		if ( ! empty($querie))
 		{
 			$this->options['querie'] .= \http_build_query($querie, '', '&amp;').'&amp;';
 		}
-		
+
 		return $this;
 	}
 
 	/**
 	 * @param integer pagediff
-	 * @return \app\Pager $this 
+	 * @return \app\Pager $this
 	 */
 	function pagediff($pagediff)
 	{
 		$this->options['pagediff'] = $pagediff;
 		return $this;
 	}
-	
+
 	/**
 	 * @param integer pagelimit
 	 * @return \app\Pager $this
@@ -234,17 +234,17 @@ class Pager extends \app\Instantiatable
 		$this->options['pagelimit'] = $pagelimit;
 		return $this;
 	}
-	
+
 	/**
-	 * @return int 
+	 * @return int
 	 */
 	function page_count()
 	{
 		return \ceil($this->options['totalitems'] / $this->options['pagelimit']);
 	}
-	
+
 	/**
-	 * Setup pager 
+	 * Setup pager
 	 */
 	private function setup()
 	{
@@ -254,46 +254,46 @@ class Pager extends \app\Instantiatable
 			$pager_config = \app\CFS::config('mjolnir/pager');
 			$this->file($pager_config['view.default']);
 		}
-		
+
 		// extract options to work in context
 		\extract($this->options, EXTR_REFS);
-		
+
 		// is the ruler showed?
 		$has_ruler !== null or $has_ruler = ! empty($currentpage);
-	
+
 		// calculate page count
 		$pagecount = \ceil($totalitems / $pagelimit);
-		
+
 		// do we have a bookmark?
 		if ($bookmark['entry'] != 0)
 		{
 			$bookmark['page'] = \ceil($bookmark['entry'] / $pagelimit);
 		}
-		
+
 		$startpoint = ($pagecount < $pagediff ? $pagecount : $pagediff);
 		$endpoint = ($pagecount - $pagediff + 1 < 1 ? 1 : $pagecount - $pagediff + 1);
-		
+
 		$startellipsis = $startpoint;
 		$endellipsis = $endpoint;
-		
+
 		if ($endellipsis == $bookmark['page'])
 		{
 			$endellipsis -= 1;
 		}
-		
+
 		if ($startpoint >= $currentpage - $pagediff)
 		{
 			$startpoint = $pagediff * 3 + 1 - 3;
 			$startellipsis = 0;
 		}
-		
+
 		if ($endpoint <= $currentpage + $pagediff)
 		{
 			$endpoint = $pagecount - ($pagediff * 3 - 3);
 			$endellipsis = 0;
 		}
 	}
-	
+
 	/**
 	 * Renders standardized pager. Twitter Bootstrap friendly. :)
 	 */
@@ -303,19 +303,19 @@ class Pager extends \app\Instantiatable
 		$this->file($pager_config['view.standards'][$standard]);
 		return $this;
 	}
-	
+
 	/**
 	 * @return string
 	 */
 	function render()
-	{		
+	{
 		// setup pager
 		$this->setup();
-		
+
 		// extract view paramters into current scope as references to paramter
 		// array in the view itself, skipping over already defined variables
 		\extract($this->options, EXTR_REFS);
-		
+
 		// start capture
 		\ob_start();
 		try
@@ -333,34 +333,34 @@ class Pager extends \app\Instantiatable
 		// success
 		return \ob_get_clean();
 	}
-	
+
 	/**
 	 * @deprecated use render always; so exceptions will work properly
 	 */
 	final function __toString()
 	{
-		// pagers may contain logic, by allowing __toString not only does 
+		// pagers may contain logic, by allowing __toString not only does
 		// Exception handling become unnecesarily complicated because of how
 		// this special method can't throw exceptions, it also ruins the entire
-		// stack by throwing the exception in a completely undefined manner, 
+		// stack by throwing the exception in a completely undefined manner,
 		// ie. whenever it decides to convert to a string. It's not worth it.
 		\app\Layer::get_top()->exception
 			(
-				new \app\Exception_NotApplicable
+				new \app\Exception
 					('Casting to string not allowed for Pagers.'),
 				true # no throw
 			);
 	}
-	
+
 # FileBased trait
-	
+
 	/**
 	 * @var string view file
 	 */
 	protected $file;
-		
+
 	/**
-	 * @param string file 
+	 * @param string file
 	 * @return \mjolnir\base\View $this
 	 */
 	function file($file)
@@ -376,10 +376,10 @@ class Pager extends \app\Instantiatable
 		{
 			$this->file = $file_path;
 		}
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * @param string explicit file path
 	 * @return \mjolnir\base\View $this
@@ -392,10 +392,10 @@ class Pager extends \app\Instantiatable
 			throw new \app\Exception_NotFound
 				("Required file [$file] not found.");
 		}
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * @return string file path
 	 */
@@ -403,7 +403,7 @@ class Pager extends \app\Instantiatable
 	{
 		return $this->file;
 	}
-	
+
 # /FileBased trait
 
 } # class

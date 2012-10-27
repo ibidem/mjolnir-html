@@ -97,7 +97,7 @@ class Layer_HTML extends \app\Layer
 		\app\GlobalEvent::listener('webpage:errorview', function ($handler) use ($instance) {
 			$instance->errorview($handler);
 		});
-		
+
 		\app\GlobalEvent::listener('webpage:body-classes', function ($classes) use ($instance) {
 			$instance->add_body_classes($classes);
 		});
@@ -489,7 +489,7 @@ class Layer_HTML extends \app\Layer
 
 		return $this;
 	}
-	
+
 	/**
 	 * @return \mjolnir\base\Layer_HTML $this
 	 */
@@ -561,7 +561,7 @@ class Layer_HTML extends \app\Layer
 		{
 			$this->params['scripts'][] = $src;
 		}
-		
+
 		return $this;
 	}
 
@@ -709,7 +709,7 @@ class Layer_HTML extends \app\Layer
 	{
 		if ($this->layer !== null)
 		{
-			throw new \app\Exception_NotApplicable
+			throw new \app\Exception
 				("Can't have both a body and contents.");
 		}
 
