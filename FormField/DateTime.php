@@ -51,7 +51,7 @@ class FormField_DateTime extends \app\FormField_Text
 		$this->value_was_set = true;
 		if (\is_string($value))
 		{
-			
+
 			if ($this->datetime_format === null)
 			{
 				$this->attribute('value', $value);
@@ -69,7 +69,7 @@ class FormField_DateTime extends \app\FormField_Text
 				}
 			}
 		}
-		else if (is_a($value, '\DateTime'))
+		else if (\is_a($value, '\DateTime'))
 		{
 			$this->attribute('value', $value->format($this->get_datetime_format()));
 		}
