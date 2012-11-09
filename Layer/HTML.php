@@ -145,7 +145,15 @@ class Layer_HTML extends \app\Layer
 		// standard favicon path
 		if ($this->params['favicon'] === null)
 		{
-			$html_before .= '<link rel="shortcut icon" href="//'.$mjolnir_base['domain'].$mjolnir_base['path'].'favicon.ico" type="image/x-icon">';
+			// check for png version
+			if (\defined('PUBDIR') && \file_exists(PUBDIR.'favicon.png'))
+			{
+				$html_before .= '<link rel="shortcut icon" href="//'.$mjolnir_base['domain'].$mjolnir_base['path'].'favicon.png" type="image/png">';
+			}
+			else # 
+			{
+				$html_before .= '<link rel="shortcut icon" href="//'.$mjolnir_base['domain'].$mjolnir_base['path'].'favicon.ico" type="image/x-icon">';
+			}
 		}
 		else # predefined path
 		{
