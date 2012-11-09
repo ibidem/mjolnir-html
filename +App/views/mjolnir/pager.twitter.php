@@ -61,16 +61,16 @@
 						$number = ($pagecount - $i + 1) * $pagelimit > $totalitems ? $totalitems : ($pagecount - $i + 1) * $pagelimit;
 						$number_end = ($pagecount - $i + 1) * $pagelimit - $pagelimit + 1;
 					endif;
-					$title = Lang::tr($lang['entries_to_entries']);
+					$title = $lang['entries_to_entries'];
 					if ($i == $bookmark['page']):
-						$title .= ' '.Lang::tr($lang['bookmark_at_entry']);
+						$title .= ' '.$lang['bookmark_at_entry'];
 					endif;
 				else: # single entry pages
 					$number = $i;
 					if ($i == $bookmark['page']):
-						$title = Lang::tr($lang['page_x_bookmarked']);
+						$title = $lang['page_x_bookmarked'];
 					else:
-						$title = Lang::tr($lang['page_x']);
+						$title = $lang['page_x'];
 					endif;
 				endif;
 
