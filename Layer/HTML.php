@@ -618,6 +618,15 @@ class Layer_HTML extends \app\Layer
 
 		return $this;
 	}
+        
+        /**
+	 * @param string facebook meta tags
+	 * @return \mjolnir\base\Layer_HTML $this
+	 */
+	function facebookmetas($facebookmetas = null)
+	{
+		return $this->set('facebookmetas', $facebookmetas);
+	}
 
 	/**
 	 * @param string canonical url
