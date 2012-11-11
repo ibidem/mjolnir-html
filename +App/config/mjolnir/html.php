@@ -22,6 +22,8 @@ return array
 		'keywords' => [],
 		'generator' => null,
 		'author' => null,
+        // social
+                'facebookmetas' => null,
 	// crawlers
 		'canonical' => null,
 		'crawlers' => true, # allow
