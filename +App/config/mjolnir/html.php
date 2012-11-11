@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 	$mjolnir_base = \app\CFS::config('mjolnir/base');
 
@@ -22,8 +22,8 @@ return array
 		'keywords' => [],
 		'generator' => null,
 		'author' => null,
-        // social
-                'facebookmetas' => null,
+	// social networks
+		'facebookmetas' => null,
 	// crawlers
 		'canonical' => null,
 		'crawlers' => true, # allow

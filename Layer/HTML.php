@@ -49,8 +49,8 @@ class Layer_HTML extends \app\Layer
 		\app\GlobalEvent::listener('webpage:keywords', function (array $keywords) use ($instance) {
 			$instance->keywords($keywords);
 		});
-                
-                \app\GlobalEvent::listener('webpage:facebookmetas', function ($facebookmetas) use ($instance) {
+
+		\app\GlobalEvent::listener('webpage:facebookmetas', function ($facebookmetas) use ($instance) {
 			$instance->facebookmetas($facebookmetas);
 		});
 
@@ -154,7 +154,7 @@ class Layer_HTML extends \app\Layer
 			{
 				$html_before .= '<link rel="shortcut icon" href="//'.$mjolnir_base['domain'].$mjolnir_base['path'].'favicon.png" type="image/png">';
 			}
-			else # 
+			else #
 			{
 				$html_before .= '<link rel="shortcut icon" href="//'.$mjolnir_base['domain'].$mjolnir_base['path'].'favicon.ico" type="image/x-icon">';
 			}
@@ -174,15 +174,14 @@ class Layer_HTML extends \app\Layer
 		}
 		// kill IE6's pop-up-on-mouseover toolbar for images
 		$html_before .= '<meta http-equiv="imagetoolbar" content="no">';
-                
-                # --- Relevant to the social experience ------------------------------ #
-                
-                //facebook og metas
-                if ($this->params['facebookmetas'] !== null)
+
+		# --- Relevant to the social networks -------------------------------- #
+
+		// facebook og metas
+		if ($this->params['facebookmetas'] !== null)
 		{
 			$html_before .= $this->params['facebookmetas'];
 		}
-
 
 		# --- Relevant to search engine results ------------------------------ #
 
@@ -618,8 +617,8 @@ class Layer_HTML extends \app\Layer
 
 		return $this;
 	}
-        
-        /**
+
+	/**
 	 * @param string facebook meta tags
 	 * @return \mjolnir\base\Layer_HTML $this
 	 */
