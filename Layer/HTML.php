@@ -170,6 +170,15 @@ class Layer_HTML extends \app\Layer
 		}
 		// kill IE6's pop-up-on-mouseover toolbar for images
 		$html_before .= '<meta http-equiv="imagetoolbar" content="no">';
+                
+                # --- Relevant to the social experience ------------------------------ #
+                
+                //facebook og metas
+                if ($this->params['facebook_metas'] !== null)
+		{
+			$html_before .= $this->params['facebook_metas'];
+		}
+
 
 		# --- Relevant to search engine results ------------------------------ #
 
