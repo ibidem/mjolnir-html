@@ -49,6 +49,10 @@ class Layer_HTML extends \app\Layer
 		\app\GlobalEvent::listener('webpage:keywords', function (array $keywords) use ($instance) {
 			$instance->keywords($keywords);
 		});
+                
+                \app\GlobalEvent::listener('webpage:facebookmetas', function ($facebookmetas) use ($instance) {
+			$instance->facebookmetas($facebookmetas);
+		});
 
 		\app\GlobalEvent::listener('webpage:script', function ($src) use ($instance) {
 			$instance->add_script($src);
@@ -174,9 +178,9 @@ class Layer_HTML extends \app\Layer
                 # --- Relevant to the social experience ------------------------------ #
                 
                 //facebook og metas
-                if ($this->params['facebook_metas'] !== null)
+                if ($this->params['facebookmetas'] !== null)
 		{
-			$html_before .= $this->params['facebook_metas'];
+			$html_before .= $this->params['facebookmetas'];
 		}
 
 
