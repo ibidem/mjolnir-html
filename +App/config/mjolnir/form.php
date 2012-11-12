@@ -4,10 +4,12 @@
 			(
 				'twitter' => function ($form)
 					{
-						$form->field_template
-							(
-								'<div class="control-group"><span class="control-label">:name</span><div class="controls">:field</div></div>'
-							);
+						$form
+							->field_template
+								(
+									'<div class="control-group"><span class="control-label">:name</span><div class="controls">:field <br> :help</div></div>'
+								)
+							->field_helptemplate('<span class="help-block"><span class="muted">:help</span></span>');
 					},
 				'twitter.general' => function ($form)
 					{
