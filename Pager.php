@@ -369,7 +369,7 @@ class Pager extends \app\Instantiatable
 		// found file?
 		if ($file_path === null)
 		{
-			throw new \app\Exception_NotFound
+			throw new \app\Exception
 				("Required file [$file] not found.");
 		}
 		else # found file
@@ -389,7 +389,7 @@ class Pager extends \app\Instantiatable
 		$this->file = \realpath($file);
 		if ($file !== null && ! \file_exists($this->file))
 		{
-			throw new \app\Exception_NotFound
+			throw new \app\Exception
 				("Required file [$file] not found.");
 		}
 
