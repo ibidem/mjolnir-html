@@ -63,7 +63,7 @@ class FormField_TextArea extends \app\FormField
 	{
 		$this->resolve_autocomplete();
 		
-		$field = '<'.$this->name.' form="'.$this->form->form_id().'" id="'.$this->form->form_id().'_'.$this->tabindex.'"'.$this->render_attributes().'>'
+		$field = '<'.$this->name.' '.$this->form->sign().' id="'.$this->form->form_id().'_'.$this->tabindex.'"'.$this->render_attributes().'>'
 			. $this->body
 			. '</'.$this->name.'>';
 

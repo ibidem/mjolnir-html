@@ -63,7 +63,7 @@ class FormField_Radio extends \app\FormField
 
 		foreach ($this->values as $value => $title)
 		{
-			$field .= ' <label for="'.$field_id.'_'.$value.'"><span class="label-title">'.$title.'</span> <'.$this->name.' form="'.$this->form->form_id().'" id="'.$field_id.'_'.$value.'"'.$this->render_attributes().($this->default_value === $value ? ' checked="checked"' : '').' value="'.$value.'"/></label>';
+			$field .= ' <label for="'.$field_id.'_'.$value.'"><span class="label-title">'.$title.'</span> <'.$this->name.' '.$this->form->sign().' id="'.$field_id.'_'.$value.'"'.$this->render_attributes().($this->default_value === $value ? ' checked="checked"' : '').' value="'.$value.'"/></label>';
 		}
 
 		return $field;

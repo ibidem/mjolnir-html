@@ -96,14 +96,6 @@ class FormField_Composite extends \app\FormField
 			$field = \strtr($this->composite_format, $field_tr);
 		}
 
-//		if ( ! empty($all_errors))
-//		{
-//			if (\strpos($this->template, ':errors') === false)
-//			{
-//				$field .= $this->render_errors();
-//			}
-//		}
-
 		return $field;
 	}
 

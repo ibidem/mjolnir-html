@@ -282,7 +282,7 @@ class FormField extends \app\HTMLElement
 	{
 		$this->resolve_autocomplete();
 		
-		$field = '<'.$this->name.' form="'.$this->form->form_id().'" id="'.$this->field_id().'"'.$this->render_attributes().'/>';
+		$field = '<'.$this->name.' '.$this->form->sign().' id="'.$this->field_id().'"'.$this->render_attributes().'/>';
 
 		if (\strpos($this->template, ':errors') === false && $this->show_errors)
 		{
@@ -328,7 +328,7 @@ class FormField extends \app\HTMLElement
 	 */
 	function resolve_autocomplete()
 	{
-		if ( ! $this->value_was_set && $this->type !== 'hidden' && $this->type !== 'password' && ($field_value = $this->form->field_value($this->get_attribute('name'))) !== null)
+		if ($this->type !== 'hidden' && $this->type !== 'password' && ($field_value = $this->form->field_value($this->get_attribute('name'))) !== null)
 		{
 			$this->value($field_value);
 		}
