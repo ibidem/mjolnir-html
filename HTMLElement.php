@@ -164,6 +164,7 @@ class HTMLElement extends \app\Instantiatable
 		}
 		catch (\Exception $e)
 		{
+			\mjolnir\log_exception($e);
 			if (\app\CFS::config('mjolnir/base')['development'])
 			{
 				return '[ERROR: '.$e->getMessage().']';

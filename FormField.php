@@ -244,9 +244,12 @@ class FormField extends \app\HTMLElement
 		if ($this->error_printer_handler === null)
 		{
 			$error_render = '<ul class="errors">';
-			foreach ($errors as $error)
+			if ($errors !== null)
 			{
-				$error_render .= '<li>'.\app\Lang::tr($error).'</li>';
+				foreach ($errors as $error)
+				{
+					$error_render .= '<li>'.\app\Lang::tr($error).'</li>';
+				}
 			}
 			$error_render .= '</ul>';
 
@@ -347,6 +350,7 @@ class FormField extends \app\HTMLElement
 		}
 		catch (\Exception $e)
 		{
+			\mjolnir\log_exception($e);
 			if (\app\CFS::config('mjolnir/base')['development'])
 			{
 				return '[ERROR: '.$e->getMessage().']';
