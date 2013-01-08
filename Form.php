@@ -563,17 +563,20 @@ class Form extends \app\HTMLBlockElement
 			->helptemplate($this->get_field_helptemplate('datetime'))
 			->error_printer($this->get_field_error_printer('datetime'));
 	}
-
+	
 	/**
 	 * @param string title
 	 * @param string name
-	 * @return \app\FormField_DateTime
+	 * @return \app\FormField_Date
 	 */
 	function date($title, $name)
 	{
-		$this->datetime();
+		return \app\FormField_Date::instance($title, $name, $this)
+			->template($this->get_field_template('date'))
+			->helptemplate($this->get_field_helptemplate('date'))
+			->error_printer($this->get_field_error_printer('date'));
 	}
-
+	
 	/**
 	 * @param string title
 	 * @param string name
