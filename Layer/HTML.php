@@ -105,6 +105,10 @@ class Layer_HTML extends \app\Layer
 		\app\GlobalEvent::listener('webpage:body-classes', function ($classes) use ($instance) {
 			$instance->add_body_classes($classes);
 		});
+		
+		\app\GlobalEvent::listener('webpage:forcedunload', function ($value) use ($instance) {
+			$instance->forcedunload($value);
+		});
 
 		return $instance;
 	}
@@ -308,7 +312,7 @@ class Layer_HTML extends \app\Layer
 		}
 
 		// close head section
-		$html_before .= '</head><body class="'.\implode(' ', $this->get('body_classes')).'">';
+		$html_before .= '</head><body '.($this->params['forcedunload'] ? 'onunload="" ' : '').' class="'.\implode(' ', $this->get('body_classes')).'">';
 		// css switch for more streamline style transitions
 		if ($this->params['javascript_switch'])
 		{
@@ -463,6 +467,11 @@ class Layer_HTML extends \app\Layer
 		parent::exception($exception, $no_throw);
 	}
 
+	function forcedunload($value)
+	{
+		return $this->set('forcedunload', $value);
+	}
+	
 	/**
 	 * Sets the doctype. See: \mjolnir\types\HTML for constants.
 	 *
