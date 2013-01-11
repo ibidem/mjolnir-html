@@ -6,6 +6,7 @@ return array
 	(
 		'extra_markup' => [],
 	// general
+		'forcedunload' => false,
 		'doctype' => \mjolnir\types\HTML::DOCTYPE,
 		'appcache' => null,
 		'sitemap' => null,
