@@ -2,7 +2,7 @@
 
 /**
  * @package    mjolnir
- * @category   Base
+ * @category   Html
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
@@ -56,7 +56,7 @@ class FormField_Radio extends \app\FormField
 	function render_field()
 	{
 		$this->resolve_autocomplete();
-		
+
 		$field = '';
 
 		$field_id = $this->form->form_id().'_'.$this->tabindex;

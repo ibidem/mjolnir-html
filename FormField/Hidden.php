@@ -2,7 +2,7 @@
 
 /**
  * @package    mjolnir
- * @category   Base
+ * @category   Html
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
@@ -15,8 +15,6 @@ class FormField_Hidden extends \app\FormField
 	protected $type = 'hidden';
 
 	/**
-	 * @param string name
-	 * @param \mjolnir\types\Form form
 	 * @return \mjolnir\base\FormField_Hidden
 	 */
 	static function instance($name = null, \mjolnir\types\Form $form = null)
@@ -24,6 +22,9 @@ class FormField_Hidden extends \app\FormField
 		return parent::instance(null, $name, $form);
 	}
 
+	/**
+	 * @return string
+	 */
 	function render_field()
 	{
 		$this->remove_attribute('tabindex');

@@ -6,7 +6,7 @@ return array
 	(
 		'extra_markup' => [],
 	// general
-		'doctype' => \mjolnir\types\HTML::DOCTYPE,
+		'doctype' => '<!DOCTYPE html>',
 		'appcache' => null,
 		'sitemap' => null,
 		'prefetch_domains' => [],

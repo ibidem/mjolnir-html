@@ -2,7 +2,7 @@
 
 /**
  * @package    mjolnir
- * @category   FormField
+ * @category   Html
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
@@ -10,15 +10,15 @@
 class FormField_DateTime extends \app\FormField_Text
 {
 	/**
-	 * @var string 
+	 * @var string
 	 */
 	protected $type = 'datetime';
-	
+
 	/**
 	 * @var string
 	 */
 	protected $datetime_format = null;
-	
+
 	/**
 	 * @return \app\FormField_DateTime $this
 	 */
@@ -27,7 +27,7 @@ class FormField_DateTime extends \app\FormField_Text
 		$this->datetime_format = $format;
 		return $this;
 	}
-	
+
 	/**
 	 * @return string
 	 */
@@ -42,7 +42,7 @@ class FormField_DateTime extends \app\FormField_Text
 			return $this->datetime_format;
 		}
 	}
-	
+
 	/**
 	 * @return \app\FormField_DateTime $this
 	 */
@@ -92,7 +92,7 @@ class FormField_DateTime extends \app\FormField_Text
 				}
 			}
 		}
-		
+
 		return $this;
 	}
 

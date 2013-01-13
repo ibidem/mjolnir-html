@@ -2,7 +2,7 @@
 
 /**
  * @package    mjolnir
- * @category   FormField
+ * @category   Html
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
@@ -28,9 +28,9 @@ class FormField_Composite extends \app\FormField
 		{
 			$field->show_errors(false);
 		}
-		
+
 		$this->subfields = $subfields;
-		
+
 		return $this;
 	}
 
@@ -77,10 +77,10 @@ class FormField_Composite extends \app\FormField
 	function render_field()
 	{
 		$this->resolve_autocomplete();
-		
+
 		if ($this->composite_format === null)
 		{
-			$field = \app\Collection::implode(' ', $this->subfields, function ($i, $field) {
+			$field = \app\Arr::implode(' ', $this->subfields, function ($i, $field) {
 				return $field->render_field();
 			});
 		}

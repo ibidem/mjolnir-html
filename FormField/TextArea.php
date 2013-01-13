@@ -2,7 +2,7 @@
 
 /**
  * @package    mjolnir
- * @category   Base
+ * @category   Html
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
@@ -28,7 +28,7 @@ class FormField_TextArea extends \app\FormField
 	 * @param string title
 	 * @param string name
 	 * @param \mjolnir\types\Form form
-	 * @return \mjolnir\base\FormField_TextArea instance
+	 * @return \mjolnir\base\FormField_TextArea
 	 */
 	static function instance($title = null, $name = null, \mjolnir\types\Form $form = null)
 	{
@@ -40,6 +40,9 @@ class FormField_TextArea extends \app\FormField
 		return $instance;
 	}
 
+	/**
+	 * @return \mjolnir\base\FormField_TextArea $this
+	 */
 	function value($body = '')
 	{
 		$this->value_was_set = true;
@@ -47,7 +50,6 @@ class FormField_TextArea extends \app\FormField
 	}
 
 	/**
-	 * @param string body
 	 * @return \mjolnir\base\HTMLBlockElement
 	 */
 	function body($body = '')
@@ -62,7 +64,7 @@ class FormField_TextArea extends \app\FormField
 	function render_field()
 	{
 		$this->resolve_autocomplete();
-		
+
 		$field = '<'.$this->name.' '.$this->form->sign().' id="'.$this->form->form_id().'_'.$this->tabindex.'"'.$this->render_attributes().'>'
 			. $this->body
 			. '</'.$this->name.'>';

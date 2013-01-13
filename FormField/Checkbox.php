@@ -2,7 +2,7 @@
 
 /**
  * @package    mjolnir
- * @category   Base
+ * @category   Html
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
@@ -10,12 +10,11 @@
 class FormField_Checkbox extends \app\FormField
 {
 	/**
-	 * @var string 
+	 * @var string
 	 */
 	protected $type = 'checkbox';
-	
+
 	/**
-	 * @param bool checked
 	 * @return \mjolnir\base\FormField_Checkbox $this
 	 */
 	function checked($checked = true)
@@ -28,10 +27,10 @@ class FormField_Checkbox extends \app\FormField
 		{
 			$this->remove_attribute('checked');
 		}
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * @return \app\FormField_Checkbox $this
 	 */
@@ -51,15 +50,15 @@ class FormField_Checkbox extends \app\FormField
 		}
 		else # unknown
 		{
-			// checkboxes are usually in very critical places; we don't want any 
+			// checkboxes are usually in very critical places; we don't want any
 			// ambigous handling that can totally fuck up in a spectacular way
 			// such as show "no access" instead of "allowed" in a ACL
 			throw new \app\Exception('Value can not be interpreted.');
 		}
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Autocompletes values; the operation is postponed to the last second to allow
 	 * for value customization such as formatting dates etc.

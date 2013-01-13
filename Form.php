@@ -2,7 +2,7 @@
 
 /**
  * @package    mjolnir
- * @category   Base
+ * @category   Html
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
@@ -179,7 +179,7 @@ class Form extends \app\HTMLBlockElement
 		{
 			$this->auto_complete[$key] = $field;
 		}
-		
+
 		return $this;
 	}
 
@@ -563,7 +563,7 @@ class Form extends \app\HTMLBlockElement
 			->helptemplate($this->get_field_helptemplate('datetime'))
 			->error_printer($this->get_field_error_printer('datetime'));
 	}
-	
+
 	/**
 	 * @param string title
 	 * @param string name
@@ -576,7 +576,7 @@ class Form extends \app\HTMLBlockElement
 			->helptemplate($this->get_field_helptemplate('date'))
 			->error_printer($this->get_field_error_printer('date'));
 	}
-	
+
 	/**
 	 * @param string title
 	 * @param string name

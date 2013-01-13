@@ -2,7 +2,7 @@
 
 /**
  * @package    mjolnir
- * @category   Base
+ * @category   Html
  * @author     Ibidem
  * @copyright  (c) 2012, Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
@@ -48,7 +48,7 @@ class FormField extends \app\HTMLElement
 	 * @var string
 	 */
 	protected $help = null;
-	
+
 	/**
 	 * @var boolean
 	 */
@@ -58,7 +58,7 @@ class FormField extends \app\HTMLElement
 	 * @var string
 	 */
 	protected $error_printer_handler = null;
-	
+
 	/**
 	 * @var string
 	 */
@@ -75,14 +75,14 @@ class FormField extends \app\HTMLElement
 		$instance = parent::instance(static::$tag_name);
 		$instance->title = $title;
 		$instance->attribute('name', $name);
-		
+
 		if ($instance->type)
 		{
 			$instance->attribute('type', $instance->type);
 		}
-		
+
 		$instance->attribute('autocomplete', 'off');
-		
+
 		$instance->tabindex = \app\Form::tabindex();
 
 		$instance->form = $form;
@@ -100,14 +100,14 @@ class FormField extends \app\HTMLElement
 		$this->attribute('value', $value);
 		return $this;
 	}
-	
+
 	/**
 	 * @return \app\FormField $this
 	 */
 	function show_errors($show_errors = true)
 	{
 		$this->show_errors = $show_errors;
-		
+
 		return $this;
 	}
 
@@ -182,7 +182,7 @@ class FormField extends \app\HTMLElement
 		$this->remove_attribute('name');
 		return $this;
 	}
-		
+
 	/**
 	 * @return string id
 	 */
@@ -190,7 +190,7 @@ class FormField extends \app\HTMLElement
 	{
 		return $this->form->form_id().'_'.$this->tabindex;
 	}
-	
+
 	/**
 	 * @param bool switch
 	 * @return \app\FormField $this
@@ -235,12 +235,12 @@ class FormField extends \app\HTMLElement
 	 * @return string
 	 */
 	function print_errors($errors)
-	{		
+	{
 		if ( ! $this->show_errors)
 		{
 			return '';
 		}
-			
+
 		if ($this->error_printer_handler === null)
 		{
 			$error_render = '<ul class="errors">';
@@ -284,7 +284,7 @@ class FormField extends \app\HTMLElement
 	function render_field()
 	{
 		$this->resolve_autocomplete();
-		
+
 		$field = '<'.$this->name.' '.$this->form->sign().' id="'.$this->field_id().'"'.$this->render_attributes().'/>';
 
 		if (\strpos($this->template, ':errors') === false && $this->show_errors)
@@ -324,7 +324,7 @@ class FormField extends \app\HTMLElement
 				)
 			);
 	}
-	
+
 	/**
 	 * Autocompletes values; the operation is postponed to the last second to allow
 	 * for value customization such as formatting dates etc.
