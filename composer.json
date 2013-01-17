@@ -1,29 +1,29 @@
 {
 	"name": "mjolnir/html",
 	"version": "0.0",
-	"description": "Mjolnir html module",
+	"description": "Raw HTML composition and management utilities.",
 	"keywords": ["html"],
 	"homepage": "https://github.com/ibidem",
 	"type": "library",
 	"license": "BSD-2",
-	
+
 	"authors": [
 		{
 			"name": "srcspider",
 			"homepage": "https://github.com/srcspider"
 		}
 	],
-	
+
 	"require": {
-		"php": ">=5.4.0"
+		"php": ">=5.4.4"
 	},
-	
+
 	"autoload": {
 		"psr-0": {
 			"mjolnir\\html": "../.."
 		}
 	},
-	
+
 	"extra": {
 		"branch-alias": {
 			"dev-wip/v1.0": "1.0.x-dev"
