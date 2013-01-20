@@ -79,7 +79,7 @@
 					if ($i == $bookmark['page']):
 						?><li class="bookmarked"><?
 							?><a href="<?= $url_base.$querie ?><?= $page_query ?>=<?= $i ?><?= '#'.$bookmark['entry'] ?>" <?
-							?>title="<?= Lang::tr($title, array(':number' => $number, ':number_end' => $number_end, ':bookmark' => $bookmark)) ?>"><?= $i ?></a><?
+							?>title="<?= Lang::term($title, array(':number' => $number, ':number_end' => $number_end, ':bookmark' => $bookmark)) ?>"><?= $i ?></a><?
 						?></li><?
 					endif;
 					?><li class="ellipsis"><a href="#">&#8230;</a></li><?
@@ -88,7 +88,7 @@
 
 					?><li class="bookmarked"><?
 						?><a href="<?= $url_base.$querie ?><?= $page_query ?>=<?= $i ?><?= '#'.$bookmark['entry'] ?>" <?
-						?>title="<?= Lang::tr($title, array(':number' => $number, ':number_end' => $number_end, ':bookmark' => $bookmark)) ?>"><?= $i ?></a><?
+						?>title="<?= Lang::term($title, array(':number' => $number, ':number_end' => $number_end, ':bookmark' => $bookmark)) ?>"><?= $i ?></a><?
 					?></li><?
 
 				else: # standard page
@@ -97,12 +97,12 @@
 					if ($i == $currentpage):
 						?><li class="active<?= ($bookmark['page'] == $i ? ' bookmarked' : '') ?>"><?
 							?><a href="<?= $url_base.$querie ?><?= $page_query ?>=<?= $i ?><?= ($bookmark['page'] == $i ? '#'.$bookmark['entry'] : '') ?>" <?
-							?>title="<?= Lang::tr($title, array(':number' => $number, ':number_end' => $number_end, ':bookmark' => $bookmark)) ?>"><?= $i ?></a><?
+							?>title="<?= Lang::term($title, array(':number' => $number, ':number_end' => $number_end, ':bookmark' => $bookmark)) ?>"><?= $i ?></a><?
 						?></li><?
 					else: # $i != $currentpage
 						?><li class="<?= ($bookmark['page'] == $i ? ' bookmarked' : '') ?>"><?
 							?><a href="<?= $url_base.$querie ?><?= $page_query ?>=<?= $i ?><?= ($bookmark['page'] == $i ? '#'.$bookmark['entry'] : '') ?>" <?
-							?>title="<?= Lang::tr($title, array(':number' => $number, ':number_end' => $number_end, ':bookmark' => $bookmark)) ?>"><?= $i ?></a><?
+							?>title="<?= Lang::term($title, array(':number' => $number, ':number_end' => $number_end, ':bookmark' => $bookmark)) ?>"><?= $i ?></a><?
 						?></li><?
 					endif;
 

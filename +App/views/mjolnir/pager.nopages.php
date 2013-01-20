@@ -4,9 +4,9 @@
 	
 	<? if ($pagecount > 0 && $show_pageindex): ?>
 		<div class="pager-currentnav">
-			<?= Lang::msg
+			<?= Lang::key
 				(
-					'pager.pages', 
+					'mjolnir:pager-pages', 
 					array
 						(
 							':currentpage' => $currentpage != null ? $currentpage : 1,

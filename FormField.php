@@ -248,7 +248,7 @@ class FormField extends \app\HTMLElement
 			{
 				foreach ($errors as $error)
 				{
-					$error_render .= '<li>'.\app\Lang::tr($error).'</li>';
+					$error_render .= '<li>'.\app\Lang::term($error).'</li>';
 				}
 			}
 			$error_render .= '</ul>';
