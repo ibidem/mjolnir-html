@@ -3,7 +3,7 @@
 /**
  * @package    mjolnir
  * @category   Html
- * @author     Ibidem
+ * @author     Ibidem Team
  * @copyright  (c) 2013, Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
@@ -21,7 +21,19 @@ class HTMLTag extends \app\Instantiatable implements \mjolnir\types\HTMLTag
 		$instance->injectmetarenderers(\app\CFS::config('mjolnir/htmltag')['metarenderers']);
 
 		return $instance;
-	}	
+	}
+	
+	/**
+	 * @return \mjolnir\types\HTMLTag
+	 */
+	static function i($tagname, $tagbody)
+	{
+		$instance = static::instance();
+		$instance->tagname_is($tagname);
+		$instance->tagbody_is($tagbody);
+		
+		return $instance;
+	}
 
 	/**
 	 * @return string
@@ -60,21 +72,24 @@ class HTMLTag extends \app\Instantiatable implements \mjolnir\types\HTMLTag
 		$metadata = $this->metadata();
 		$attributes = '';
 
-		foreach ($metadata as $key => $value)
+		if ($metadata !== null)
 		{
-			$metarenderer = $this->metarenderer($key, null);
+			foreach ($metadata as $key => $value)
+			{
+				$metarenderer = $this->metarenderer($key, null);
 
-			if ($metarenderer !== null)
-			{
-				$attributes .= ' '.$key.'="'.$metarenderer($this).'"';
-			}
-			else if (\is_array($value))
-			{
-				$attributes .= ' '.$key.'="'.\implode(' ', $value).'"';
-			}
-			else # no meta renderer and value is not an array
-			{
-				$attributes .= " $key=\"$value\"";
+				if ($metarenderer !== null)
+				{
+					$attributes .= ' '.$key.'="'.$metarenderer($this).'"';
+				}
+				else if (\is_array($value))
+				{
+					$attributes .= ' '.$key.'="'.\implode(' ', $value).'"';
+				}
+				else # no meta renderer and value is not an array
+				{
+					$attributes .= " $key=\"$value\"";
+				}
 			}
 		}
 
