@@ -44,20 +44,37 @@ class HTMLTag extends \app\Instantiatable implements \mjolnir\types\HTMLTag
 		$tagname !== null or $tagname = 'span';
 
 		$tagbody = $this->tagbody();
-		if ($tagbody !== null && ! \is_string($tagbody))
+		
+		if ( ! \is_array($tagbody))
 		{
-			$tagbody = $tagbody->render();
+			$tagbody = [ $tagbody ];
+		}
+		
+		$totalbody = null;
+		foreach ($tagbody as $body)
+		{
+			if ($body !== null)
+			{
+				if ( ! \is_string($body))
+				{
+					$totalbody .= $body->render();
+				}
+				else # body is non-renderable
+				{
+					$totalbody .= $body;
+				}
+			}
 		}
 
 		$tagattributes = $this->makeattributes();
 
-		if ($tagbody === null)
+		if ($totalbody === null)
 		{
 			return "<$tagname$tagattributes/>";
 		}
 		else # body !== null
 		{
-			return "<$tagname$tagattributes>$tagbody</$tagname>";
+			return "<$tagname$tagattributes>$totalbody</$tagname>";
 		}
 	}
 
@@ -76,6 +93,11 @@ class HTMLTag extends \app\Instantiatable implements \mjolnir\types\HTMLTag
 		{
 			foreach ($metadata as $key => $value)
 			{
+				if ($value === null)
+				{
+					continue;
+				}
+				
 				$metarenderer = $this->metarenderer($key, null);
 
 				if ($metarenderer !== null)
@@ -86,7 +108,11 @@ class HTMLTag extends \app\Instantiatable implements \mjolnir\types\HTMLTag
 				{
 					$attributes .= ' '.$key.'="'.\implode(' ', $value).'"';
 				}
-				else # no meta renderer and value is not an array
+				else if ($value === '')
+				{
+					$attributes .= " $key";
+				}
+				else # no meta renderer and value is not an array or empty
 				{
 					$attributes .= " $key=\"$value\"";
 				}

@@ -15,6 +15,7 @@
 							return $classes;
 						}
 					},
+				
 				'style' => function (\mjolnir\types\HTMLTag $tag)
 					{
 						$styles = $tag->get('style');

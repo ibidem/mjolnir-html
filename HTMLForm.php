@@ -17,6 +17,11 @@ class HTMLForm extends \app\HTMLTag implements \mjolnir\types\HTMLForm
 	protected static $formcounter = 1;
 	
 	/**
+	 * @var int
+	 */
+	protected $fieldcounter = 1;
+	
+	/**
 	 * @var array
 	 */
 	protected $autocomplete = null;
@@ -33,14 +38,15 @@ class HTMLForm extends \app\HTMLTag implements \mjolnir\types\HTMLForm
 	{
 		$instance = parent::instance();
 		$instance->tagname_is('form');
-		$this->formindex = static::nextformindex();
+		$instance->formindex = static::nextformindex();
+		$instance->set('id', $instance->signature());
 		
 		// check if this form was previously submitted
 		if (isset($_POST['form']) && $_POST['form'] === $instance->signature())
 		{
 			$instance->autocomplete = & $_POST;
 		}
-		else # not post, or not this form
+		else # POST not set, or fields not submitted for this form
 		{
 			$instance->autocomplete = null;
 		}
@@ -56,19 +62,114 @@ class HTMLForm extends \app\HTMLTag implements \mjolnir\types\HTMLForm
 		$instance = static::instance();
 		$instance->set('action', $action);
 		
-		// @todo standardize
+		// apply standard
+		if ($standard != null)
+		{
+			$instance->apply($standard);
+		}
 		
 		return $instance;
 	}
 	
+	// ------------------------------------------------------------------------
+	// Primary Field Management
+	
 	/**
+	 * [!!] fieldtype intentionally doesn't accept a default
 	 * 
+	 * @return \mjolnir\types\HTMLFormField
 	 */
-	function render()
+	function field($label, $fieldname, $fieldtype)
 	{
+		// field type loaders
+		$fieldtypes = \app\CFS::config('mjolnir/htmlform')['fieldtypes'];
 		
+		if (isset($fieldtypes[$fieldtype]))
+		{
+			$instance = $fieldtypes[$fieldtype]($this);
+		}
+		else # assume specialized class definition with no fieldtype loader
+		{
+			$class = '\app\HTMLFormField_'.\ucfirst($fieldtype);
+			$instance = $class::instance();
+		}
 		
-		parent::render();
+		// configure and return
+		return $instance
+			->set('id', $this->signature($this->fieldcounter++))
+			->fieldlabel_is($label)
+			->form_is($this)
+			->set('name', $fieldname);
+	}
+	
+	/**
+	 * Any additonal parameters are interpreted as HTMLFormFields that are part 
+	 * of the composite.
+	 * 
+	 * If an array is passed as second parameter the fields will be interpreted 
+	 * as text HTMLFormFields.
+	 * 
+	 * Therefore the following:
+	 * 
+	 *		$form->composite('Name', ['given_name', 'family_name']);
+	 * 
+	 * Is equivalent to this:
+	 * 
+	 *		$form->composite
+	 *			(
+	 *				'Name', 
+	 *				$form->text(null, 'given_name'),
+	 *				$form->text(null, 'family_name')
+	 *			);
+	 *
+	 * You may also specify a type by making entries associative:
+	 *	
+	 *		[ 'address' => 'text', 'zipcode' => 'number' ]
+	 * 
+	 * @return \mjolnir\types\HTMLFormField_Composite
+	 */
+	function composite($label)
+	{
+		$args = \func_get_args();
+		\array_shift($args); # remove $label
+		
+		$composite = \app\FormField_Composite::instance();
+		$composite->fieldlabel_is($label);
+		
+		if (\count($args) > 1)
+		{
+			if (\is_array($args[0]))
+			{
+				$array_shorthand = \array_shift($args);
+				foreach ($array_shorthand as $key => $value)
+				{
+					if (\is_int($key))
+					{
+						// treat value as fieldname
+						$composite->addfield($this->field(null, $value, 'text'));
+					}
+					else # key is not a int
+					{
+						// treat key as fieldname and value as fieldtype
+						$composite->addfield($this->field(null, $key, $value));
+					}
+				}
+			}
+			
+			// add remaining HTMLFormFields
+			foreach ($args as $field)
+			{
+				$composite->addfield($field);
+			}
+		}
+	}
+	
+	/**
+	 * @return \mjolnir\types\HTMLFormField_Select
+	 */
+	function select($label, $fieldname = null)
+	{
+		return $this->field($label, $fieldname, 'select');
 	}
 	
 	// ------------------------------------------------------------------------
@@ -97,6 +198,23 @@ class HTMLForm extends \app\HTMLTag implements \mjolnir\types\HTMLForm
 		return $this;
 	}
 	
+	/**
+	 * Retrieve autocomplete value for given field or null.
+	 * 
+	 * @return mixed or null
+	 */
+	function autovalue($fieldname)
+	{
+		if ($this->autocomplete !== null && isset($this->autocomplete[$fieldname]))
+		{
+			return $this->autocomplete[$fieldname];
+		}
+		else # no autocomplete value for field
+		{
+			return null;
+		}
+	}
+	
 	// ------------------------------------------------------------------------
 	// Utility
 	
@@ -110,12 +228,49 @@ class HTMLForm extends \app\HTMLTag implements \mjolnir\types\HTMLForm
 	{
 		if ($id !== null)
 		{
-			return 'mjform_'.$this->formindex.'_field_'.$id;
+			return 'mjform'.$this->formindex.'_field'.$id;
 		}
 		else # form signature
 		{
-			return 'mjform_'.$this->formindex;
+			return 'mjform'.$this->formindex;
 		}
+	}
+	
+	
+	// ------------------------------------------------------------------------
+	// Autoconfiguration
+
+	/**
+	 * @return static $this
+	 */
+	function basicuploader()
+	{
+		$this->set('enctype', 'multipart/form-data');
+		return $this;
+	}
+	
+	/**
+	 * @return static $this
+	 */
+	function nonuploader()
+	{
+		$this->set('enctype', null);
+		return $this;
+	}
+	
+	// ------------------------------------------------------------------------
+	// interface: Renderable
+	
+	/**
+	 * A `form` hidden field will be inserted into the form to identify the data
+	 * submitted belonged to this form.
+	 * 
+	 * @return string
+	 */
+	function render()
+	{
+		$this->appendtagbody($this->hidden('form')->value_is($this->signature()));
+		return parent::render();
 	}
 	
 	// ------------------------------------------------------------------------
