@@ -57,8 +57,10 @@ class HTMLForm extends \app\HTMLTag implements \mjolnir\types\HTMLForm
 	/**
 	 * @return \mjolnir\types\HTMLForm
 	 */
-	static function i($standard, $action)
+	static function i($standard, $action = null)
 	{
+		$action !== null or $action = ''; # default to current page
+		
 		$instance = static::instance();
 		$instance->set('action', $action);
 		
@@ -75,7 +77,10 @@ class HTMLForm extends \app\HTMLTag implements \mjolnir\types\HTMLForm
 	// Primary Field Management
 	
 	/**
-	 * [!!] fieldtype intentionally doesn't accept a default
+	 * [!!] pseudofieldtype intentionally doesn't default to null
+	 * 
+	 * [!!] pseudofieldtype is NOT fieldtype, if it is the identifier for what
+	 * it is suppose to be
 	 * 
 	 * @return \mjolnir\types\HTMLFormField
 	 */
@@ -97,9 +102,13 @@ class HTMLForm extends \app\HTMLTag implements \mjolnir\types\HTMLForm
 		// configure and return
 		return $instance
 			->set('id', $this->signature($this->fieldcounter++))
-			->fieldlabel_is($label)
+			->set('name', $fieldname)
 			->form_is($this)
-			->set('name', $fieldname);
+			->fieldlabel_is($label)
+			->fieldtemplate_is($this->fieldtemplate($fieldtype))
+			->hintrenderer_is($this->hintrenderer($fieldtype))
+			->errorrenderer_is($this->errorrenderer($fieldtype))
+			->adderrors($this->errors($fieldname));
 	}
 	
 	/**
@@ -133,10 +142,10 @@ class HTMLForm extends \app\HTMLTag implements \mjolnir\types\HTMLForm
 		$args = \func_get_args();
 		\array_shift($args); # remove $label
 		
-		$composite = \app\FormField_Composite::instance();
+		$composite = \app\HTMLFormField_Composite::instance();
 		$composite->fieldlabel_is($label);
 		
-		if (\count($args) > 1)
+		if (\count($args) >= 1)
 		{
 			if (\is_array($args[0]))
 			{
@@ -158,18 +167,19 @@ class HTMLForm extends \app\HTMLTag implements \mjolnir\types\HTMLForm
 			
 			// add remaining HTMLFormFields
 			foreach ($args as $field)
-			{
+			{				
 				$composite->addfield($field);
 			}
 		}
-	}
-	
-	/**
-	 * @return \mjolnir\types\HTMLFormField_Select
-	 */
-	function select($label, $fieldname = null)
-	{
-		return $this->field($label, $fieldname, 'select');
+		
+		$composite
+			->form_is($this)
+			->fieldlabel_is($label)
+			->fieldtemplate_is($this->fieldtemplate('composite'))
+			->hintrenderer_is($this->hintrenderer('composite'))
+			->errorrenderer_is($this->errorrenderer('composite'));
+		
+		return $composite;
 	}
 	
 	// ------------------------------------------------------------------------
@@ -205,14 +215,17 @@ class HTMLForm extends \app\HTMLTag implements \mjolnir\types\HTMLForm
 	 */
 	function autovalue($fieldname)
 	{
-		if ($this->autocomplete !== null && isset($this->autocomplete[$fieldname]))
+		if ($this->autocomplete !== null)
 		{
-			return $this->autocomplete[$fieldname];
+			$fieldname = \rtrim($fieldname, '[]');
+			if (isset($this->autocomplete[$fieldname]))
+			{
+				return $this->autocomplete[$fieldname];
+			}
 		}
-		else # no autocomplete value for field
-		{
-			return null;
-		}
+		
+		// no auto complete value found
+		return null;
 	}
 	
 	// ------------------------------------------------------------------------

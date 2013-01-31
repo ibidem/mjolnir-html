@@ -12,6 +12,16 @@ class HTMLFormField_Select extends \app\HTMLFormField implements \mjolnir\types\
 	use \app\Trait_HTMLFormField_Select;	
 	
 	/**
+	 * @var array
+	 */
+	protected $options = null;
+	
+	/**
+	 * @var array
+	 */
+	protected $optgroups = null;
+	
+	/**
 	 * @return static
 	 */
 	static function instance()
@@ -20,6 +30,34 @@ class HTMLFormField_Select extends \app\HTMLFormField implements \mjolnir\types\
 		$instance->tagname_is('select');
 		
 		return $instance;
+	}
+	
+	/**
+	 * Inserts options via associtive array of key => value pairs.
+	 * 
+	 * See optgroups_array for option group version.
+	 * 
+	 * @return static $this
+	 */
+	function options_array(array $array = null)
+	{
+		$this->options = $array;
+		return $this;
+	}
+	
+	/**
+	 * Insert options via associative array of groups pointing to associative
+	 * array of options. Note that optgroups are treated as seperate entities
+	 * to options, so you can have both in the same select.
+	 * 
+	 * If normal options are present, groups are rendered after them.
+	 * 
+	 * @return static $this
+	 */
+	function optgroups_array(array $optgroups = null)
+	{
+		$this->optgroups = $optgroups;
+		return $this;
 	}
 
 	// ------------------------------------------------------------------------
@@ -38,14 +76,36 @@ class HTMLFormField_Select extends \app\HTMLFormField implements \mjolnir\types\
 		{
 			foreach ($this->options as $value => $label)
 			{
-				$tag = \app\HTMLTag::i('option', $label)->set('value', $value);
+				$option = \app\HTMLTag::i('option', $label)->set('value', $value);
 				
-				if (\in_array($value, $this->values, false))
+				if (\in_array(\strval($value), $this->values, false))
 				{
-					$tag->set('selected', '');
+					$option->set('selected', '');
 				}
 				
-				$this->appendtagbody($tag->render());
+				$this->appendtagbody($option->render());
+			}
+		}
+		
+		if ($this->optgroups !== null)
+		{
+			foreach ($this->optgroups as $group => $options)
+			{
+				$optgroup = \app\HTMLTag::i('optgroup')->set('label', $group);
+				
+				foreach ($options as $value => $label)
+				{
+					$option = \app\HTMLTag::i('option', $label)->set('value', $value);
+
+					if (\in_array(\strval($value), $this->values, false))
+					{
+						$option->set('selected', '');
+					}
+
+					$optgroup->appendtagbody($option->render());
+				}
+				
+				$this->appendtagbody($optgroup->render());
 			}
 		}
 		

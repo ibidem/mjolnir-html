@@ -26,7 +26,7 @@ class HTMLTag extends \app\Instantiatable implements \mjolnir\types\HTMLTag
 	/**
 	 * @return \mjolnir\types\HTMLTag
 	 */
-	static function i($tagname, $tagbody)
+	static function i($tagname, $tagbody = null)
 	{
 		$instance = static::instance();
 		$instance->tagname_is($tagname);
@@ -35,6 +35,9 @@ class HTMLTag extends \app\Instantiatable implements \mjolnir\types\HTMLTag
 		return $instance;
 	}
 
+	// ------------------------------------------------------------------------
+	// interface: Renderable
+	
 	/**
 	 * @return string
 	 */
@@ -55,7 +58,7 @@ class HTMLTag extends \app\Instantiatable implements \mjolnir\types\HTMLTag
 		{
 			if ($body !== null)
 			{
-				if ( ! \is_string($body))
+				if (\is_object($body))
 				{
 					$totalbody .= $body->render();
 				}

@@ -44,9 +44,17 @@ return array
 			
 				'hidden' => function ($form)
 					{
-						return \app\HTMLFormField::instance()
-							->set('type', 'hidden');
+						return \app\HTMLFormField_Hidden::instance();
 					},
+							
+				'textarea' => function ()
+					{
+						return \app\HTMLFormField_Textarea::instance();
+					},
+				
+				'button'        => $basictype('submit'),
+				'submit'        => $basictype('submit'),
+				'reset'         => $basictype('reset'),
 				
 				'text'          => $basictype('text'),
 				'password'      => $basictype('password'),

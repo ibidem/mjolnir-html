@@ -23,6 +23,54 @@ class HTMLFormField extends \app\HTMLTag implements \mjolnir\types\HTMLFormField
 	}
 	
 	// ------------------------------------------------------------------------
+	// interface: Rendered
+	
+	/**
+	 * [!!] call autocompletefield before any other logic, when overwriting
+	 * 
+	 * @return string
+	 */
+	function render()
+	{
+		$this->autocompletefield();
+		$fieldrender = $this->fieldrender();
+		
+		if ($this->hintrenderer !== null)
+		{
+			$callable = &$this->hintrenderer;
+			$hintsrender = $callable($this->hints());
+		}
+		else # no hint renderer
+		{
+			$hintsrender = null;
+		}
+		
+		if ($this->showerrors && $this->errorrenderer)
+		{
+			$callable = &$this->errorrenderer;
+			$errorrrender = $callable($this->errors());
+		}
+		else # no error renderer
+		{
+			$errorrrender = null;
+		}
+		
+		$this->fieldtemplate !== null or $this->fieldtemplate = ':field';
+		
+		return \strtr
+			(
+				$this->fieldtemplate,
+				[
+					':id'    => $this->get('id', null),
+					':field' => $fieldrender,
+					':label' => $this->fieldlabel(),
+					':hints' => $hintsrender,
+					':errors' => $errorrrender,
+				]
+			);
+	}
+	
+	// ------------------------------------------------------------------------
 	// etc
 	
 	/**
@@ -42,6 +90,28 @@ class HTMLFormField extends \app\HTMLTag implements \mjolnir\types\HTMLFormField
 	function form()
 	{
 		return $this->form;
+	}
+	
+	// ------------------------------------------------------------------------
+	// Helpers
+	
+	/**
+	 * This helper will run once. Classes that overwrite render should call this
+	 * method before performing calculations.
+	 */
+	protected function autocompletefield()
+	{
+		if ( ! $this->autocompleted)
+		{
+			$fieldname = $this->get('name', null);
+
+			if ($fieldname !== null && ($autovalue = $this->form->autovalue($fieldname)) !== null)
+			{
+				$this->value_is($autovalue);
+			}
+			
+			$this->autocompleted = true;
+		}
 	}
 	
 } # class
