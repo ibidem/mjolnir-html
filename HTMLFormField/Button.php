@@ -8,9 +8,7 @@
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class HTMLFormField_Button extends \app\HTMLFormField # no specialized interface
-{
-	use \app\Trait_HTMLFormField_Button;	
-	
+{	
 	/**
 	 * @return static
 	 */
