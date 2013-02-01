@@ -44,7 +44,7 @@ class HTMLForm extends \app\HTMLTag implements \mjolnir\types\HTMLForm
 		// check if this form was previously submitted
 		if (isset($_POST['form']) && $_POST['form'] === $instance->signature())
 		{
-			$instance->autocomplete = & $_POST;
+			$instance->autocomplete = &$_POST;
 		}
 		else # POST not set, or fields not submitted for this form
 		{
@@ -191,11 +191,11 @@ class HTMLForm extends \app\HTMLTag implements \mjolnir\types\HTMLForm
 	 * 
 	 * @return static $this
 	 */
-	function autocomplete(array & $hints = null)
+	function autocomplete(array &$hints = null)
 	{
 		if ($this->autocomplete === null)
 		{
-			$this->autocomplete =& $hints;
+			$this->autocomplete = &$hints;
 		}
 		else if ($hints !== null)
 		{

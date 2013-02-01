@@ -7,12 +7,12 @@
  * @copyright  (c) 2012, 2013, Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
-class HTMLFormField_Radio extends \app\HTMLFormField implements \mjolnir\types\HTMLFormField_Boolean
-{
+class HTMLFormField_Checkbox extends \app\HTMLFormField implements \mjolnir\types\HTMLFormField_Boolean
+{		
 	use \app\Trait_HTMLFormField_Boolean;	
 	
 	#
-	# Radio intentionally doesn't inherit Checkbox
+	# Checkbox intentionally doesn't inherit Radio
 	#
 	
 	/**
@@ -21,7 +21,7 @@ class HTMLFormField_Radio extends \app\HTMLFormField implements \mjolnir\types\H
 	static function instance()
 	{
 		$instance = parent::instance();
-		$instance->set('type', 'radio');
+		$instance->set('type', 'checkbox');
 		
 		return $instance;
 	}

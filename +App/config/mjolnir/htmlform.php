@@ -70,6 +70,7 @@ return array
 				'month'         => $basictype('month'),
 				'week'          => $basictype('week'),
 				'color'         => $basictype('color'),
+				'range'         => $basictype('range'),
 				'date'          => $basictype('date'),
 				'datetime'      => $basictype('datetime'),
 				'localdatetime' => $basictype('datetime-local'),
