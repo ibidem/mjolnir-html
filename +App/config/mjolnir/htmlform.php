@@ -49,7 +49,8 @@ return array
 							
 				'textarea' => function ()
 					{
-						return \app\HTMLFormField_Textarea::instance();
+						return \app\HTMLFormField_Textarea::instance()
+							->set('tabindex', \app\HTML::tabindex());
 					},
 				
 				'button'        => $basictype('submit'),
