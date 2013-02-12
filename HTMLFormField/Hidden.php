@@ -19,7 +19,8 @@ class HTMLFormField_Hidden extends \app\HTMLFormField
 	static function instance()
 	{
 		$instance = parent::instance();
-		$instance->tagname_is('hidden');
+		$instance->tagname_is('input');
+		$instance->set('type', 'hidden');
 		
 		return $instance;
 	}
