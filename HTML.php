@@ -45,7 +45,8 @@ class HTML
 	static function queryform($action, $standard = null)
 	{
 		return \app\HTMLForm::i($standard, $action)
-			->set('method', 'GET');
+			->set('method', 'GET')
+			->disable_metainfo();
 	}
 	
 } # class
