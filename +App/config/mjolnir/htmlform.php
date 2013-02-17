@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $basictype = function ($type)
 	{
@@ -9,7 +9,7 @@ $basictype = function ($type)
 					->set('type', $type);
 			};
 	};
-	
+
 $numericbasictype = function ($type)
 	{
 		return function ($form) use ($type)
@@ -28,12 +28,12 @@ return array
 			(
 				// empty
 			),
-	
+
 		'field.standards' => array
 			(
 				// empty
 			),
-	
+
 		'fieldtypes' => array
 			(
 				'select' => function ($form)
@@ -41,22 +41,34 @@ return array
 						return \app\HTMLFormField_Select::instance()
 							->set('tabindex', \app\HTML::tabindex());
 					},
-			
+
+				'checkbox' => function ($form)
+					{
+						return \app\HTMLFormField_Checkbox::instance()
+							->set('tabindex', \app\HTML::tabindex());
+					},
+
+				'radio' => function ($form)
+					{
+						return \app\HTMLFormField_Radio::instance()
+							->set('tabindex', \app\HTML::tabindex());
+					},
+
 				'hidden' => function ($form)
 					{
 						return \app\HTMLFormField_Hidden::instance();
 					},
-							
+
 				'textarea' => function ()
 					{
 						return \app\HTMLFormField_Textarea::instance()
 							->set('tabindex', \app\HTML::tabindex());
 					},
-				
+
 				'button'        => $basictype('submit'),
 				'submit'        => $basictype('submit'),
 				'reset'         => $basictype('reset'),
-				
+
 				'text'          => $basictype('text'),
 				'password'      => $basictype('password'),
 				'file'          => $basictype('file'),
