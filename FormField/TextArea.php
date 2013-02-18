@@ -22,7 +22,7 @@ class FormField_TextArea extends \app\FormField
 	/**
 	 * @var string
 	 */
-	private $body = '';
+	protected $body = '';
 
 	/**
 	 * @param string title
