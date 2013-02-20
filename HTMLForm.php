@@ -133,7 +133,7 @@ class HTMLForm extends \app\HTMLTag implements \mjolnir\types\HTMLForm
 	 *
 	 * You may also specify a type by making entries associative:
 	 *	
-	 *		[ 'address' => 'text', 'zipcode' => 'number' ]
+	 *		[ 'address' => 'text', 'postalcode' => 'number' ]
 	 * 
 	 * @return \mjolnir\types\HTMLFormField_Composite
 	 */
