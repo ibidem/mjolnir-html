@@ -17,3 +17,4 @@ class HTMLFormField_Select extends \mjolnir\html\HTMLFormField_Select { /** @ret
 class HTMLFormField_Textarea extends \mjolnir\html\HTMLFormField_Textarea { /** @return \mjolnir\html\HTMLFormField_Textarea */ static function instance() { return parent::instance(); } }
 class HTMLFormField extends \mjolnir\html\HTMLFormField { /** @return \mjolnir\html\HTMLFormField */ static function instance() { return parent::instance(); } }
 class HTMLTag extends \mjolnir\html\HTMLTag { /** @return \mjolnir\html\HTMLTag */ static function instance() { return parent::instance(); } }
+class Pager extends \mjolnir\html\Pager { /** @return \mjolnir\html\Pager */ static function instance() { return parent::instance(); } }
