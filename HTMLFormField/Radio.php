@@ -38,7 +38,7 @@ class HTMLFormField_Radio extends \app\HTMLFormField implements \mjolnir\types\H
 
 			if ($fieldname !== null && ($autovalue = $this->form->autovalue($fieldname)) !== null)
 			{
-				if ($this->get('value', false) === $autovalue)
+				if ($this->get('value', false) == $autovalue)
 				{
 					$this->checked();
 				}
