@@ -21,7 +21,7 @@
 
 		<? if ($currentpage > 1): ?>
 			<div class="previous-page enabled">
-				<a href="<?= $baseurl.$querie ?><?= $querykey ?>=<?= $currentpage - 1 ?>" rel="prev"><span><?= $prev ?></span></a>
+				<a href="<?= $baseurl.$query ?><?= $querykey ?>=<?= $currentpage - 1 ?>" rel="prev"><span><?= $prev ?></span></a>
 			</div>
 		<? else: # current page is 1 ?>
 			<div class="previous-page disabled">
@@ -31,7 +31,7 @@
 
 		<? if ($currentpage < $pagecount && $currentpage > 1): ?>
 			<div class="next-page enabled">
-				<a href="<?= $baseurl.$querie ?><?= $querykey ?>=<?= $currentpage + 1 ?>" rel="next"><span><?= $next ?></span></a>
+				<a href="<?= $baseurl.$query ?><?= $querykey ?>=<?= $currentpage + 1 ?>" rel="next"><span><?= $next ?></span></a>
 			</div>
 		<? else: # last page ?>
 			<div class="next-page disabled">

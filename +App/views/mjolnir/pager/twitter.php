@@ -22,7 +22,7 @@
 			</li>
 		<? else: # current page is 1 ?>
 			<li class="disabled">
-				<a href="#"><span><?= $prev ?></span></a>
+				<a><span><?= $prev ?></span></a>
 			</li>
 		<? endif; ?>
 
