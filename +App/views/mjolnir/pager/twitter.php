@@ -18,7 +18,7 @@
 
 		<? if ($currentpage > 1): ?>
 			<li>
-				<a href="<?= $baseurl.$querie ?><?= $querykey ?>=<?= $currentpage - 1 ?>" rel="prev"><span><?= $prev ?></span></a>
+				<a href="<?= $baseurl.$query ?><?= $querykey ?>=<?= $currentpage - 1 ?>" rel="prev"><span><?= $prev ?></span></a>
 			</li>
 		<? else: # current page is 1 ?>
 			<li class="disabled">
@@ -82,7 +82,7 @@
 
 					if ($i == $bookmark_page):
 						?><li class="bookmarked"><?
-							?><a href="<?= $baseurl.$querie ?><?= $querykey ?>=<?= $i ?><?= '#'.$bookmark_anchor ?>" <?
+							?><a href="<?= $baseurl.$query ?><?= $querykey ?>=<?= $i ?><?= '#'.$bookmark_anchor ?>" <?
 							?>title="<?= Lang::key($title, ['number' => $number, 'number_end' => $number_end, 'bookmark' => $bookmark_entry]) ?>"><?= $i ?></a><?
 						?></li><?
 					endif;
@@ -91,7 +91,7 @@
 				elseif ($i == $bookmark_page):
 
 					?><li class="bookmarked"><?
-						?><a href="<?= $baseurl.$querie ?><?= $querykey ?>=<?= $i ?><?= '#'.$bookmark_anchor ?>" <?
+						?><a href="<?= $baseurl.$query ?><?= $querykey ?>=<?= $i ?><?= '#'.$bookmark_anchor ?>" <?
 						?>title="<?= Lang::key($title, ['number' => $number, 'number_end' => $number_end, 'bookmark' => $bookmark_entry]) ?>"><?= $i ?></a><?
 					?></li><?
 
@@ -100,12 +100,12 @@
 					// check if current page
 					if ($i == $currentpage):
 						?><li class="active<?= ($bookmark_page == $i ? ' bookmarked' : '') ?>"><?
-							?><a href="<?= $baseurl.$querie ?><?= $querykey ?>=<?= $i ?><?= ($bookmark_page == $i ? '#'.$bookmark_anchor : '') ?>" <?
+							?><a href="<?= $baseurl.$query ?><?= $querykey ?>=<?= $i ?><?= ($bookmark_page == $i ? '#'.$bookmark_anchor : '') ?>" <?
 							?>title="<?= Lang::key($title, ['number' => $number, 'number_end' => $number_end, 'bookmark' => $bookmark_entry]) ?>"><?= $i ?></a><?
 						?></li><?
 					else: # $i != $currentpage
 						?><li class="<?= ($bookmark_page == $i ? ' bookmarked' : '') ?>"><?
-							?><a href="<?= $baseurl.$querie ?><?= $querykey ?>=<?= $i ?><?= ($bookmark_page == $i ? '#'.$bookmark_anchor : '') ?>" <?
+							?><a href="<?= $baseurl.$query ?><?= $querykey ?>=<?= $i ?><?= ($bookmark_page == $i ? '#'.$bookmark_anchor : '') ?>" <?
 							?>title="<?= Lang::key($title, ['number' => $number, 'number_end' => $number_end, 'bookmark' => $bookmark_entry]) ?>"><?= $i ?></a><?
 						?></li><?
 					endif;
@@ -120,7 +120,7 @@
 
 		<? if ($currentpage < $pagecount && $currentpage > 1): ?>
 			<li>
-				<a href="<?= $baseurl.$querie ?><?= $querykey ?>=<?= $currentpage + 1 ?>" rel="next"><span><?= $next ?></span></a>
+				<a href="<?= $baseurl.$query ?><?= $querykey ?>=<?= $currentpage + 1 ?>" rel="next"><span><?= $next ?></span></a>
 			</li>
 		<? else: # last page ?>
 			<li class="disabled">
