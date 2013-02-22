@@ -7,7 +7,7 @@
 		<div class="pager-currentnav">
 			<?= Lang::key
 				(
-					"{$langkey}pager-pages",
+					"{$langprefix}page-x-of-y",
 					[
 						'currentpage' => $currentpage != null ? $currentpage : 1,
 						'pagecount'   => $pagecount
@@ -79,14 +79,14 @@
 							$number = ($pagecount - $i + 1) * $pagelimit > $totalitems ? $totalitems : ($pagecount - $i + 1) * $pagelimit;
 							$number_end = ($pagecount - $i + 1) * $pagelimit - $pagelimit + 1;
 						endif;
-						$title = "{$langprefix}entries-to-entries";
+						$title = "{$langprefix}entries-x-to-y";
 						if ($i == $bookmark_page):
 							$title .= "-with-bookmark-at-entry";
 						endif;
 					else: # single entry pages
 						$number = $i;
 						if ($i == $bookmark_page):
-							$title = "{$langprefix}page-x-bookmarked";
+							$title = "{$langprefix}page-x-bookmark-at-entry";
 						else:
 							$title = "{$langprefix}page-x";
 						endif;
@@ -96,8 +96,8 @@
 
 						if ($i == $bookmark_page):
 							?><span class="target pager-page"><?
-								?><a href="<?= $baseurl.$querie ?><?= $querykey ?>=<?= $i ?><?= '#'.$bookmark_entry ?>" <?
-								?>title="<?= Lang::key($title, ['number' => $number, 'number_end' => $number_end, 'bookmark' => $bookmark]) ?>"><?= $i ?></a><?
+								?><a href="<?= $baseurl.$querie ?><?= $querykey ?>=<?= $i ?><?= '#'.$bookmark_anchor ?>" <?
+								?>title="<?= Lang::key($title, ['number' => $number, 'number_end' => $number_end, 'bookmark' => $bookmark_entry]) ?>"><?= $i ?></a><?
 							?></span><?
 						endif;
 						?><span class="ellipsis pager-page">&#8230;</span><?
@@ -105,8 +105,8 @@
 					elseif ($i == $bookmark_page):
 
 						?><span class="target pager-page"><?
-							?><a href="<?= $baseurl.$querie ?><?= $querykey ?>=<?= $i ?><?= '#'.$bookmark_entry ?>" <?
-							?>title="<?= Lang::key($title, ['number' => $number, 'number_end' => $number_end, 'bookmark' => $bookmark]) ?>"><?= $i ?></a><?
+							?><a href="<?= $baseurl.$querie ?><?= $querykey ?>=<?= $i ?><?= '#'.$bookmark_anchor ?>" <?
+							?>title="<?= Lang::key($title, ['number' => $number, 'number_end' => $number_end, 'bookmark' => $bookmark_entry]) ?>"><?= $i ?></a><?
 						?></span><?
 
 					else: # standard page
@@ -114,13 +114,13 @@
 						// check if current page
 						if ($i == $currentpage):
 							?><span class="this<?= ($bookmark_page == $i ? ' target' : '') ?> pager-page"><?
-								?><a href="<?= $baseurl.$querie ?><?= $querykey ?>=<?= $i ?><?= ($bookmark_page == $i ? '#'.$bookmark_entry : '') ?>" <?
-								?>title="<?= Lang::key($title, ['number' => $number, 'number_end' => $number_end, 'bookmark' => $bookmark]) ?>"><?= $i ?></a><?
+								?><a href="<?= $baseurl.$querie ?><?= $querykey ?>=<?= $i ?><?= ($bookmark_page == $i ? '#'.$bookmark_anchor : '') ?>" <?
+								?>title="<?= Lang::key($title, ['number' => $number, 'number_end' => $number_end, 'bookmark' => $bookmark_entry]) ?>"><?= $i ?></a><?
 							?></span></span><?
 						else: # $i != $currentpage
 							?><span class="pager-page<?= ($bookmark_page == $i ? ' target' : '') ?>"><?
-								?><a href="<?= $baseurl.$querie ?><?= $querykey ?>=<?= $i ?><?= ($bookmark_page == $i ? '#'.$bookmark_entry : '') ?>" <?
-								?>title="<?= Lang::key($title, ['number' => $number, 'number_end' => $number_end, 'bookmark' => $bookmark]) ?>"><?= $i ?></a><?
+								?><a href="<?= $baseurl.$querie ?><?= $querykey ?>=<?= $i ?><?= ($bookmark_page == $i ? '#'.$bookmark_anchor : '') ?>" <?
+								?>title="<?= Lang::key($title, ['number' => $number, 'number_end' => $number_end, 'bookmark' => $bookmark_entry]) ?>"><?= $i ?></a><?
 							?></span><?
 						endif;
 
@@ -135,7 +135,7 @@
 
 <? # ---- /Pager ---------------------------------------------------------- # ?>
 
-		<? if ($currentpage != $pagecount): ?>
+		<? if ($currentpage < $pagecount && $currentpage > 1): ?>
 			<div class="next-page enabled">
 				<a href="<?= $baseurl.$querie ?><?= $querykey ?>=<?= $currentpage + 1 ?>" rel="next"><span><?= $next ?></span></a>
 			</div>
@@ -150,14 +150,14 @@
 	<div class="pager-jumpto">
 		<? if ($pagecount < 1000 && $jumpto): ?>
 
-			<?= $form = HTML::queryform($baseurl)
-				->fieldtemplate_is(':field') ?>
+			<?= $goto_form = HTML::queryform($baseurl)
+				->addfieldtemplate(':field') ?>
 
 			<div class="pager-jumpto-form">
 				<div>
 					<label>
 						<span><?= Lang::key('mjolnir:pager/goto') ?> </span>
-						<select name="page" onchange="this.form.submit()">
+						<select <?= $goto_form->mark() ?> name="page" onchange="this.form.submit()">
 							<? for ($i = 1; $i <= $pagecount; ++$i): ?>
 								<? if ($i != $currentpage): ?>
 									<option value="<?= $i ?>"><?= $i ?></option>
@@ -168,10 +168,11 @@
 						</select>
 					</label>
 				</div>
-				<button type="submit" class="btn noscript" <?= $form->mark() ?>>
+				<button type="submit" class="btn noscript" <?= $goto_form->mark() ?>>
 					<?= Lang::key('mjolnir:pager/go') ?>
 				</button>
 			</div>
+		
 		<? endif; ?>
 	</div>
 
