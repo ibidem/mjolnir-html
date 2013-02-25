@@ -26,7 +26,68 @@ return array
 	(
 		'form.standards' => array
 			(
-				// empty
+				'mjolnir:barebone' => function (\mjolnir\types\HTMLForm $form)
+					{
+						return $form->addfieldtemplate(':field');
+					},
+				'mjolnir:inline' => function (\mjolnir\types\HTMLForm $form)
+					{
+						return $form->apply('mjolnir:barebone')
+							->set('style', 'display: inline');
+					},
+				'mjolnir:twitter' => function (\mjolnir\types\HTMLForm $form)
+					{
+						return $form
+							->adderrorrenderer
+								(
+									function (array $errors = null)
+									{
+										if ($errors)
+										{
+											$out = '';
+											foreach ($errors as $error)
+											{
+												$out .= "<span class=\"help-block\"><span class=\"text-error\">$error</span></span>";
+											}
+
+											return $out.'';
+										}
+										else # no errors
+										{
+											return '';
+										}
+									}
+								)
+							->addhintrenderer
+								(
+									function (array $hints = null)
+									{
+										if ($hints)
+										{
+											$out = '';
+											foreach ($hints as $hint)
+											{
+												$out .= "<span class=\"help-block\">$hint</span>";
+											}
+
+											return $out;
+										}
+										else # no hints
+										{
+											return '';
+										}
+									}
+								)
+							->addfieldtemplate
+								(
+									'<div class="control-group"><label class="control-label" for=":id">:label</label><div class="controls">:field :hints :errors</div></div>'
+								)
+							->addfieldtemplate
+								(
+									'<div class="control-group"><label class="control-label" for=":id">:label</label><div class="controls"><div class="checkbox inline">:field</div> :hints :errors</div></div>',
+									'checkbox'
+								);
+					},
 			),
 
 		'field.standards' => array
