@@ -45,6 +45,7 @@ class HTML
 	static function queryform($action = '', $standard = null)
 	{
 		return \app\HTMLForm::i($standard, $action)
+			->tagbody_is('')
 			->set('method', 'GET')
 			->disable_metainfo();
 	}
