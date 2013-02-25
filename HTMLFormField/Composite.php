@@ -9,13 +9,13 @@
  */
 class HTMLFormField_Composite extends \app\HTMLFormField implements \mjolnir\types\HTMLFormField_Composite
 {
-	use \app\Trait_HTMLFormField_Composite;	
-	
+	use \app\Trait_HTMLFormField_Composite;
+
 	/**
 	 * @var array
 	 */
 	protected $compositefields = null;
-	
+
 	/**
 	 * @return static $this
 	 */
@@ -25,7 +25,7 @@ class HTMLFormField_Composite extends \app\HTMLFormField implements \mjolnir\typ
 		$this->compositefields[] = $field;
 		return $this;
 	}
-	
+
 	/**
 	 * @return string
 	 */
@@ -36,10 +36,10 @@ class HTMLFormField_Composite extends \app\HTMLFormField implements \mjolnir\typ
 		{
 			foreach ($this->compositefields as $idx => $field)
 			{
-				$renders['%'.$idx] = $field->fieldrender();
+				$renders['%'.($idx+1)] = $field->fieldrender();
 			}
 		}
-		
+
 		if ($this->fieldmix !== null)
 		{
 			return \strtr($this->fieldmix, $renders);
@@ -49,5 +49,5 @@ class HTMLFormField_Composite extends \app\HTMLFormField implements \mjolnir\typ
 			return \implode(' ', $renders);
 		}
 	}
-	
+
 } # class
