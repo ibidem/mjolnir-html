@@ -13,7 +13,7 @@ class HTML
 	 * @var int
 	 */
 	static protected $tabindex = 1;
-	
+
 	/**
 	 * @return int;
 	 */
@@ -21,7 +21,7 @@ class HTML
 	{
 		return static::$tabindex++;
 	}
-	
+
 	/**
 	 * @return \mjolnir\types\HTMLTag
 	 */
@@ -29,7 +29,7 @@ class HTML
 	{
 		return \app\HTMLTag::i('a', $tagbody)->set('href', $href);
 	}
-	
+
 	/**
 	 * @return \mjolnir\types\HTMLForm
 	 */
@@ -38,15 +38,15 @@ class HTML
 		return \app\HTMLForm::i($standard, $action)
 			->set('method', 'POST');
 	}
-	
+
 	/**
 	 * @return \mjolnir\types\HTMLForm
 	 */
-	static function queryform($action, $standard = null)
+	static function queryform($action = '', $standard = null)
 	{
 		return \app\HTMLForm::i($standard, $action)
 			->set('method', 'GET')
 			->disable_metainfo();
 	}
-	
+
 } # class
