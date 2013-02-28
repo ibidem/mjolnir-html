@@ -12,7 +12,7 @@ class Pager extends \app\Instantiatable implements \mjolnir\types\Pager
 	use \app\Trait_Pager;
 
 	/**
-	 * @return \app\Pager
+	 * @return static
 	 */
 	static function instance($totalitems = 0, $baseurl = null, $pagediff = null, $pagelimit = null)
 	{
