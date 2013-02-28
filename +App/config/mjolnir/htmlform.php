@@ -102,6 +102,12 @@ return array
 						return \app\HTMLFormField_Select::instance()
 							->set('tabindex', \app\HTML::tabindex());
 					},
+							
+				'select' => function ($form)
+					{
+						return \app\HTMLFormField_ImageUploader::instance()
+							->set('tabindex', \app\HTML::tabindex());
+					},
 
 				'checkbox' => function ($form)
 					{

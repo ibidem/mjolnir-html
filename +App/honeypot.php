@@ -12,9 +12,10 @@ class HTMLFormField_Button extends \mjolnir\html\HTMLFormField_Button { /** @ret
 class HTMLFormField_Checkbox extends \mjolnir\html\HTMLFormField_Checkbox { /** @return \mjolnir\html\HTMLFormField_Checkbox */ static function instance() { return parent::instance(); } }
 class HTMLFormField_Composite extends \mjolnir\html\HTMLFormField_Composite { /** @return \mjolnir\html\HTMLFormField_Composite */ static function instance() { return parent::instance(); } }
 class HTMLFormField_Hidden extends \mjolnir\html\HTMLFormField_Hidden { /** @return \mjolnir\html\HTMLFormField_Hidden */ static function instance() { return parent::instance(); } }
+class HTMLFormField_ImageUploader extends \mjolnir\html\HTMLFormField_ImageUploader { /** @return \mjolnir\html\HTMLFormField_ImageUploader */ static function instance() { return parent::instance(); } }
 class HTMLFormField_Radio extends \mjolnir\html\HTMLFormField_Radio { /** @return \mjolnir\html\HTMLFormField_Radio */ static function instance() { return parent::instance(); } }
 class HTMLFormField_Select extends \mjolnir\html\HTMLFormField_Select { /** @return \mjolnir\html\HTMLFormField_Select */ static function instance() { return parent::instance(); } }
 class HTMLFormField_Textarea extends \mjolnir\html\HTMLFormField_Textarea { /** @return \mjolnir\html\HTMLFormField_Textarea */ static function instance() { return parent::instance(); } }
 class HTMLFormField extends \mjolnir\html\HTMLFormField { /** @return \mjolnir\html\HTMLFormField */ static function instance() { return parent::instance(); } }
 class HTMLTag extends \mjolnir\html\HTMLTag { /** @return \mjolnir\html\HTMLTag */ static function instance() { return parent::instance(); } }
-class Pager extends \mjolnir\html\Pager { /** @return \mjolnir\html\Pager */ static function instance() { return parent::instance(); } }
+class Pager extends \mjolnir\html\Pager { /** @return \mjolnir\html\Pager */ static function instance($totalitems = 0, $baseurl = null, $pagediff = null, $pagelimit = null) { return parent::instance($totalitems, $baseurl, $pagediff, $pagelimit); } }
