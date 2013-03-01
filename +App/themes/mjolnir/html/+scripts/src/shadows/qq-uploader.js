@@ -12,12 +12,16 @@
 				var $element = $(this),
 					body_element = $('.uploader-body', $element).get(0),
 					upload_action = $element.attr('data-uploader-action'),
-					name = $element.attr('data-uploader-name'),
+//					name = $element.attr('data-uploader-name'),
 					upload_button = $element.attr('data-upload-button-upload'),
 					cancel_button = $element.attr('data-upload-button-cancel'),
 					fail_message = $element.attr('data-upload-fail-message'),
-					form = $element.attr('data-upload-form'),
-					image_uploader = $element.attr('data-upload-image-uploader');
+//					form = $element.attr('data-upload-form'),
+					image_uploader = $element.attr('data-upload-image-uploader'),
+					preview_id = $element.attr('data-preview-id'),
+					field_id = $element.attr('data-field-id'),
+					width = $element.attr('data-preview-width'),
+					height = $element.attr('data-preview-height');
 
 				new qq.FileUploader({
 
@@ -26,31 +30,24 @@
 					allowedExtensions: [],
 
 					'onComplete': function (id, filename, response) {
-						var imageContainer, path;
+						var path;
 
-						if (image_uploader === "true") {
+						if (image_uploader === "true") {	
+							path = mjb.mjolnir.routes.thumbnail
+								.replace(':image', mjb.mjolnir.config.base.urlpath + response['path'].replace('\\', '/'))
+								.replace(':width', typeof width !== 'undefined' ? width : 100)
+								.replace(':height', typeof height !== 'undefined' ? height : 100)
 
-							imageContainer = $('.qq-file-preview', $element);
-							path = mjolnir.thumbs
-								.replace(':image', mjolnir.base_path+response['path'].replace('\\', '/'))
-								.replace(':width', 100)
-								.replace(':height', 100)
-
-
-							$('.uploader-input', $element).detach();
-							$('<input form="'+form+'" class="uploader-input" type="hidden" name="'+name+'" value="'+response["path"]+'" />').prependTo($element);
-							$('.uploader-preview-image', $element).detach();
+							$('#'+field_id).val(response['path']);
 
 							if (response['success'] && image_uploader === 'true') {
-								$('<img class="uploader-preview-image" src="'+path+'"/>').prependTo(imageContainer);
-								$(imageContainer).addClass('has-image');
+								$('#'+preview_id).attr('src', path);
+								$('#'+preview_id).removeClass('off');
 							}
-
-							$element.siblings('.file-preview').detach();
-
+							else {
+								$('#'+preview_id).addClass('off');
+							}
 						}
-
-						$('.uploader-context', $element).removeClass('has-image');
 					},
 
 					'uploadButtonText': upload_button,

@@ -18,7 +18,7 @@ return array
 			(
 				'qq-uploader' => array
 					(
-						'+vendor/qq-uploader/client/fileuploader',
+						'+lib/qq-uploader/fileuploader',
 						'shadows/qq-uploader',
 					),
 			),

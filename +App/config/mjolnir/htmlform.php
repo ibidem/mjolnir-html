@@ -2,7 +2,7 @@
 
 $basictype = function ($type)
 	{
-		return function ($form) use ($type)
+		return function (\mjolnir\types\HTMLForm $form) use ($type)
 			{
 				return \app\HTMLFormField::instance()
 					->set('tabindex', \app\HTML::tabindex())
@@ -12,7 +12,7 @@ $basictype = function ($type)
 
 $numericbasictype = function ($type)
 	{
-		return function ($form) use ($type)
+		return function (\mjolnir\types\HTMLForm $form) use ($type)
 			{
 				return \app\HTMLFormField::instance()
 					->set('tabindex', \app\HTML::tabindex())
@@ -20,7 +20,6 @@ $numericbasictype = function ($type)
 					->set('placeholder', '#');
 			};
 	};
-
 
 return array
 	(
@@ -97,39 +96,46 @@ return array
 
 		'fieldtypes' => array
 			(
-				'select' => function ($form)
+				'select' => function (\mjolnir\types\HTMLForm $form)
 					{
 						return \app\HTMLFormField_Select::instance()
 							->set('tabindex', \app\HTML::tabindex());
 					},
 							
-				'select' => function ($form)
+				'select' => function (\mjolnir\types\HTMLForm $form)
 					{
 						return \app\HTMLFormField_ImageUploader::instance()
 							->set('tabindex', \app\HTML::tabindex());
 					},
 
-				'checkbox' => function ($form)
+				'checkbox' => function (\mjolnir\types\HTMLForm $form)
 					{
 						return \app\HTMLFormField_Checkbox::instance()
 							->set('tabindex', \app\HTML::tabindex());
 					},
 
-				'radio' => function ($form)
+				'radio' => function (\mjolnir\types\HTMLForm $form)
 					{
 						return \app\HTMLFormField_Radio::instance()
 							->set('tabindex', \app\HTML::tabindex());
 					},
 
-				'hidden' => function ($form)
+				'hidden' => function (\mjolnir\types\HTMLForm $form)
 					{
 						return \app\HTMLFormField_Hidden::instance();
 					},
 
-				'textarea' => function ()
+				'textarea' => function (\mjolnir\types\HTMLForm $form)
 					{
 						return \app\HTMLFormField_Textarea::instance()
 							->set('tabindex', \app\HTML::tabindex());
+					},
+							
+				'imageuploader' => function (\mjolnir\types\HTMLForm $form)
+					{
+						return \app\HTMLFormField_ImageUploader::instance()
+							->form_is($form)
+							->initialize();
 					},
 
 				'button'        => $basictype('submit'),

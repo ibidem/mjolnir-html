@@ -82,9 +82,9 @@ class qqUploadedFileForm {
 }
 
 class qqFileUploader {
-    private $allowedExtensions = array();
-    private $sizeLimit = 10485760;
-    private $file;
+    protected $allowedExtensions = array();
+    protected $sizeLimit = 10485760;
+    protected $file;
 
     function __construct(array $allowedExtensions = array(), $sizeLimit = 10485760){        
         $allowedExtensions = array_map("strtolower", $allowedExtensions);
