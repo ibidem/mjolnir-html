@@ -9,8 +9,6 @@
  */
 class HTMLFormField_Textarea extends \app\HTMLFormField # no specialized interface
 {
-	use \app\Trait_HTMLFormField_Textarea;	
-	
 	/**
 	 * @return static
 	 */
@@ -19,7 +17,7 @@ class HTMLFormField_Textarea extends \app\HTMLFormField # no specialized interfa
 		$instance = parent::instance();
 		$instance->tagname_is('textarea');
 		$instance->tagbody_is('');
-		
+
 		return $instance;
 	}
 
@@ -31,5 +29,5 @@ class HTMLFormField_Textarea extends \app\HTMLFormField # no specialized interfa
 		$this->tagbody_is($fieldvalue);
 		return $this;
 	}
-	
+
 } # class
