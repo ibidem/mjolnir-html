@@ -88,6 +88,8 @@ class HTMLFormField_ImageUploader extends \app\HTMLFormField implements \mjolnir
 				->set('data-preview-id', $this->input->get('id').'_preview')
 				->set('data-field-id', $this->input->get('id'));
 
+			$this->input->set('name', $this->get('name', 'image'));
+				
 			$wrapper->appendtagbody($this->input);
 
 			$wrapper->appendtagbody(\app\HTMLTag::i('div')->add('class', 'uploader-body'));
