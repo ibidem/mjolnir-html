@@ -118,7 +118,7 @@
 
 <? # ---- /Pager ---------------------------------------------------------- # ?>
 
-		<? if ($currentpage < $pagecount && $currentpage > 1): ?>
+		<? if ($currentpage < $pagecount && $currentpage >= 1): ?>
 			<li>
 				<a href="<?= $baseurl.$query ?><?= $querykey ?>=<?= $currentpage + 1 ?>" rel="next"><span><?= $next ?></span></a>
 			</li>

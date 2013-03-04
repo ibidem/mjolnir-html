@@ -29,7 +29,7 @@
 			</div>
 		<? endif; ?>
 
-		<? if ($currentpage < $pagecount && $currentpage > 1): ?>
+		<? if ($currentpage < $pagecount && $currentpage >= 1): ?>
 			<div class="next-page enabled">
 				<a href="<?= $baseurl.$query ?><?= $querykey ?>=<?= $currentpage + 1 ?>" rel="next"><span><?= $next ?></span></a>
 			</div>
