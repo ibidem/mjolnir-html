@@ -104,7 +104,7 @@ class HTMLFormField_ImageUploader extends \app\HTMLFormField implements \mjolnir
 	/**
 	 * @return string
 	 */
-	function render()
+	function fieldrender()
 	{
 		return $this->wrapper()->render();
 	}
