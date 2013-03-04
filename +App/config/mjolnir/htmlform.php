@@ -102,7 +102,7 @@ return array
 							->set('tabindex', \app\HTML::tabindex());
 					},
 							
-				'select' => function (\mjolnir\types\HTMLForm $form)
+				'imageuploader' => function (\mjolnir\types\HTMLForm $form)
 					{
 						return \app\HTMLFormField_ImageUploader::instance()
 							->set('tabindex', \app\HTML::tabindex());
