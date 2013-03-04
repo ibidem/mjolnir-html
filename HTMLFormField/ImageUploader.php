@@ -86,13 +86,14 @@ class HTMLFormField_ImageUploader extends \app\HTMLFormField implements \mjolnir
 				->set('data-upload-button-cancel', \app\Lang::key("{$langprefix}cancel"))
 				->set('data-upload-fail-message', \app\Lang::key("{$langprefix}failed-to-upload"))
 				->set('data-preview-id', $this->input->get('id').'_preview')
-				->set('data-field-id', $this->input->get('id'));
+				->set('data-field-id', $this->input->get('id'))
+				;
 
 			$this->input->set('name', $this->get('name', 'image'));
 				
 			$wrapper->appendtagbody($this->input);
 
-			$wrapper->appendtagbody(\app\HTMLTag::i('div')->add('class', 'uploader-body'));
+			$wrapper->appendtagbody(\app\HTMLTag::i('div')->add('class', 'uploader-body')->tagbody_is(''));
 		}
 
 		return $wrapper;
