@@ -9,8 +9,8 @@
 						(
 							'mjolnir:html/qq-uploader.route'
 						)
-						->all_parameters(),
+						->unrestricted(),
 				),
 		),
-	
+
 ); # config
