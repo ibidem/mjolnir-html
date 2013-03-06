@@ -107,6 +107,12 @@ return array
 						return \app\HTMLFormField_ImageUploader::instance()
 							->set('tabindex', \app\HTML::tabindex());
 					},
+							
+				'videouploader' => function (\mjolnir\types\HTMLForm $form)
+					{
+						return \app\HTMLFormField_VideoUploader::instance()
+							->set('tabindex', \app\HTML::tabindex());
+					},
 
 				'checkbox' => function (\mjolnir\types\HTMLForm $form)
 					{

@@ -13,6 +13,20 @@
 									'height' => ':height'
 								]
 							),
+						'video' => \app\URL::href
+							(
+								'mjolnir:video.route', 
+								[
+									'video' => ':video', 
+								]
+							),
+					),
+				'uploads' => array
+					(
+						'video' => array
+							(
+								'formats' => \app\CFS::config('mjolnir/uploads')['video.formats'],
+							),
 					),
 			),
 		
