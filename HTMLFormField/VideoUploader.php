@@ -30,34 +30,58 @@ class HTMLFormField_VideoUploader extends \app\HTMLFormField implements \mjolnir
 	 */
 	function makepreview()
 	{
-		$preview = \app\HTMLTag::i('div', '')
-			->set('id', $this->input->get('id').'_preview')
-			->add('class', 'off');
+		$this->autocompletefield();
 		
+		$preview = \app\HTMLTag::i('div', '')
+			->set('id', $this->input->get('id').'_preview');
+			
 		if ($this->videokey !== null)
 		{
-			$webm = \app\HTMLTag::i('source')
-				->set('type', 'video/webm')
-				->set('src', "{$this->videokey}.webm");
-
-			$mp4 = \app\HTMLTag::i('source')
-				->set('type', 'video/mp4')
-				->set('src', "{$this->videokey}.mp4");
-
-			$ogv = \app\HTMLTag::i('source')
-				->set('type', 'video/ogv')
-				->set('src', "{$this->videokey}.ogv");
-
-			$video = \app\HTMLTag::i('video')
-				->set('controls', false)
-				->appendtagbody($webm)
-				->appendtagbody($mp4)
-				->appendtagbody($ogv);
+			$videowrapper = \app\HTMLTag::i('div')
+				->set('class', 'video');
 			
-			$preview->appendtagbody($video);
+			$video = \app\HTMLTag::i('video')
+				->set('controls', false);
+			
+			$videowrapper->appendtagbody($video);
+			
+			$base = \app\CFS::config('mjolnir/base');
+			$baseurl = $base['protocol'].$base['domain'].$base['path'];
+			
+			$formats = \app\CFS::config('mjolnir/uploads')['video.formats'];
+			foreach ($formats as $format)
+			{
+				$source = \app\HTMLTag::i('source')
+					->set('type', "video/$format")
+					->set('src', "$baseurl{$this->videokey}.$format");
+					
+				$video->appendtagbody($source);
+			}
+			
+			$preview->appendtagbody($videowrapper);
+		}
+		else # no preview required
+		{
+			$preview->add('class', 'off');
 		}
 		
 		return $preview;
+	}
+	
+	/**
+	 * @return static $this
+	 */
+	function value_is($video)
+	{
+		$this->input->set('value', $video);
+		
+		if ( ! empty($video))
+		{
+			$videokey = \preg_replace('#\.[a-z0-9]+$#', '', $video);
+			$this->videokey_is($videokey);
+		}
+		
+		return $this;
 	}
 	
 	/**

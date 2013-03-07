@@ -22,14 +22,10 @@ class Controller_MjolnirQQUploader extends \mjolnir\html\Controller_MjolnirQQUpl
 
 class FileUploader_QQUploader extends \mjolnir\html\FileUploader_QQUploader
 {
-	/** @return \app\FileUploader_QQUploader */
-	static function instance() { return parent::instance(); }
 }
 
 class FileUploader extends \mjolnir\html\FileUploader
 {
-	/** @return \app\FileUploader */
-	static function instance() { return parent::instance(); }
 }
 
 class HH extends \mjolnir\html\HH
@@ -62,6 +58,8 @@ class HTML extends \mjolnir\html\HTML
  * @method \app\HTMLForm addmetarenderer($key, $metarenderer)
  * @method \app\HTMLForm injectmetarenderers(array $metarenderers = null)
  * @method \app\HTMLFormField_Select select($label, $fieldname = null)
+ * @method \app\HTMLFormField_AjaxUploader imageuploader($label, $fieldname = null)
+ * @method \app\HTMLFormField_AjaxUploader videouploader($label, $fieldname = null)
  * @method \app\HTMLFormField hidden($fieldname = null)
  * @method \app\HTMLFormField submit($label, $fieldname = null, $tagvalue = null)
  * @method \app\HTMLFormField button($label, $fieldname = null, $tagbody = null)
@@ -120,7 +118,6 @@ class HTMLForm extends \mjolnir\html\HTMLForm
  * @method \app\HTMLFormField_Button hint($hint)
  * @method \app\HTMLFormField_Button adderror($message)
  * @method \app\HTMLFormField_Button adderrors(array $errors = null)
- * @method \app\HTMLFormField_Button errors()
  * @method \app\HTMLFormField_Button apply($standard)
  * @method \app\HTMLFormField_Button noerrors()
  * @method \app\HTMLFormField_Button showerrors()
@@ -155,7 +152,6 @@ class HTMLFormField_Button extends \mjolnir\html\HTMLFormField_Button
  * @method \app\HTMLFormField_Checkbox hint($hint)
  * @method \app\HTMLFormField_Checkbox adderror($message)
  * @method \app\HTMLFormField_Checkbox adderrors(array $errors = null)
- * @method \app\HTMLFormField_Checkbox errors()
  * @method \app\HTMLFormField_Checkbox apply($standard)
  * @method \app\HTMLFormField_Checkbox noerrors()
  * @method \app\HTMLFormField_Checkbox showerrors()
@@ -229,7 +225,6 @@ class HTMLFormField_Composite extends \mjolnir\html\HTMLFormField_Composite
  * @method \app\HTMLFormField_Hidden hint($hint)
  * @method \app\HTMLFormField_Hidden adderror($message)
  * @method \app\HTMLFormField_Hidden adderrors(array $errors = null)
- * @method \app\HTMLFormField_Hidden errors()
  * @method \app\HTMLFormField_Hidden apply($standard)
  * @method \app\HTMLFormField_Hidden noerrors()
  * @method \app\HTMLFormField_Hidden showerrors()
@@ -245,6 +240,10 @@ class HTMLFormField_Hidden extends \mjolnir\html\HTMLFormField_Hidden
 }
 
 /**
+ * @method \app\HTMLFormField_ImageUploader image_is($imageurl)
+ * @method \app\HTMLFormField_ImageUploader previewsize($width, $height)
+ * @method \app\HTMLTag makepreview()
+ * @method \app\HTMLTag wrapper()
  * @method \app\HTMLFormField_ImageUploader form_is($form)
  * @method \app\HTMLFormField_ImageUploader form()
  * @method \app\HTMLFormField_ImageUploader tagname_is($tagname)
@@ -264,13 +263,12 @@ class HTMLFormField_Hidden extends \mjolnir\html\HTMLFormField_Hidden
  * @method \app\HTMLFormField_ImageUploader hint($hint)
  * @method \app\HTMLFormField_ImageUploader adderror($message)
  * @method \app\HTMLFormField_ImageUploader adderrors(array $errors = null)
- * @method \app\HTMLFormField_ImageUploader errors()
  * @method \app\HTMLFormField_ImageUploader apply($standard)
  * @method \app\HTMLFormField_ImageUploader noerrors()
  * @method \app\HTMLFormField_ImageUploader showerrors()
  * @method \app\HTMLFormField_ImageUploader disable_autocomplete()
  * @method \app\HTMLFormField_ImageUploader enable_autocomplete()
- * @method \app\HTMLFormField_ImageUploader image_is($imageurl)
+ * @method \app\HTMLFormField_ImageUploader initialize()
  * @method \app\HTMLTag preview()
  * @method \app\HTMLFormField_ImageUploader langprefix_is($langprefix)
  * @method \app\HTMLFormField_ImageUploader channel_is($channel)
@@ -304,7 +302,6 @@ class HTMLFormField_ImageUploader extends \mjolnir\html\HTMLFormField_ImageUploa
  * @method \app\HTMLFormField_Radio hint($hint)
  * @method \app\HTMLFormField_Radio adderror($message)
  * @method \app\HTMLFormField_Radio adderrors(array $errors = null)
- * @method \app\HTMLFormField_Radio errors()
  * @method \app\HTMLFormField_Radio apply($standard)
  * @method \app\HTMLFormField_Radio noerrors()
  * @method \app\HTMLFormField_Radio showerrors()
@@ -342,7 +339,6 @@ class HTMLFormField_Radio extends \mjolnir\html\HTMLFormField_Radio
  * @method \app\HTMLFormField_Select hint($hint)
  * @method \app\HTMLFormField_Select adderror($message)
  * @method \app\HTMLFormField_Select adderrors(array $errors = null)
- * @method \app\HTMLFormField_Select errors()
  * @method \app\HTMLFormField_Select apply($standard)
  * @method \app\HTMLFormField_Select noerrors()
  * @method \app\HTMLFormField_Select showerrors()
@@ -379,7 +375,6 @@ class HTMLFormField_Select extends \mjolnir\html\HTMLFormField_Select
  * @method \app\HTMLFormField_Textarea hint($hint)
  * @method \app\HTMLFormField_Textarea adderror($message)
  * @method \app\HTMLFormField_Textarea adderrors(array $errors = null)
- * @method \app\HTMLFormField_Textarea errors()
  * @method \app\HTMLFormField_Textarea apply($standard)
  * @method \app\HTMLFormField_Textarea noerrors()
  * @method \app\HTMLFormField_Textarea showerrors()
@@ -389,6 +384,48 @@ class HTMLFormField_Select extends \mjolnir\html\HTMLFormField_Select
 class HTMLFormField_Textarea extends \mjolnir\html\HTMLFormField_Textarea
 {
 	/** @return \app\HTMLFormField_Textarea */
+	static function instance() { return parent::instance(); }
+	/** @return \app\HTMLTag */
+	static function i($tagname, $tagbody = null) { return parent::i($tagname, $tagbody); }
+}
+
+/**
+ * @method \app\HTMLFormField_VideoUploader videokey_is($videokey)
+ * @method \app\HTMLTag makepreview()
+ * @method \app\HTMLTag wrapper()
+ * @method \app\HTMLFormField_VideoUploader form_is($form)
+ * @method \app\HTMLFormField_VideoUploader form()
+ * @method \app\HTMLFormField_VideoUploader tagname_is($tagname)
+ * @method \app\HTMLFormField_VideoUploader tagbody_is($string)
+ * @method \app\HTMLFormField_VideoUploader tagbody_render($renderable)
+ * @method \app\HTMLFormField_VideoUploader appendtagbody($tagbody)
+ * @method \app\HTMLFormField_VideoUploader set($name, $value)
+ * @method \app\HTMLFormField_VideoUploader add($name, $value)
+ * @method \app\HTMLFormField_VideoUploader metadata_is(array $metadata = null)
+ * @method \app\HTMLFormField_VideoUploader addmetarenderer($key, $metarenderer)
+ * @method \app\HTMLFormField_VideoUploader injectmetarenderers(array $metarenderers = null)
+ * @method \app\HTMLFormField_VideoUploader value_is($fieldvalue)
+ * @method \app\HTMLFormField_VideoUploader fieldlabel_is($fieldlabel)
+ * @method \app\HTMLFormField_VideoUploader hintrenderer_is($renderer)
+ * @method \app\HTMLFormField_VideoUploader errorrenderer_is($renderer)
+ * @method \app\HTMLFormField_VideoUploader fieldtemplate_is($fieldtemplate)
+ * @method \app\HTMLFormField_VideoUploader hint($hint)
+ * @method \app\HTMLFormField_VideoUploader adderror($message)
+ * @method \app\HTMLFormField_VideoUploader adderrors(array $errors = null)
+ * @method \app\HTMLFormField_VideoUploader apply($standard)
+ * @method \app\HTMLFormField_VideoUploader noerrors()
+ * @method \app\HTMLFormField_VideoUploader showerrors()
+ * @method \app\HTMLFormField_VideoUploader disable_autocomplete()
+ * @method \app\HTMLFormField_VideoUploader enable_autocomplete()
+ * @method \app\HTMLFormField_VideoUploader initialize()
+ * @method \app\HTMLTag preview()
+ * @method \app\HTMLFormField_VideoUploader langprefix_is($langprefix)
+ * @method \app\HTMLFormField_VideoUploader channel_is($channel)
+ * @method \app\Channel channel()
+ */
+class HTMLFormField_VideoUploader extends \mjolnir\html\HTMLFormField_VideoUploader
+{
+	/** @return \app\HTMLFormField_VideoUploader */
 	static function instance() { return parent::instance(); }
 	/** @return \app\HTMLTag */
 	static function i($tagname, $tagbody = null) { return parent::i($tagname, $tagbody); }
@@ -414,7 +451,6 @@ class HTMLFormField_Textarea extends \mjolnir\html\HTMLFormField_Textarea
  * @method \app\HTMLFormField hint($hint)
  * @method \app\HTMLFormField adderror($message)
  * @method \app\HTMLFormField adderrors(array $errors = null)
- * @method \app\HTMLFormField errors()
  * @method \app\HTMLFormField apply($standard)
  * @method \app\HTMLFormField noerrors()
  * @method \app\HTMLFormField showerrors()
@@ -459,6 +495,7 @@ class HTMLTag extends \mjolnir\html\HTMLTag
  * @method \app\Pager pagelimit_is($pagelimit)
  * @method \app\Pager baseurl_is($baseurl)
  * @method \app\Pager query_is(array $query)
+ * @method \app\Pager appendquery($rawquery)
  * @method \app\Pager bookmark_is($entry, $anchor)
  * @method \app\Pager langprefix_is($langprefix)
  * @method \app\Pager apply($standard)

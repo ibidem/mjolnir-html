@@ -54,11 +54,11 @@
 
 							var $preview = $('#'+preview_id);
 							
-							var html = '<video controls>';
+							var html = '<div class="video"><video controls>';
 							$.each(mjb.mjolnir.uploads.video.formats, function (i, v) {
 								html += '<source type="video/'+v+'" src="' + mjb.mjolnir.config.base.urlbase + basefile + '.' + v +'"/>';
 							});
-							html += '</video>';
+							html += '</video></div>';
 							
 							$preview.html(html);
 							$preview.removeClass('off');
