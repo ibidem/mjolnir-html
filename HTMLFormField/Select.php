@@ -60,13 +60,10 @@ class HTMLFormField_Select extends \app\HTMLFormField implements \mjolnir\types\
 		return $this;
 	}
 
-	// ------------------------------------------------------------------------
-	// interface: Rendered
-
 	/**
 	 * @return string
 	 */
-	function render()
+	function fieldrender()
 	{
 		$this->autocompletefield();
 
@@ -109,7 +106,7 @@ class HTMLFormField_Select extends \app\HTMLFormField implements \mjolnir\types\
 			}
 		}
 
-		return parent::render();
+		return parent::fieldrender();
 	}
 
 } # class
