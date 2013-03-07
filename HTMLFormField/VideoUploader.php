@@ -17,11 +17,25 @@ class HTMLFormField_VideoUploader extends \app\HTMLFormField implements \mjolnir
 	protected $videokey;
 	
 	/**
+	 * @var array
+	 */
+	protected $previewsize = [ 640, 480 ];
+	
+	/**
 	 * @return static $this
 	 */
 	function videokey_is($videokey)
 	{
 		$this->videokey = $videokey;
+		return $this;
+	}
+	
+	/**
+	 * @return static $this
+	 */
+	function previewsize($width, $height)
+	{		
+		$this->previewsize = [ $width, $height ];
 		return $this;
 	}
 	
@@ -41,6 +55,8 @@ class HTMLFormField_VideoUploader extends \app\HTMLFormField implements \mjolnir
 				->set('class', 'video');
 			
 			$video = \app\HTMLTag::i('video')
+				->set('width', $this->previewsize[0])
+				->set('height', $this->previewsize[1])
 				->set('controls', false);
 			
 			$videowrapper->appendtagbody($video);
@@ -106,6 +122,8 @@ class HTMLFormField_VideoUploader extends \app\HTMLFormField implements \mjolnir
 				->set('data-upload-button-cancel', \app\Lang::key("{$langprefix}cancel"))
 				->set('data-upload-fail-message', \app\Lang::key("{$langprefix}failed-to-upload"))
 				->set('data-preview-id', $this->input->get('id').'_preview')
+				->set('data-preview-width', $this->previewsize[0])	
+				->set('data-preview-height', $this->previewsize[1])	
 				->set('data-field-id', $this->input->get('id'));
 
 			$this->input->set('name', $this->get('name', 'image'));

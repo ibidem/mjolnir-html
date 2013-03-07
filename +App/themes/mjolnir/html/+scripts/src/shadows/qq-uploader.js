@@ -17,6 +17,8 @@
 					fail_message = $element.attr('data-upload-fail-message'),
 					uploader_type = $element.attr('data-upload-uploader-type'),
 					preview_id = $element.attr('data-preview-id'),
+					preview_width = $element.attr('data-preview-width'),
+					preview_height = $element.attr('data-preview-height'),
 					field_id = $element.attr('data-field-id'),
 					width = $element.attr('data-preview-width'),
 					height = $element.attr('data-preview-height');
@@ -54,7 +56,7 @@
 
 							var $preview = $('#'+preview_id);
 							
-							var html = '<div class="video"><video controls>';
+							var html = '<div class="video"><video width="'+preview_width+'" height="'+preview_height+'" controls>';
 							$.each(mjb.mjolnir.uploads.video.formats, function (i, v) {
 								html += '<source type="video/'+v+'" src="' + mjb.mjolnir.config.base.urlbase + basefile + '.' + v +'"/>';
 							});
