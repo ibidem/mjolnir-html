@@ -97,7 +97,7 @@
 						if ($i == $bookmark['page']):
 							?><span class="target pager-page"><?
 								?><a href="<?= $url_base.$querie ?><?= $page_query ?>=<?= $i ?><?= '#'.$bookmark['entry'] ?>" <?
-								?>title="<?= Lang::tr($title, array(':number' => $number, ':number_end' => $number_end, ':bookmark' => $bookmark)) ?>"><?= $i ?></a><?
+								?>title="<?= Lang::tr($title, array(':number' => $number, ':number_end' => $number_end)) ?>"><?= $i ?></a><?
 							?></span><?
 						endif;
 						?><span class="ellipsis pager-page">&#8230;</span><?
@@ -106,7 +106,7 @@
 
 						?><span class="target pager-page"><?
 							?><a href="<?= $url_base.$querie ?><?= $page_query ?>=<?= $i ?><?= '#'.$bookmark['entry'] ?>" <?
-							?>title="<?= Lang::tr($title, array(':number' => $number, ':number_end' => $number_end, ':bookmark' => $bookmark)) ?>"><?= $i ?></a><?
+							?>title="<?= Lang::tr($title, array(':number' => $number, ':number_end' => $number_end)) ?>"><?= $i ?></a><?
 						?></span><?
 
 					else: # standard page
@@ -115,12 +115,12 @@
 						if ($i == $currentpage):
 							?><span class="this<?= ($bookmark['page'] == $i ? ' target' : '') ?> pager-page"><?
 								?><a href="<?= $url_base.$querie ?><?= $page_query ?>=<?= $i ?><?= ($bookmark['page'] == $i ? '#'.$bookmark['entry'] : '') ?>" <?
-								?>title="<?= Lang::tr($title, array(':number' => $number, ':number_end' => $number_end, ':bookmark' => $bookmark)) ?>"><?= $i ?></a><?
+								?>title="<?= Lang::tr($title, array(':number' => $number, ':number_end' => $number_end)) ?>"><?= $i ?></a><?
 							?></span></span><?
 						else: # $i != $currentpage
 							?><span class="pager-page<?= ($bookmark['page'] == $i ? ' target' : '') ?>"><?
 								?><a href="<?= $url_base.$querie ?><?= $page_query ?>=<?= $i ?><?= ($bookmark['page'] == $i ? '#'.$bookmark['entry'] : '') ?>" <?
-								?>title="<?= Lang::tr($title, array(':number' => $number, ':number_end' => $number_end, ':bookmark' => $bookmark)) ?>"><?= $i ?></a><?
+								?>title="<?= Lang::tr($title, array(':number' => $number, ':number_end' => $number_end)) ?>"><?= $i ?></a><?
 							?></span><?
 						endif;
 
