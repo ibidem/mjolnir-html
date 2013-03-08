@@ -57,8 +57,8 @@
 							var $preview = $('#'+preview_id);
 							
 							var html = '<div class="video"><video width="'+preview_width+'" height="'+preview_height+'" controls>';
-							$.each(mjb.mjolnir.uploads.video.formats, function (i, v) {
-								html += '<source type="video/'+v+'" src="' + mjb.mjolnir.config.base.urlbase + basefile + '.' + v +'"/>';
+							$.each(mjb.mjolnir.uploads.video.formats, function (ext, mime) {
+								html += '<source type="'+mime+'" src="' + mjb.mjolnir.config.base.urlbase + basefile + '.' + ext +'"/>';
 							});
 							html += '</video></div>';
 							

@@ -30,16 +30,30 @@ class FileUploader extends \app\Instantiatable
 	protected $overwrite = false;
 
 	/**
-	 * @return \app\SphinxSearch
+	 * @return static
 	 */
 	static function instance(array $extentions = null)
 	{
 		$instance = parent::instance();
 
 		$fileuploader_config = \app\CFS::config('mjolnir/uploads');
-		$allowedExtensions = $extentions !== null ? $extentions : $fileuploader_config['allowed_extensions'] ;
-		$sizeLimit = $fileuploader_config['max_size'] ;
-		$instance->fileuploader = new \app\FileUploader_QQUploader($allowedExtensions, $sizeLimit);
+		
+		if ($extentions === null)
+		{
+			$filteredformats = \app\Arr::filter
+				(
+					$fileuploader_config['image.formats'], 
+					function ($i, $value)
+					{
+						return $value !== null;
+					}
+				);
+			
+			$extentions = \array_keys($filteredformats);
+		}
+		
+		$size_limit = $fileuploader_config['upload.limit'] * 1024 * 1024;
+		$instance->fileuploader = new \app\FileUploader_QQUploader($extentions, $size_limit);
 
 		return $instance;
 	}
@@ -59,7 +73,7 @@ class FileUploader extends \app\Instantiatable
 	}
 
 	/**
-	 * @return \app\FileUpload $this
+	 * @return static $this
 	 */
 	function basepath_is($path)
 	{
@@ -68,7 +82,7 @@ class FileUploader extends \app\Instantiatable
 	}
 
 	/**
-	 * @return \app\FileUpload $this
+	 * @return static $this
 	 */
 	function uploadpath_is($path, $overwrite = false)
 	{

@@ -36,10 +36,18 @@ class Controller_MjolnirQQUploader extends \app\Instantiatable implements \mjoln
 	 */
 	function json_upload_video()
 	{
-		\set_time_limit(\app\CFS::config('mjolnir/uploads')['video.upload.timeout']);
+		\set_time_limit(\app\CFS::config('mjolnir/uploads')['video.timeout']);
 		
-		$videoformats = \app\CFS::config('mjolnir/uploads')['video.formats'];		
-		$uploader = \app\FileUploader::instance($videoformats);
+		$videoformats = \app\Arr::filter
+			(
+				\app\CFS::config('mjolnir/uploads')['video.formats'],
+				function ($ext, $mime)
+				{
+					return $mime !== null;
+				}
+			);
+			
+		$uploader = \app\FileUploader::instance(\array_keys($videoformats));
 		
 		$ext = \strtolower($uploader->ext());
 		$uploader->basepath_is(PUBDIR);
@@ -52,7 +60,7 @@ class Controller_MjolnirQQUploader extends \app\Instantiatable implements \mjoln
 		$result = $uploader->upload();
 		$result["path"] = $uploadpath;
 
-		foreach ($videoformats as $format)
+		foreach ($videoformats as $format => $mime)
 		{
 			if ($format !== $ext)
 			{
