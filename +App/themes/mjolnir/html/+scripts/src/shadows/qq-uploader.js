@@ -21,7 +21,8 @@
 					preview_height = $element.attr('data-preview-height'),
 					field_id = $element.attr('data-field-id'),
 					width = $element.attr('data-preview-width'),
-					height = $element.attr('data-preview-height');
+					height = $element.attr('data-preview-height'),
+					showcontrols = $element.attr('data-preview-controls');
 
 				new qq.FileUploader({
 
@@ -57,13 +58,15 @@
 							var $preview = $('#'+preview_id),
 								dimentions = '';
 							
+							console.log(showcontrols);
+							
 							// compute width / height
 							if (typeof preview_width != 'undefined' && typeof preview_height != 'undefined')
 							{
 								dimentions = 'width="'+preview_width+'" height="'+preview_height+'"';
 							}
 							
-							var html = '<div class="video"><video '+dimentions+' controls>';
+							var html = '<div class="video"><video '+dimentions+' '+(showcontrols == 'true' ? 'controls' : '')+'>';
 							$.each(mjb.mjolnir.uploads.video.formats, function (ext, mime) {
 								html += '<source type="'+mime+'" src="' + mjb.mjolnir.config.base.urlbase + basefile + '.' + ext +'"/>';
 							});

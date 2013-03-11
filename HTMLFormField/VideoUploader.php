@@ -22,6 +22,11 @@ class HTMLFormField_VideoUploader extends \app\HTMLFormField implements \mjolnir
 	protected $previewsize = [ null, null ];
 	
 	/**
+	 * @var boolean
+	 */
+	protected $show_controls = true;
+	
+	/**
 	 * @return static $this
 	 */
 	function videokey_is($videokey)
@@ -36,6 +41,24 @@ class HTMLFormField_VideoUploader extends \app\HTMLFormField implements \mjolnir
 	function previewsize($width, $height)
 	{		
 		$this->previewsize = [ $width, $height ];
+		return $this;
+	}
+	
+	/**
+	 * @return static $this
+	 */
+	function showcontrols()
+	{
+		$this->show_controls = true;
+		return $this;
+	}
+	
+	/**
+	 * @return static $this
+	 */
+	function hidecontrols()
+	{
+		$this->show_controls = false;
 		return $this;
 	}
 	
@@ -56,8 +79,12 @@ class HTMLFormField_VideoUploader extends \app\HTMLFormField implements \mjolnir
 			
 			$video = \app\HTMLTag::i('video')
 				->set('width', $this->previewsize[0])
-				->set('height', $this->previewsize[1])
-				->set('controls', false);
+				->set('height', $this->previewsize[1]);
+			
+			if ($this->show_controls)
+			{
+				$video->set('controls', false);
+			}
 			
 			$videowrapper->appendtagbody($video);
 			
@@ -124,6 +151,7 @@ class HTMLFormField_VideoUploader extends \app\HTMLFormField implements \mjolnir
 				->set('data-preview-id', $this->input->get('id').'_preview')
 				->set('data-preview-width', $this->previewsize[0])	
 				->set('data-preview-height', $this->previewsize[1])	
+				->set('data-preview-controls', $this->show_controls ? 'true' : 'false')	
 				->set('data-field-id', $this->input->get('id'));
 
 			$this->input->set('name', $this->get('name', 'image'));
