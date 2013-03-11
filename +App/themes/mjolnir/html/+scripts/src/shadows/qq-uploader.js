@@ -54,9 +54,16 @@
 							
 							$('#'+field_id).val(response['path']);
 
-							var $preview = $('#'+preview_id);
+							var $preview = $('#'+preview_id),
+								dimentions = '';
 							
-							var html = '<div class="video"><video width="'+preview_width+'" height="'+preview_height+'" controls>';
+							// compute width / height
+							if (typeof preview_width != 'undefined' && typeof preview_height != 'undefined')
+							{
+								dimentions = 'width="'+preview_width+'" height="'+preview_height+'"';
+							}
+							
+							var html = '<div class="video"><video '+dimentions+' controls>';
 							$.each(mjb.mjolnir.uploads.video.formats, function (ext, mime) {
 								html += '<source type="'+mime+'" src="' + mjb.mjolnir.config.base.urlbase + basefile + '.' + ext +'"/>';
 							});

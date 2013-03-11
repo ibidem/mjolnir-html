@@ -19,7 +19,7 @@ class HTMLFormField_VideoUploader extends \app\HTMLFormField implements \mjolnir
 	/**
 	 * @var array
 	 */
-	protected $previewsize = [ 640, 480 ];
+	protected $previewsize = [ null, null ];
 	
 	/**
 	 * @return static $this
