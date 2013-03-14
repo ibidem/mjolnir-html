@@ -490,7 +490,7 @@ class HTMLTag extends \mjolnir\html\HTMLTag
  * @method \app\Pager pageorder_asc()
  * @method \app\Pager pageorder_desc()
  * @method \app\Pager page_is($page)
- * @method \app\Pager totalitems_are($totalitems)
+ * @method \app\Pager itemcount_is($itemcount)
  * @method \app\Pager pagediff_is($pagediff)
  * @method \app\Pager pagelimit_is($pagelimit)
  * @method \app\Pager baseurl_is($baseurl)
@@ -510,5 +510,5 @@ class HTMLTag extends \mjolnir\html\HTMLTag
 class Pager extends \mjolnir\html\Pager
 {
 	/** @return \app\Pager */
-	static function instance($totalitems = 0, $baseurl = null, $pagediff = null, $pagelimit = null) { return parent::instance($totalitems, $baseurl, $pagediff, $pagelimit); }
+	static function instance($itemcount = 0, $baseurl = null, $pagediff = null, $pagelimit = null) { return parent::instance($itemcount, $baseurl, $pagediff, $pagelimit); }
 }

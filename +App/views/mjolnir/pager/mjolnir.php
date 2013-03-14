@@ -74,9 +74,9 @@
 					if ($pagelimit > 1):
 						if ($order === 'asc'):
 							$number = ($i * $pagelimit - $pagelimit + 1);
-							$number_end = $i * $pagelimit > $totalitems ? $totalitems : $i * $pagelimit;
+							$number_end = $i * $pagelimit > $itemcount ? $itemcount : $i * $pagelimit;
 						else: # Pager::ascending
-							$number = ($pagecount - $i + 1) * $pagelimit > $totalitems ? $totalitems : ($pagecount - $i + 1) * $pagelimit;
+							$number = ($pagecount - $i + 1) * $pagelimit > $itemcount ? $itemcount : ($pagecount - $i + 1) * $pagelimit;
 							$number_end = ($pagecount - $i + 1) * $pagelimit - $pagelimit + 1;
 						endif;
 						$title = "{$langprefix}entries-x-to-y";

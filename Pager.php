@@ -14,11 +14,11 @@ class Pager extends \app\Instantiatable implements \mjolnir\types\Pager
 	/**
 	 * @return static
 	 */
-	static function instance($totalitems = 0, $baseurl = null, $pagediff = null, $pagelimit = null)
+	static function instance($itemcount = 0, $baseurl = null, $pagediff = null, $pagelimit = null)
 	{
 		$instance = parent::instance();
 
-		$instance->set('totalitems', $totalitems);
+		$instance->set('itemcount', $itemcount);
 		$instance->set('baseurl', $baseurl !== null ? $baseurl : '');
 		$instance->set('pagediff', $pagediff !== null ? $pagediff : 3);
 		$instance->set('pagelimit', $pagelimit !== null ? $pagelimit : 25);
@@ -48,7 +48,7 @@ class Pager extends \app\Instantiatable implements \mjolnir\types\Pager
 		$ruler !== null or $ruler = ! empty($currentpage);
 
 		// calculate page count
-		$pagecount = \ceil($totalitems / $pagelimit);
+		$pagecount = \ceil($itemcount / $pagelimit);
 
 		// do we have a bookmark?
 		if ($bookmark_entry != 0)
@@ -88,7 +88,7 @@ class Pager extends \app\Instantiatable implements \mjolnir\types\Pager
 	 */
 	function pagecount()
 	{
-		return \ceil($this->get('totalitems') / $this->get('pagelimit'));
+		return \ceil($this->get('itemcount') / $this->get('pagelimit'));
 	}
 
 } # class
