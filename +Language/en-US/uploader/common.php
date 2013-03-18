@@ -3,7 +3,7 @@
 	
 'mjolnir:html/uploader/filetype-not-allowed' => function ($in)
 	{
-		return 'File type not allowed.';
+		return "File type [{$in['extention']}] not allowed.";
 	}
 	
 ];

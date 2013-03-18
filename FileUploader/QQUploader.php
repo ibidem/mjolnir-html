@@ -83,7 +83,7 @@ class FileUploader_QQUploader extends \qqFileUploader
 		if ( ! empty($this->allowedExtensions) && ! \in_array(\strtolower($ext), $this->allowedExtensions))
 		{
 			$allowed_extentions = \implode(', ', $this->allowedExtensions);
-			return [ 'error' => \app\Lang::key('mjolnir:html/uploader/filetype-not-allowed', [':extensions' => $allowed_extentions]) ];
+			return [ 'error' => \app\Lang::key('mjolnir:html/uploader/filetype-not-allowed', ['extention' => \strtolower($ext), 'allowed_extensions' => $allowed_extentions]) ];
 		}
 
 		if ( ! $replace_existing_file)
