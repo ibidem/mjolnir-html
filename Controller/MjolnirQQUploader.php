@@ -47,7 +47,16 @@ class Controller_MjolnirQQUploader extends \app\Instantiatable implements \mjoln
 				}
 			);
 			
-		$uploader = \app\FileUploader::instance(\array_keys($videoformats));
+		$allowed_uploadformats = \app\Arr::filter
+			(
+				\app\CFS::config('mjolnir/uploads')['video.formats.upload'],
+				function ($ext, $enabled)
+				{
+					return $enabled;
+				}
+			);
+			
+		$uploader = \app\FileUploader::instance(\array_keys($allowed_uploadformats));
 		
 		$ext = \strtolower($uploader->ext());
 		$uploader->basepath_is(PUBDIR);

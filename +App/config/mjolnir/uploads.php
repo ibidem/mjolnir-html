@@ -7,12 +7,23 @@
 				'png' => 'image/png'
 			),
 	
+		// video format uploaded files will be converted to,
+		// see: mjolnir/video-converter configuration for conversion settings
 		'video.formats' => array
 			(
 				'mp4' => 'video/mp4', 
 				'ogv' => 'video/ogg', 
 				'webm' => 'video/webm', 
 				'flv' => 'video/flv',
+			),
+	
+		// video formats allowed for upload
+		'video.formats.upload' => array
+			(
+				'mp4' => true, 
+				'ogv' => true, 
+				'webm' => true, 
+				'mov' => true,
 			),
 	
 		// max file size of uploaded files
