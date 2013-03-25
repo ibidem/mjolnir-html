@@ -7,12 +7,12 @@
 
 
 /**
- * @method \app\Controller_MjolnirQQUploader channel_is($channel)
- * @method \app\Channel channel()
  * @method \app\Controller_MjolnirQQUploader add_preprocessor($name, $processor)
  * @method \app\Controller_MjolnirQQUploader add_postprocessor($name, $processor)
  * @method \app\Controller_MjolnirQQUploader preprocess()
  * @method \app\Controller_MjolnirQQUploader postprocess()
+ * @method \app\Controller_MjolnirQQUploader channel_is($channel)
+ * @method \app\Channel channel()
  */
 class Controller_MjolnirQQUploader extends \mjolnir\html\Controller_MjolnirQQUploader
 {
@@ -24,79 +24,18 @@ class FileUploader_QQUploader extends \mjolnir\html\FileUploader_QQUploader
 {
 }
 
+/**
+ * @method \app\FileUploader basepath_is($path)
+ * @method \app\FileUploader uploadpath_is($path, $overwrite = false)
+ */
 class FileUploader extends \mjolnir\html\FileUploader
 {
+	/** @return \app\FileUploader */
+	static function instance(array $extentions = null) { return parent::instance($extentions); }
 }
 
 class HH extends \mjolnir\html\HH
 {
-}
-
-class HTML extends \mjolnir\html\HTML
-{
-	/** @return \app\HTMLTag */
-	static function anchor($tagbody, $href = null) { return parent::anchor($tagbody, $href); }
-	/** @return \app\HTMLForm */
-	static function form($action, $standard = null) { return parent::form($action, $standard); }
-	/** @return \app\HTMLForm */
-	static function queryform($action = '', $standard = null) { return parent::queryform($action, $standard); }
-}
-
-/**
- * @method \app\HTMLFormField field($label, $fieldname, $fieldtype)
- * @method \app\HTMLFormField_Composite composite($label)
- * @method \app\HTMLForm autocomplete(array  & $hints = null)
- * @method \app\HTMLForm basicuploader()
- * @method \app\HTMLForm nonuploader()
- * @method \app\HTMLForm tagname_is($tagname)
- * @method \app\HTMLForm tagbody_is($string)
- * @method \app\HTMLForm tagbody_render($renderable)
- * @method \app\HTMLForm appendtagbody($tagbody)
- * @method \app\HTMLForm set($name, $value)
- * @method \app\HTMLForm add($name, $value)
- * @method \app\HTMLForm metadata_is(array $metadata = null)
- * @method \app\HTMLForm addmetarenderer($key, $metarenderer)
- * @method \app\HTMLForm injectmetarenderers(array $metarenderers = null)
- * @method \app\HTMLFormField_Select select($label, $fieldname = null)
- * @method \app\HTMLFormField_AjaxUploader imageuploader($label, $fieldname = null)
- * @method \app\HTMLFormField_AjaxUploader videouploader($label, $fieldname = null)
- * @method \app\HTMLFormField hidden($fieldname = null)
- * @method \app\HTMLFormField submit($label, $fieldname = null, $tagvalue = null)
- * @method \app\HTMLFormField button($label, $fieldname = null, $tagbody = null)
- * @method \app\HTMLFormField reset($label, $fieldname = null, $tagvalue = null)
- * @method \app\HTMLFormField text($label, $fieldname = null)
- * @method \app\HTMLFormField_Textarea textarea($label, $fieldname = null)
- * @method \app\HTMLFormField password($label, $fieldname = null)
- * @method \app\HTMLFormField radio($label, $fieldname = null)
- * @method \app\HTMLFormField_Checkbox checkbox($label, $fieldname = null)
- * @method \app\HTMLFormField file($label, $fieldname = null)
- * @method \app\HTMLFormField search($label, $fieldname = null)
- * @method \app\HTMLFormField number($label, $fieldname = null)
- * @method \app\HTMLFormField identifier($label, $fieldname = null)
- * @method \app\HTMLFormField currency($label, $fieldname = null)
- * @method \app\HTMLFormField phonenumber($label, $fieldname = null)
- * @method \app\HTMLFormField url($label, $fieldname = null)
- * @method \app\HTMLFormField email($label, $fieldname = null)
- * @method \app\HTMLFormField month($label, $fieldname = null)
- * @method \app\HTMLFormField week($label, $fieldname = null)
- * @method \app\HTMLFormField color($label, $fieldname = null)
- * @method \app\HTMLFormField range($label, $fieldname = null)
- * @method \app\HTMLFormField image($label, $fieldname = null)
- * @method \app\HTMLFormField date($label, $fieldname = null)
- * @method \app\HTMLFormField time($label, $fieldname = null)
- * @method \app\HTMLFormField datetime($label, $fieldname = null)
- * @method \app\HTMLFormField localdatetime($label, $fieldname = null)
- * @method \app\HTMLForm errors_are(array  & $errors = null)
- * @method \app\HTMLForm addfieldtemplate($template, $fieldtype = null)
- * @method \app\HTMLForm addhintrenderer($hintrenderer, $fieldtype = null)
- * @method \app\HTMLForm adderrorrenderer($errorrenderer, $fieldtype = null)
- */
-class HTMLForm extends \mjolnir\html\HTMLForm
-{
-	/** @return \app\HTMLForm */
-	static function instance() { return parent::instance(); }
-	/** @return \app\HTMLForm */
-	static function i($standard, $action = null) { return parent::i($standard, $action); }
 }
 
 /**
@@ -118,11 +57,11 @@ class HTMLForm extends \mjolnir\html\HTMLForm
  * @method \app\HTMLFormField_Button hint($hint)
  * @method \app\HTMLFormField_Button adderror($message)
  * @method \app\HTMLFormField_Button adderrors(array $errors = null)
- * @method \app\HTMLFormField_Button apply($standard)
  * @method \app\HTMLFormField_Button noerrors()
  * @method \app\HTMLFormField_Button showerrors()
  * @method \app\HTMLFormField_Button disable_autocomplete()
  * @method \app\HTMLFormField_Button enable_autocomplete()
+ * @method \app\HTMLFormField_Button apply($standard)
  */
 class HTMLFormField_Button extends \mjolnir\html\HTMLFormField_Button
 {
@@ -152,13 +91,14 @@ class HTMLFormField_Button extends \mjolnir\html\HTMLFormField_Button
  * @method \app\HTMLFormField_Checkbox hint($hint)
  * @method \app\HTMLFormField_Checkbox adderror($message)
  * @method \app\HTMLFormField_Checkbox adderrors(array $errors = null)
- * @method \app\HTMLFormField_Checkbox apply($standard)
  * @method \app\HTMLFormField_Checkbox noerrors()
  * @method \app\HTMLFormField_Checkbox showerrors()
  * @method \app\HTMLFormField_Checkbox disable_autocomplete()
  * @method \app\HTMLFormField_Checkbox enable_autocomplete()
+ * @method \app\HTMLFormField_Checkbox apply($standard)
  * @method \app\HTMLFormField_Checkbox checked()
  * @method \app\HTMLFormField_Checkbox unchecked()
+ * @method \app\HTMLFormField_Checkbox checked_state($state)
  */
 class HTMLFormField_Checkbox extends \mjolnir\html\HTMLFormField_Checkbox
 {
@@ -181,6 +121,7 @@ class HTMLFormField_Checkbox extends \mjolnir\html\HTMLFormField_Checkbox
  * @method \app\HTMLFormField_Composite metadata_is(array $metadata = null)
  * @method \app\HTMLFormField_Composite addmetarenderer($key, $metarenderer)
  * @method \app\HTMLFormField_Composite injectmetarenderers(array $metarenderers = null)
+ * @method \app\HTMLFormField_Composite value_is($fieldvalue)
  * @method \app\HTMLFormField_Composite fieldlabel_is($fieldlabel)
  * @method \app\HTMLFormField_Composite hintrenderer_is($renderer)
  * @method \app\HTMLFormField_Composite errorrenderer_is($renderer)
@@ -188,13 +129,12 @@ class HTMLFormField_Checkbox extends \mjolnir\html\HTMLFormField_Checkbox
  * @method \app\HTMLFormField_Composite hint($hint)
  * @method \app\HTMLFormField_Composite adderror($message)
  * @method \app\HTMLFormField_Composite adderrors(array $errors = null)
- * @method \app\HTMLFormField_Composite apply($standard)
+ * @method \app\HTMLFormField_Composite errors()
  * @method \app\HTMLFormField_Composite noerrors()
  * @method \app\HTMLFormField_Composite showerrors()
  * @method \app\HTMLFormField_Composite disable_autocomplete()
  * @method \app\HTMLFormField_Composite enable_autocomplete()
- * @method \app\HTMLFormField_Composite value_is($fieldvalue)
- * @method \app\HTMLFormField_Composite errors()
+ * @method \app\HTMLFormField_Composite apply($standard)
  * @method \app\HTMLFormField_Composite fieldmix($fieldmix)
  */
 class HTMLFormField_Composite extends \mjolnir\html\HTMLFormField_Composite
@@ -225,11 +165,11 @@ class HTMLFormField_Composite extends \mjolnir\html\HTMLFormField_Composite
  * @method \app\HTMLFormField_Hidden hint($hint)
  * @method \app\HTMLFormField_Hidden adderror($message)
  * @method \app\HTMLFormField_Hidden adderrors(array $errors = null)
- * @method \app\HTMLFormField_Hidden apply($standard)
  * @method \app\HTMLFormField_Hidden noerrors()
  * @method \app\HTMLFormField_Hidden showerrors()
  * @method \app\HTMLFormField_Hidden disable_autocomplete()
  * @method \app\HTMLFormField_Hidden enable_autocomplete()
+ * @method \app\HTMLFormField_Hidden apply($standard)
  */
 class HTMLFormField_Hidden extends \mjolnir\html\HTMLFormField_Hidden
 {
@@ -263,16 +203,16 @@ class HTMLFormField_Hidden extends \mjolnir\html\HTMLFormField_Hidden
  * @method \app\HTMLFormField_ImageUploader hint($hint)
  * @method \app\HTMLFormField_ImageUploader adderror($message)
  * @method \app\HTMLFormField_ImageUploader adderrors(array $errors = null)
- * @method \app\HTMLFormField_ImageUploader apply($standard)
  * @method \app\HTMLFormField_ImageUploader noerrors()
  * @method \app\HTMLFormField_ImageUploader showerrors()
  * @method \app\HTMLFormField_ImageUploader disable_autocomplete()
  * @method \app\HTMLFormField_ImageUploader enable_autocomplete()
- * @method \app\HTMLFormField_ImageUploader initialize()
+ * @method \app\HTMLFormField_ImageUploader apply($standard)
  * @method \app\HTMLTag preview()
- * @method \app\HTMLFormField_ImageUploader langprefix_is($langprefix)
  * @method \app\HTMLFormField_ImageUploader channel_is($channel)
  * @method \app\Channel channel()
+ * @method \app\HTMLFormField_ImageUploader initialize()
+ * @method \app\HTMLFormField_ImageUploader langprefix_is($langprefix)
  */
 class HTMLFormField_ImageUploader extends \mjolnir\html\HTMLFormField_ImageUploader
 {
@@ -302,13 +242,14 @@ class HTMLFormField_ImageUploader extends \mjolnir\html\HTMLFormField_ImageUploa
  * @method \app\HTMLFormField_Radio hint($hint)
  * @method \app\HTMLFormField_Radio adderror($message)
  * @method \app\HTMLFormField_Radio adderrors(array $errors = null)
- * @method \app\HTMLFormField_Radio apply($standard)
  * @method \app\HTMLFormField_Radio noerrors()
  * @method \app\HTMLFormField_Radio showerrors()
  * @method \app\HTMLFormField_Radio disable_autocomplete()
  * @method \app\HTMLFormField_Radio enable_autocomplete()
+ * @method \app\HTMLFormField_Radio apply($standard)
  * @method \app\HTMLFormField_Radio checked()
  * @method \app\HTMLFormField_Radio unchecked()
+ * @method \app\HTMLFormField_Radio checked_state($state)
  */
 class HTMLFormField_Radio extends \mjolnir\html\HTMLFormField_Radio
 {
@@ -332,6 +273,7 @@ class HTMLFormField_Radio extends \mjolnir\html\HTMLFormField_Radio
  * @method \app\HTMLFormField_Select metadata_is(array $metadata = null)
  * @method \app\HTMLFormField_Select addmetarenderer($key, $metarenderer)
  * @method \app\HTMLFormField_Select injectmetarenderers(array $metarenderers = null)
+ * @method \app\HTMLFormField_Select value_is($value)
  * @method \app\HTMLFormField_Select fieldlabel_is($fieldlabel)
  * @method \app\HTMLFormField_Select hintrenderer_is($renderer)
  * @method \app\HTMLFormField_Select errorrenderer_is($renderer)
@@ -339,13 +281,12 @@ class HTMLFormField_Radio extends \mjolnir\html\HTMLFormField_Radio
  * @method \app\HTMLFormField_Select hint($hint)
  * @method \app\HTMLFormField_Select adderror($message)
  * @method \app\HTMLFormField_Select adderrors(array $errors = null)
- * @method \app\HTMLFormField_Select apply($standard)
  * @method \app\HTMLFormField_Select noerrors()
  * @method \app\HTMLFormField_Select showerrors()
  * @method \app\HTMLFormField_Select disable_autocomplete()
  * @method \app\HTMLFormField_Select enable_autocomplete()
+ * @method \app\HTMLFormField_Select apply($standard)
  * @method \app\HTMLFormField_Select options_table(array $table, $valuekey = null, $labelkey = null, $groupkey = null)
- * @method \app\HTMLFormField_Select value_is($value)
  * @method \app\HTMLFormField_Select value_array(array $values = null)
  */
 class HTMLFormField_Select extends \mjolnir\html\HTMLFormField_Select
@@ -375,11 +316,11 @@ class HTMLFormField_Select extends \mjolnir\html\HTMLFormField_Select
  * @method \app\HTMLFormField_Textarea hint($hint)
  * @method \app\HTMLFormField_Textarea adderror($message)
  * @method \app\HTMLFormField_Textarea adderrors(array $errors = null)
- * @method \app\HTMLFormField_Textarea apply($standard)
  * @method \app\HTMLFormField_Textarea noerrors()
  * @method \app\HTMLFormField_Textarea showerrors()
  * @method \app\HTMLFormField_Textarea disable_autocomplete()
  * @method \app\HTMLFormField_Textarea enable_autocomplete()
+ * @method \app\HTMLFormField_Textarea apply($standard)
  */
 class HTMLFormField_Textarea extends \mjolnir\html\HTMLFormField_Textarea
 {
@@ -391,7 +332,11 @@ class HTMLFormField_Textarea extends \mjolnir\html\HTMLFormField_Textarea
 
 /**
  * @method \app\HTMLFormField_VideoUploader videokey_is($videokey)
+ * @method \app\HTMLFormField_VideoUploader previewsize($width, $height)
+ * @method \app\HTMLFormField_VideoUploader showcontrols()
+ * @method \app\HTMLFormField_VideoUploader hidecontrols()
  * @method \app\HTMLTag makepreview()
+ * @method \app\HTMLFormField_VideoUploader value_is($video)
  * @method \app\HTMLTag wrapper()
  * @method \app\HTMLFormField_VideoUploader form_is($form)
  * @method \app\HTMLFormField_VideoUploader form()
@@ -404,7 +349,6 @@ class HTMLFormField_Textarea extends \mjolnir\html\HTMLFormField_Textarea
  * @method \app\HTMLFormField_VideoUploader metadata_is(array $metadata = null)
  * @method \app\HTMLFormField_VideoUploader addmetarenderer($key, $metarenderer)
  * @method \app\HTMLFormField_VideoUploader injectmetarenderers(array $metarenderers = null)
- * @method \app\HTMLFormField_VideoUploader value_is($fieldvalue)
  * @method \app\HTMLFormField_VideoUploader fieldlabel_is($fieldlabel)
  * @method \app\HTMLFormField_VideoUploader hintrenderer_is($renderer)
  * @method \app\HTMLFormField_VideoUploader errorrenderer_is($renderer)
@@ -412,16 +356,16 @@ class HTMLFormField_Textarea extends \mjolnir\html\HTMLFormField_Textarea
  * @method \app\HTMLFormField_VideoUploader hint($hint)
  * @method \app\HTMLFormField_VideoUploader adderror($message)
  * @method \app\HTMLFormField_VideoUploader adderrors(array $errors = null)
- * @method \app\HTMLFormField_VideoUploader apply($standard)
  * @method \app\HTMLFormField_VideoUploader noerrors()
  * @method \app\HTMLFormField_VideoUploader showerrors()
  * @method \app\HTMLFormField_VideoUploader disable_autocomplete()
  * @method \app\HTMLFormField_VideoUploader enable_autocomplete()
- * @method \app\HTMLFormField_VideoUploader initialize()
+ * @method \app\HTMLFormField_VideoUploader apply($standard)
  * @method \app\HTMLTag preview()
- * @method \app\HTMLFormField_VideoUploader langprefix_is($langprefix)
  * @method \app\HTMLFormField_VideoUploader channel_is($channel)
  * @method \app\Channel channel()
+ * @method \app\HTMLFormField_VideoUploader initialize()
+ * @method \app\HTMLFormField_VideoUploader langprefix_is($langprefix)
  */
 class HTMLFormField_VideoUploader extends \mjolnir\html\HTMLFormField_VideoUploader
 {
@@ -451,11 +395,11 @@ class HTMLFormField_VideoUploader extends \mjolnir\html\HTMLFormField_VideoUploa
  * @method \app\HTMLFormField hint($hint)
  * @method \app\HTMLFormField adderror($message)
  * @method \app\HTMLFormField adderrors(array $errors = null)
- * @method \app\HTMLFormField apply($standard)
  * @method \app\HTMLFormField noerrors()
  * @method \app\HTMLFormField showerrors()
  * @method \app\HTMLFormField disable_autocomplete()
  * @method \app\HTMLFormField enable_autocomplete()
+ * @method \app\HTMLFormField apply($standard)
  */
 class HTMLFormField extends \mjolnir\html\HTMLFormField
 {
@@ -463,6 +407,73 @@ class HTMLFormField extends \mjolnir\html\HTMLFormField
 	static function instance() { return parent::instance(); }
 	/** @return \app\HTMLTag */
 	static function i($tagname, $tagbody = null) { return parent::i($tagname, $tagbody); }
+}
+
+/**
+ * @method \app\HTMLFormField field($label, $fieldname, $fieldtype)
+ * @method \app\HTMLFormField_Composite composite($label)
+ * @method \app\HTMLForm autocomplete(array  & $hints = null)
+ * @method \app\HTMLForm basicuploader()
+ * @method \app\HTMLForm nonuploader()
+ * @method \app\HTMLForm tagname_is($tagname)
+ * @method \app\HTMLForm tagbody_is($string)
+ * @method \app\HTMLForm tagbody_render($renderable)
+ * @method \app\HTMLForm appendtagbody($tagbody)
+ * @method \app\HTMLForm set($name, $value)
+ * @method \app\HTMLForm add($name, $value)
+ * @method \app\HTMLForm metadata_is(array $metadata = null)
+ * @method \app\HTMLForm addmetarenderer($key, $metarenderer)
+ * @method \app\HTMLForm injectmetarenderers(array $metarenderers = null)
+ * @method \app\HTMLFormField_Textarea textarea($label, $fieldname = null)
+ * @method \app\HTMLFormField_Select select($label, $fieldname = null)
+ * @method \app\HTMLFormField_AjaxUploader imageuploader($label, $fieldname = null)
+ * @method \app\HTMLFormField_AjaxUploader videouploader($label, $fieldname = null)
+ * @method \app\HTMLFormField hidden($fieldname = null)
+ * @method \app\HTMLFormField submit($label, $fieldname = null, $tagvalue = null)
+ * @method \app\HTMLFormField button($label, $fieldname = null, $tagbody = null)
+ * @method \app\HTMLFormField reset($label, $fieldname = null, $tagvalue = null)
+ * @method \app\HTMLFormField text($label, $fieldname = null)
+ * @method \app\HTMLFormField password($label, $fieldname = null)
+ * @method \app\HTMLFormField radio($label, $fieldname = null)
+ * @method \app\HTMLFormField_Checkbox checkbox($label, $fieldname = null)
+ * @method \app\HTMLFormField file($label, $fieldname = null)
+ * @method \app\HTMLFormField search($label, $fieldname = null)
+ * @method \app\HTMLFormField number($label, $fieldname = null)
+ * @method \app\HTMLFormField identifier($label, $fieldname = null)
+ * @method \app\HTMLFormField currency($label, $fieldname = null)
+ * @method \app\HTMLFormField phonenumber($label, $fieldname = null)
+ * @method \app\HTMLFormField url($label, $fieldname = null)
+ * @method \app\HTMLFormField email($label, $fieldname = null)
+ * @method \app\HTMLFormField month($label, $fieldname = null)
+ * @method \app\HTMLFormField week($label, $fieldname = null)
+ * @method \app\HTMLFormField color($label, $fieldname = null)
+ * @method \app\HTMLFormField range($label, $fieldname = null)
+ * @method \app\HTMLFormField image($label, $fieldname = null)
+ * @method \app\HTMLFormField date($label, $fieldname = null)
+ * @method \app\HTMLFormField time($label, $fieldname = null)
+ * @method \app\HTMLFormField datetime($label, $fieldname = null)
+ * @method \app\HTMLFormField localdatetime($label, $fieldname = null)
+ * @method \app\HTMLForm errors_are(array  & $errors = null)
+ * @method \app\HTMLForm addfieldtemplate($template, $fieldtype = null)
+ * @method \app\HTMLForm addhintrenderer($hintrenderer, $fieldtype = null)
+ * @method \app\HTMLForm adderrorrenderer($errorrenderer, $fieldtype = null)
+ */
+class HTMLForm extends \mjolnir\html\HTMLForm
+{
+	/** @return \app\HTMLForm */
+	static function instance() { return parent::instance(); }
+	/** @return \app\HTMLForm */
+	static function i($standard, $action = null) { return parent::i($standard, $action); }
+}
+
+class HTML extends \mjolnir\html\HTML
+{
+	/** @return \app\HTMLTag */
+	static function anchor($tagbody, $href = null) { return parent::anchor($tagbody, $href); }
+	/** @return \app\HTMLForm */
+	static function form($action, $standard = null) { return parent::form($action, $standard); }
+	/** @return \app\HTMLForm */
+	static function queryform($action = '', $standard = null) { return parent::queryform($action, $standard); }
 }
 
 /**
@@ -497,15 +508,16 @@ class HTMLTag extends \mjolnir\html\HTMLTag
  * @method \app\Pager query_is(array $query)
  * @method \app\Pager appendquery($rawquery)
  * @method \app\Pager bookmark_is($entry, $anchor)
- * @method \app\Pager langprefix_is($langprefix)
- * @method \app\Pager apply($standard)
- * @method \app\Pager file_is($file, $ext = null)
+ * @method \app\Pager autohide()
  * @method \app\Pager set($name, $value)
  * @method \app\Pager add($name, $value)
  * @method \app\Pager metadata_is(array $metadata = null)
+ * @method \app\Pager file_is($file, $ext = null)
  * @method \app\Pager file_path($filepath)
+ * @method \app\Pager apply($standard)
  * @method \app\Pager addmetarenderer($key, $metarenderer)
  * @method \app\Pager injectmetarenderers(array $metarenderers = null)
+ * @method \app\Pager langprefix_is($langprefix)
  */
 class Pager extends \mjolnir\html\Pager
 {
