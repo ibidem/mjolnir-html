@@ -17,7 +17,7 @@ class FileUploader_QQUploader extends \qqFileUploader
 	public function get_extension()
 	{
 		$pathinfo = \pathinfo($this->getName());
-	
+
 		if (isset($pathinfo['extension']))
 		{
 			return $pathinfo['extension'];
@@ -27,7 +27,7 @@ class FileUploader_QQUploader extends \qqFileUploader
 			return null;
 		}
 	}
-	
+
 	/**
 	 * @return array
 	 */
@@ -35,18 +35,18 @@ class FileUploader_QQUploader extends \qqFileUploader
 	{
 		if ($base_path === null)
 		{
-			if (\defined('PUBDIR'))
+			if (\app\Env::key('www.path'))
 			{
-				$base_path = PUBDIR;
+				$base_path = \app\Env::key('www.path');
 			}
 			else # no public directory defined
 			{
-				throw new \app\Exception('PUBDIR is not defined in current context.');
+				throw new \app\Exception('www path is not defined in current context.');
 			}
 		}
-		
+
 		$pathinfo_dest = \pathinfo($base_path.$upload_path);
-		
+
 		if ( ! \is_writable($pathinfo_dest['dirname']))
 		{
 			return [ 'error' => \app\Lang::term('Server error. Upload directory isn\'t writable.') ];
@@ -90,9 +90,9 @@ class FileUploader_QQUploader extends \qqFileUploader
 		{
 			throw new \app\Exception('File already exists.');
 		}
-		
+
 		$filename_dest = $pathinfo_dest['filename'];
-		
+
 		if (isset($pathinfo_dest['extention']))
 		{
 			$ext_dest = $pathinfo_dest['extension'];
@@ -103,11 +103,11 @@ class FileUploader_QQUploader extends \qqFileUploader
 		}
 
 		$this->uploadName = $filename_dest.'.'.$ext_dest;
-		
+
 		if ($this->file->save($base_path.$upload_path))
 		{
 			return [ 'success' => true ];
-		} 
+		}
 		else # got error
 		{
 			return [ 'error'=> \app\Lang::term('Could not save uploaded file.') ];

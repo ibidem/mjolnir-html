@@ -17,27 +17,27 @@ class Controller_MjolnirQQUploader extends \app\Instantiatable implements \mjoln
 	function json_upload_image()
 	{
 		$uploader = \app\FileUploader::instance();
-		
+
 		$ext = $uploader->ext();
-		$uploader->basepath_is(PUBDIR);
+		$uploader->basepath_is(\app\Env::key('www.path'));
 		$idprefix = \app\Auth::role() !== \app\Auth::Guest ? 'u'.\app\Auth::id() : 'g'.\crc32(\app\Server::client_ip());
 		$uploadpath = 'uploads/'.$idprefix.'__'.\uniqid('mjupload_', true).'.'.$ext;
 		$uploader->uploadpath_is($uploadpath, true);
-		
+
 		//upload
 		$result = $uploader->upload();
 		$result["path"] = $uploadpath;
 
 		return $result;
 	}
-	
+
 	/**
 	 * @return array
 	 */
 	function json_upload_video()
 	{
 		\set_time_limit(\app\CFS::config('mjolnir/uploads')['video.timeout']);
-		
+
 		$videoformats = \app\Arr::filter
 			(
 				\app\CFS::config('mjolnir/uploads')['video.formats'],
@@ -46,7 +46,7 @@ class Controller_MjolnirQQUploader extends \app\Instantiatable implements \mjoln
 					return $mime !== null;
 				}
 			);
-			
+
 		$allowed_uploadformats = \app\Arr::filter
 			(
 				\app\CFS::config('mjolnir/uploads')['video.formats.upload'],
@@ -55,16 +55,16 @@ class Controller_MjolnirQQUploader extends \app\Instantiatable implements \mjoln
 					return $enabled;
 				}
 			);
-			
+
 		$uploader = \app\FileUploader::instance(\array_keys($allowed_uploadformats));
-		
+
 		$ext = \strtolower($uploader->ext());
-		$uploader->basepath_is(PUBDIR);
+		$uploader->basepath_is(\app\Env::key('www.path'));
 		$idprefix = \app\Auth::role() !== \app\Auth::Guest ? 'u'.\app\Auth::id() : 'g'.\crc32(\app\Server::client_ip());
 		$basepath = 'uploads/'.$idprefix.'__'.\uniqid('mjupload_', true).'.';
 		$uploadpath = $basepath.$ext;
 		$uploader->uploadpath_is($uploadpath, true);
-		
+
 		//upload
 		$result = $uploader->upload();
 		$result["path"] = $uploadpath;
@@ -73,11 +73,11 @@ class Controller_MjolnirQQUploader extends \app\Instantiatable implements \mjoln
 		{
 			if ($format !== $ext)
 			{
-				\app\VideoConverter::convert(PUBDIR.$uploadpath, PUBDIR.$basepath.$format);
+				\app\VideoConverter::convert(\app\Env::key('www.path').$uploadpath, \app\Env::key('www.path').$basepath.$format);
 			}
 		}
-		
+
 		return $result;
 	}
-	
+
 } # class

@@ -17,7 +17,7 @@ return array
 							return 'available';
 						}
 
-						return 'error';
+						return 'failed';
 					},
 			),
 	);
