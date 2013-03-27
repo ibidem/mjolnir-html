@@ -15,17 +15,17 @@ class HTMLFormField_VideoUploader extends \app\HTMLFormField implements \mjolnir
 	 * @var string
 	 */
 	protected $videokey;
-	
+
 	/**
 	 * @var array
 	 */
 	protected $previewsize = [ null, null ];
-	
+
 	/**
 	 * @var boolean
 	 */
 	protected $show_controls = true;
-	
+
 	/**
 	 * @return static $this
 	 */
@@ -34,16 +34,16 @@ class HTMLFormField_VideoUploader extends \app\HTMLFormField implements \mjolnir
 		$this->videokey = $videokey;
 		return $this;
 	}
-	
+
 	/**
 	 * @return static $this
 	 */
 	function previewsize($width, $height)
-	{		
+	{
 		$this->previewsize = [ $width, $height ];
 		return $this;
 	}
-	
+
 	/**
 	 * @return static $this
 	 */
@@ -52,7 +52,7 @@ class HTMLFormField_VideoUploader extends \app\HTMLFormField implements \mjolnir
 		$this->show_controls = true;
 		return $this;
 	}
-	
+
 	/**
 	 * @return static $this
 	 */
@@ -61,72 +61,72 @@ class HTMLFormField_VideoUploader extends \app\HTMLFormField implements \mjolnir
 		$this->show_controls = false;
 		return $this;
 	}
-	
+
 	/**
 	 * @return \mjolnir\types\HTMLTag
 	 */
 	function makepreview()
 	{
 		$this->autocompletefield();
-		
+
 		$preview = \app\HTMLTag::i('div', '')
 			->set('id', $this->input->get('id').'_preview');
-			
+
 		if ($this->videokey !== null)
 		{
 			$videowrapper = \app\HTMLTag::i('div')
 				->set('class', 'video');
-			
+
 			$video = \app\HTMLTag::i('video')
 				->set('width', $this->previewsize[0])
 				->set('height', $this->previewsize[1]);
-			
+
 			if ($this->show_controls)
 			{
 				$video->set('controls', false);
 			}
-			
+
 			$videowrapper->appendtagbody($video);
-			
+
 			$base = \app\CFS::config('mjolnir/base');
 			$baseurl = $base['protocol'].$base['domain'].$base['path'];
-			
+
 			$formats = \app\CFS::config('mjolnir/uploads')['video.formats'];
-			foreach ($formats as $format)
+			foreach ($formats as $format => $mime)
 			{
 				$source = \app\HTMLTag::i('source')
-					->set('type', "video/$format")
+					->set('type', $mime)
 					->set('src', "$baseurl{$this->videokey}.$format");
-					
+
 				$video->appendtagbody($source);
 			}
-			
+
 			$preview->appendtagbody($videowrapper);
 		}
 		else # no preview required
 		{
 			$preview->add('class', 'off');
 		}
-		
+
 		return $preview;
 	}
-	
+
 	/**
 	 * @return static $this
 	 */
 	function value_is($video)
 	{
 		$this->input->set('value', $video);
-		
+
 		if ( ! empty($video))
 		{
 			$videokey = \preg_replace('#\.[a-z0-9]+$#', '', $video);
 			$this->videokey_is($videokey);
 		}
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * @return \mjolnir\types\HTMLTag
 	 */
@@ -149,9 +149,9 @@ class HTMLFormField_VideoUploader extends \app\HTMLFormField implements \mjolnir
 				->set('data-upload-button-cancel', \app\Lang::key("{$langprefix}cancel"))
 				->set('data-upload-fail-message', \app\Lang::key("{$langprefix}failed-to-upload"))
 				->set('data-preview-id', $this->input->get('id').'_preview')
-				->set('data-preview-width', $this->previewsize[0])	
-				->set('data-preview-height', $this->previewsize[1])	
-				->set('data-preview-controls', $this->show_controls ? 'true' : 'false')	
+				->set('data-preview-width', $this->previewsize[0])
+				->set('data-preview-height', $this->previewsize[1])
+				->set('data-preview-controls', $this->show_controls ? 'true' : 'false')
 				->set('data-field-id', $this->input->get('id'));
 
 			$this->input->set('name', $this->get('name', 'image'));
