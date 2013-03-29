@@ -28,10 +28,10 @@ class HTMLFormField_ImageUploader extends \app\HTMLFormField implements \mjolnir
 	 */
 	function image_is($imageurl)
 	{
-		$this->imageurl = $imageurl;
-		
 		if ( ! empty($imageurl))
 		{
+			$this->imageurl = $imageurl;
+			
 			$this->preview->set
 				(
 					'src', 
@@ -89,7 +89,7 @@ class HTMLFormField_ImageUploader extends \app\HTMLFormField implements \mjolnir
 	 * @return \mjolnir\types\HTMLTag
 	 */
 	function makepreview()
-	{
+	{		
 		return \app\HTMLTag::i('img')
 			->set('id', $this->input->get('id').'_preview')
 			->set('alt', '') # an empty value is the correct value
