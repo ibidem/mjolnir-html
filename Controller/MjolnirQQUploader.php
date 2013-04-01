@@ -27,7 +27,11 @@ class Controller_MjolnirQQUploader extends \app\Instantiatable implements \mjoln
 		//upload
 		$result = $uploader->upload();
 		$result["path"] = $uploadpath;
-
+		
+		// make sure image is rotated for humans
+		$imagepath = \app\Env::key('www.path').$uploadpath;
+		\app\Image::remove_orientation($imagepath);
+		
 		return $result;
 	}
 
