@@ -14,7 +14,7 @@ return array
 					{
 						if ($current_limit >= $limit)
 						{
-							return 'available';
+							return 'satisfied';
 						}
 
 						return 'failed';
