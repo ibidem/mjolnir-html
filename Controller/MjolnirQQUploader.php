@@ -30,7 +30,9 @@ class Controller_MjolnirQQUploader extends \app\Instantiatable implements \mjoln
 		
 		// make sure image is rotated for humans
 		$imagepath = \app\Env::key('www.path').$uploadpath;
-		\app\Image::remove_orientation($imagepath);
+		$imagepath = \app\Image::removeorientation($imagepath);
+		
+		$result["path"] = \substr($imagepath, \strlen(\app\Env::key('www.path')));
 		
 		return $result;
 	}
