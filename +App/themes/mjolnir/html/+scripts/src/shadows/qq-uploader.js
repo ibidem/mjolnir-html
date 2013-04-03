@@ -58,8 +58,6 @@
 							var $preview = $('#'+preview_id),
 								dimentions = '';
 							
-							console.log(showcontrols);
-							
 							// compute width / height
 							if (typeof preview_width != 'undefined' && typeof preview_height != 'undefined')
 							{

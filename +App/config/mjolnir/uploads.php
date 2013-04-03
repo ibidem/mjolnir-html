@@ -30,6 +30,6 @@
 		'upload.limit' => 50, # Megabytes
 	
 		// video processing (seconds)
-		'video.timeout' => 10800, // 3 hours
+		'video.timeout' => 3600, // 1 hours
 	
 	); # config

@@ -49,11 +49,13 @@ class FileUploader_QQUploader extends \qqFileUploader
 
 		if ( ! \is_writable($pathinfo_dest['dirname']))
 		{
+			\mjolnir\log('Uploads', "Unwritable directory: {$pathinfo_dest['dirname']}");
 			return [ 'error' => \app\Lang::term('Server error. Upload directory isn\'t writable.') ];
 		}
 
 		if ( ! $this->file)
 		{
+			\mjolnir\log('Uploads', "No files were uploaded");
 			return [ 'error' => \app\Lang::term('No files were uploaded.') ];
 		}
 
@@ -61,12 +63,14 @@ class FileUploader_QQUploader extends \qqFileUploader
 
 		if ($size == 0)
 		{
+			\mjolnir\log('Uploads', "Empty file");
 			return [ 'error' => \app\Lang::term('File is empty') ];
 		}
 
 		if ($size > $this->sizeLimit)
 		{
-			return [ 'error' => \app\Lang::term('File is too large') ];
+			\mjolnir\log('Uploads', "File is too large. ($size > $this->sizeLimit)");
+			return [ 'error' => \app\Lang::term("File is too large.") ];
 		}
 
 		$pathinfo = \pathinfo($this->file->getName());
@@ -83,6 +87,7 @@ class FileUploader_QQUploader extends \qqFileUploader
 		if ( ! empty($this->allowedExtensions) && ! \in_array(\strtolower($ext), $this->allowedExtensions))
 		{
 			$allowed_extentions = \implode(', ', $this->allowedExtensions);
+			\mjolnir\log('Uploads', \app\Lang::key('mjolnir:html/uploader/filetype-not-allowed', ['extention' => \strtolower($ext), 'allowed_extensions' => $allowed_extentions]));
 			return [ 'error' => \app\Lang::key('mjolnir:html/uploader/filetype-not-allowed', ['extention' => \strtolower($ext), 'allowed_extensions' => $allowed_extentions]) ];
 		}
 
@@ -110,6 +115,7 @@ class FileUploader_QQUploader extends \qqFileUploader
 		}
 		else # got error
 		{
+			\mjolnir\log('Could not save uploaded file.');
 			return [ 'error'=> \app\Lang::term('Could not save uploaded file.') ];
 		}
 

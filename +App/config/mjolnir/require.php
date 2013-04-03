@@ -19,6 +19,16 @@ return array
 
 						return 'failed';
 					},
+					
+				"memory limit = $memory_limit >= upload limit * 5" => function () use ($limit, $memory_limit)
+					{
+						if ($memory_limit >= $limit * 5)
+						{
+							return 'satisfied';
+						}
+						
+						return 'failed';
+					},
 							
 				"upload limit = {$limit}M > 3M" => function () use ($limit)
 					{
