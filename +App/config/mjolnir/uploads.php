@@ -27,9 +27,9 @@
 			),
 	
 		// max file size of uploaded files
-		'upload.limit' => 25, # Megabytes
+		'upload.limit' => 50, # Megabytes
 	
 		// video processing (seconds)
-		'video.timeout' => 3600, // 1 hour
+		'video.timeout' => 10800, // 3 hours
 	
 	); # config

@@ -19,5 +19,15 @@ return array
 
 						return 'failed';
 					},
+							
+				"upload limit = {$limit}M > 3M" => function () use ($limit)
+					{
+						if ($limit > 3)
+						{
+							return 'satisfied';
+						}
+					
+						return 'failed';
+					},
 			),
 	);
