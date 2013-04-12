@@ -21,6 +21,7 @@ class HTMLFormField_Hidden extends \app\HTMLFormField
 		$instance = parent::instance();
 		$instance->tagname_is('input');
 		$instance->set('type', 'hidden');
+		$instance->disable_autocomplete();
 		
 		return $instance;
 	}
