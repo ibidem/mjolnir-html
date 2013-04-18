@@ -143,6 +143,12 @@ return array
 							->form_is($form)
 							->initialize();
 					},
+							
+				'date' => function (\mjolnir\types\HTMLForm $form)
+					{
+						return \app\HTMLFormField_Date::instance()
+							->set('tabindex', \app\HTML::tabindex());
+					},
 
 				'button'        => $basictype('submit'),
 				'submit'        => $basictype('submit'),
@@ -163,7 +169,6 @@ return array
 				'week'          => $basictype('week'),
 				'color'         => $basictype('color'),
 				'range'         => $basictype('range'),
-				'date'          => $basictype('date'),
 				'datetime'      => $basictype('datetime'),
 				'localdatetime' => $basictype('datetime-local'),
 			),

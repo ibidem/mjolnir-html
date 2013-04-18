@@ -11,7 +11,7 @@
  * @method \app\Controller_MjolnirQQUploader add_postprocessor($name, $processor)
  * @method \app\Controller_MjolnirQQUploader preprocess()
  * @method \app\Controller_MjolnirQQUploader postprocess()
- * @method \app\Controller_MjolnirQQUploader channel_is($channel)
+ * @method \app\Controller_MjolnirQQUploader channel_is($channel = null)
  * @method \app\Channel channel()
  */
 class Controller_MjolnirQQUploader extends \mjolnir\html\Controller_MjolnirQQUploader
@@ -36,6 +36,73 @@ class FileUploader extends \mjolnir\html\FileUploader
 
 class HH extends \mjolnir\html\HH
 {
+}
+
+class HTML extends \mjolnir\html\HTML
+{
+	/** @return \app\HTMLTag */
+	static function anchor($tagbody, $href = null) { return parent::anchor($tagbody, $href); }
+	/** @return \app\HTMLForm */
+	static function form($action, $standard = null) { return parent::form($action, $standard); }
+	/** @return \app\HTMLForm */
+	static function queryform($action = '', $standard = null) { return parent::queryform($action, $standard); }
+}
+
+/**
+ * @method \app\HTMLFormField field($label, $fieldname, $fieldtype)
+ * @method \app\HTMLFormField_Composite composite($label)
+ * @method \app\HTMLForm autocomplete(array  & $hints = null)
+ * @method \app\HTMLForm basicuploader()
+ * @method \app\HTMLForm nonuploader()
+ * @method \app\HTMLForm tagname_is($tagname)
+ * @method \app\HTMLForm tagbody_is($string)
+ * @method \app\HTMLForm tagbody_render($renderable)
+ * @method \app\HTMLForm appendtagbody($tagbody)
+ * @method \app\HTMLForm set($name, $value)
+ * @method \app\HTMLForm add($name, $value)
+ * @method \app\HTMLForm metadata_is(array $metadata = null)
+ * @method \app\HTMLForm addmetarenderer($key, $metarenderer)
+ * @method \app\HTMLForm injectmetarenderers(array $metarenderers = null)
+ * @method \app\HTMLFormField_Textarea textarea($label, $fieldname = null)
+ * @method \app\HTMLFormField_Select select($label, $fieldname = null)
+ * @method \app\HTMLFormField_AjaxUploader imageuploader($label, $fieldname = null)
+ * @method \app\HTMLFormField_AjaxUploader videouploader($label, $fieldname = null)
+ * @method \app\HTMLFormField hidden($fieldname = null)
+ * @method \app\HTMLFormField submit($label, $fieldname = null, $tagvalue = null)
+ * @method \app\HTMLFormField button($label, $fieldname = null, $tagbody = null)
+ * @method \app\HTMLFormField reset($label, $fieldname = null, $tagvalue = null)
+ * @method \app\HTMLFormField text($label, $fieldname = null)
+ * @method \app\HTMLFormField password($label, $fieldname = null)
+ * @method \app\HTMLFormField radio($label, $fieldname = null)
+ * @method \app\HTMLFormField_Checkbox checkbox($label, $fieldname = null)
+ * @method \app\HTMLFormField file($label, $fieldname = null)
+ * @method \app\HTMLFormField search($label, $fieldname = null)
+ * @method \app\HTMLFormField number($label, $fieldname = null)
+ * @method \app\HTMLFormField identifier($label, $fieldname = null)
+ * @method \app\HTMLFormField currency($label, $fieldname = null)
+ * @method \app\HTMLFormField phonenumber($label, $fieldname = null)
+ * @method \app\HTMLFormField url($label, $fieldname = null)
+ * @method \app\HTMLFormField email($label, $fieldname = null)
+ * @method \app\HTMLFormField month($label, $fieldname = null)
+ * @method \app\HTMLFormField week($label, $fieldname = null)
+ * @method \app\HTMLFormField color($label, $fieldname = null)
+ * @method \app\HTMLFormField range($label, $fieldname = null)
+ * @method \app\HTMLFormField image($label, $fieldname = null)
+ * @method \app\HTMLFormField date($label, $fieldname = null)
+ * @method \app\HTMLFormField time($label, $fieldname = null)
+ * @method \app\HTMLFormField datetime($label, $fieldname = null)
+ * @method \app\HTMLFormField localdatetime($label, $fieldname = null)
+ * @method \app\HTMLForm errors_are(array  & $errors = null)
+ * @method \app\HTMLForm addfieldtemplate($template, $fieldtype = null)
+ * @method \app\HTMLForm addhintrenderer($hintrenderer, $fieldtype = null)
+ * @method \app\HTMLForm adderrorrenderer($errorrenderer, $fieldtype = null)
+ */
+class HTMLForm extends \mjolnir\html\HTMLForm
+{
+	/** @return \app\HTMLForm */
+	static function instance() { return parent::instance(); }
+	/** @return \app\HTMLForm */
+	static function i($standard, $action = null) { return parent::i($standard, $action); }
 }
 
 /**
@@ -145,6 +212,12 @@ class HTMLFormField_Composite extends \mjolnir\html\HTMLFormField_Composite
 	static function i($tagname, $tagbody = null) { return parent::i($tagname, $tagbody); }
 }
 
+class HTMLFormField_Date extends \mjolnir\html\HTMLFormField_Date
+{
+	/** @return \app\HTMLFormField_Date */
+	static function instance() { return parent::instance(); }
+}
+
 /**
  * @method \app\HTMLFormField_Hidden fieldtemplate_is($template)
  * @method \app\HTMLFormField_Hidden form_is($form)
@@ -209,7 +282,7 @@ class HTMLFormField_Hidden extends \mjolnir\html\HTMLFormField_Hidden
  * @method \app\HTMLFormField_ImageUploader enable_autocomplete()
  * @method \app\HTMLFormField_ImageUploader apply($standard)
  * @method \app\HTMLTag preview()
- * @method \app\HTMLFormField_ImageUploader channel_is($channel)
+ * @method \app\HTMLFormField_ImageUploader channel_is($channel = null)
  * @method \app\Channel channel()
  * @method \app\HTMLFormField_ImageUploader initialize()
  * @method \app\HTMLFormField_ImageUploader langprefix_is($langprefix)
@@ -362,7 +435,7 @@ class HTMLFormField_Textarea extends \mjolnir\html\HTMLFormField_Textarea
  * @method \app\HTMLFormField_VideoUploader enable_autocomplete()
  * @method \app\HTMLFormField_VideoUploader apply($standard)
  * @method \app\HTMLTag preview()
- * @method \app\HTMLFormField_VideoUploader channel_is($channel)
+ * @method \app\HTMLFormField_VideoUploader channel_is($channel = null)
  * @method \app\Channel channel()
  * @method \app\HTMLFormField_VideoUploader initialize()
  * @method \app\HTMLFormField_VideoUploader langprefix_is($langprefix)
@@ -407,73 +480,6 @@ class HTMLFormField extends \mjolnir\html\HTMLFormField
 	static function instance() { return parent::instance(); }
 	/** @return \app\HTMLTag */
 	static function i($tagname, $tagbody = null) { return parent::i($tagname, $tagbody); }
-}
-
-/**
- * @method \app\HTMLFormField field($label, $fieldname, $fieldtype)
- * @method \app\HTMLFormField_Composite composite($label)
- * @method \app\HTMLForm autocomplete(array  & $hints = null)
- * @method \app\HTMLForm basicuploader()
- * @method \app\HTMLForm nonuploader()
- * @method \app\HTMLForm tagname_is($tagname)
- * @method \app\HTMLForm tagbody_is($string)
- * @method \app\HTMLForm tagbody_render($renderable)
- * @method \app\HTMLForm appendtagbody($tagbody)
- * @method \app\HTMLForm set($name, $value)
- * @method \app\HTMLForm add($name, $value)
- * @method \app\HTMLForm metadata_is(array $metadata = null)
- * @method \app\HTMLForm addmetarenderer($key, $metarenderer)
- * @method \app\HTMLForm injectmetarenderers(array $metarenderers = null)
- * @method \app\HTMLFormField_Textarea textarea($label, $fieldname = null)
- * @method \app\HTMLFormField_Select select($label, $fieldname = null)
- * @method \app\HTMLFormField_AjaxUploader imageuploader($label, $fieldname = null)
- * @method \app\HTMLFormField_AjaxUploader videouploader($label, $fieldname = null)
- * @method \app\HTMLFormField hidden($fieldname = null)
- * @method \app\HTMLFormField submit($label, $fieldname = null, $tagvalue = null)
- * @method \app\HTMLFormField button($label, $fieldname = null, $tagbody = null)
- * @method \app\HTMLFormField reset($label, $fieldname = null, $tagvalue = null)
- * @method \app\HTMLFormField text($label, $fieldname = null)
- * @method \app\HTMLFormField password($label, $fieldname = null)
- * @method \app\HTMLFormField radio($label, $fieldname = null)
- * @method \app\HTMLFormField_Checkbox checkbox($label, $fieldname = null)
- * @method \app\HTMLFormField file($label, $fieldname = null)
- * @method \app\HTMLFormField search($label, $fieldname = null)
- * @method \app\HTMLFormField number($label, $fieldname = null)
- * @method \app\HTMLFormField identifier($label, $fieldname = null)
- * @method \app\HTMLFormField currency($label, $fieldname = null)
- * @method \app\HTMLFormField phonenumber($label, $fieldname = null)
- * @method \app\HTMLFormField url($label, $fieldname = null)
- * @method \app\HTMLFormField email($label, $fieldname = null)
- * @method \app\HTMLFormField month($label, $fieldname = null)
- * @method \app\HTMLFormField week($label, $fieldname = null)
- * @method \app\HTMLFormField color($label, $fieldname = null)
- * @method \app\HTMLFormField range($label, $fieldname = null)
- * @method \app\HTMLFormField image($label, $fieldname = null)
- * @method \app\HTMLFormField date($label, $fieldname = null)
- * @method \app\HTMLFormField time($label, $fieldname = null)
- * @method \app\HTMLFormField datetime($label, $fieldname = null)
- * @method \app\HTMLFormField localdatetime($label, $fieldname = null)
- * @method \app\HTMLForm errors_are(array  & $errors = null)
- * @method \app\HTMLForm addfieldtemplate($template, $fieldtype = null)
- * @method \app\HTMLForm addhintrenderer($hintrenderer, $fieldtype = null)
- * @method \app\HTMLForm adderrorrenderer($errorrenderer, $fieldtype = null)
- */
-class HTMLForm extends \mjolnir\html\HTMLForm
-{
-	/** @return \app\HTMLForm */
-	static function instance() { return parent::instance(); }
-	/** @return \app\HTMLForm */
-	static function i($standard, $action = null) { return parent::i($standard, $action); }
-}
-
-class HTML extends \mjolnir\html\HTML
-{
-	/** @return \app\HTMLTag */
-	static function anchor($tagbody, $href = null) { return parent::anchor($tagbody, $href); }
-	/** @return \app\HTMLForm */
-	static function form($action, $standard = null) { return parent::form($action, $standard); }
-	/** @return \app\HTMLForm */
-	static function queryform($action = '', $standard = null) { return parent::queryform($action, $standard); }
 }
 
 /**
