@@ -239,13 +239,16 @@ class HTMLForm extends \app\HTMLTag implements \mjolnir\types\HTMLForm
 	 */
 	function signature($id = null)
 	{
-		if ($id !== null)
+		if ( ! $this->unsigned)
 		{
-			return 'mjform'.$this->formindex.'_field'.$id;
-		}
-		else # form signature
-		{
-			return 'mjform'.$this->formindex;
+			if ($id !== null)
+			{
+				return 'mjform'.$this->formindex.'_field'.$id;
+			}
+			else # form signature
+			{
+				return 'mjform'.$this->formindex;
+			}
 		}
 	}
 

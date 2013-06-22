@@ -50,4 +50,16 @@ class HTML
 			->disable_metainfo();
 	}
 
+	/**
+	 * @return \mjolnir\types\HTMLForm
+	 */
+	static function formfield($standard)
+	{
+		return \app\HTMLForm::i($standard, null)
+			->tagbody_is('')
+			->set('method', 'GET')
+			->disable_metainfo()
+			->unsigned();
+	}
+
 } # class

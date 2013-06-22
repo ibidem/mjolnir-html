@@ -5,7 +5,7 @@ $basictype = function ($type)
 		return function (\mjolnir\types\HTMLForm $form) use ($type)
 			{
 				return \app\HTMLFormField::instance()
-					->set('tabindex', \app\HTML::tabindex())
+					->set('tabindex', $form->is_unsigned() ? null : \app\HTML::tabindex())
 					->set('type', $type);
 			};
 	};
@@ -15,7 +15,7 @@ $numericbasictype = function ($type)
 		return function (\mjolnir\types\HTMLForm $form) use ($type)
 			{
 				return \app\HTMLFormField::instance()
-					->set('tabindex', \app\HTML::tabindex())
+					->set('tabindex', $form->is_unsigned() ? null : \app\HTML::tabindex())
 					->set('type', $type)
 					->set('placeholder', '#');
 			};
@@ -99,31 +99,31 @@ return array
 				'select' => function (\mjolnir\types\HTMLForm $form)
 					{
 						return \app\HTMLFormField_Select::instance()
-							->set('tabindex', \app\HTML::tabindex());
+							->set('tabindex', $form->is_unsigned() ? null : \app\HTML::tabindex());
 					},
-							
+
 				'imageuploader' => function (\mjolnir\types\HTMLForm $form)
 					{
 						return \app\HTMLFormField_ImageUploader::instance()
-							->set('tabindex', \app\HTML::tabindex());
+							->set('tabindex', $form->is_unsigned() ? null : \app\HTML::tabindex());
 					},
-							
+
 				'videouploader' => function (\mjolnir\types\HTMLForm $form)
 					{
 						return \app\HTMLFormField_VideoUploader::instance()
-							->set('tabindex', \app\HTML::tabindex());
+							->set('tabindex', $form->is_unsigned() ? null : \app\HTML::tabindex());
 					},
 
 				'checkbox' => function (\mjolnir\types\HTMLForm $form)
 					{
 						return \app\HTMLFormField_Checkbox::instance()
-							->set('tabindex', \app\HTML::tabindex());
+							->set('tabindex', $form->is_unsigned() ? null : \app\HTML::tabindex());
 					},
 
 				'radio' => function (\mjolnir\types\HTMLForm $form)
 					{
 						return \app\HTMLFormField_Radio::instance()
-							->set('tabindex', \app\HTML::tabindex());
+							->set('tabindex', $form->is_unsigned() ? null : \app\HTML::tabindex());
 					},
 
 				'hidden' => function (\mjolnir\types\HTMLForm $form)
@@ -134,20 +134,20 @@ return array
 				'textarea' => function (\mjolnir\types\HTMLForm $form)
 					{
 						return \app\HTMLFormField_Textarea::instance()
-							->set('tabindex', \app\HTML::tabindex());
+							->set('tabindex', $form->is_unsigned() ? null : \app\HTML::tabindex());
 					},
-							
+
 				'imageuploader' => function (\mjolnir\types\HTMLForm $form)
 					{
 						return \app\HTMLFormField_ImageUploader::instance()
 							->form_is($form)
 							->initialize();
 					},
-							
+
 				'date' => function (\mjolnir\types\HTMLForm $form)
 					{
 						return \app\HTMLFormField_Date::instance()
-							->set('tabindex', \app\HTML::tabindex());
+							->set('tabindex', $form->is_unsigned() ? null : \app\HTML::tabindex());
 					},
 
 				'button'        => $basictype('submit'),
