@@ -1,6 +1,6 @@
 <?php return
 [
-	
+
 'mjolnir:html/pager/page-x-of-y' => function ($in)
 	{
 		return "Pagina {$in['currentpage']} din {$in['pagecount']}";
@@ -29,5 +29,5 @@
 'mjolnir:html/pager/goto' => 'Sari la',
 
 'mjolnir:html/pager/go' => 'Reactualizează',
-			
+
 ];

@@ -9,12 +9,12 @@
  */
 class HTMLFormField_Radio extends \app\HTMLFormField implements \mjolnir\types\HTMLFormField_Boolean
 {
-	use \app\Trait_HTMLFormField_Boolean;	
-	
+	use \app\Trait_HTMLFormField_Boolean;
+
 	#
 	# Radio intentionally doesn't inherit Checkbox
 	#
-	
+
 	/**
 	 * @return static
 	 */
@@ -22,10 +22,10 @@ class HTMLFormField_Radio extends \app\HTMLFormField implements \mjolnir\types\H
 	{
 		$instance = parent::instance();
 		$instance->set('type', 'radio');
-		
+
 		return $instance;
 	}
-	
+
 	/**
 	 * This helper will run once. Classes that overwrite render should call this
 	 * method before performing calculations.
@@ -43,7 +43,7 @@ class HTMLFormField_Radio extends \app\HTMLFormField implements \mjolnir\types\H
 					$this->checked();
 				}
 			}
-			
+
 			$this->autocompleted = true;
 		}
 	}

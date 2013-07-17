@@ -24,7 +24,7 @@ class Pager extends \app\Instantiatable implements \mjolnir\types\Pager
 		$instance->set('pagelimit', $pagelimit !== null ? $pagelimit : 25);
 
 		$instance->configure_internals();
-		
+
 		$instance->file_is('mjolnir/pager/nopages');
 
 		return $instance;

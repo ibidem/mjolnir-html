@@ -3,9 +3,9 @@
 		'metarenderers' => array
 			(
 				'class' => function (\mjolnir\types\HTMLTag $tag)
-					{	
+					{
 						$classes = $tag->get('class');
-	
+
 						if (\is_array($classes))
 						{
 							return \implode(' ', \array_unique($classes));
@@ -15,17 +15,17 @@
 							return $classes;
 						}
 					},
-				
+
 				'style' => function (\mjolnir\types\HTMLTag $tag)
 					{
 						$styles = $tag->get('style');
-						
+
 						if (\is_array($styles))
 						{
 							return \app\Arr::implode
 								(
 									' ',
-									$styles, 
+									$styles,
 									function ($key, $style)
 									{
 										return \rtrim($style, ';').';';

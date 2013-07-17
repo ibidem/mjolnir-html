@@ -16,10 +16,10 @@ class HTMLFormField_Date extends \app\HTMLFormField # no specialized interface
 	{
 		$instance = parent::instance();
 		$instance->set('type', 'date');
-		
+
 		return $instance;
 	}
-	
+
 	/**
 	 * ...
 	 */
@@ -35,7 +35,7 @@ class HTMLFormField_Date extends \app\HTMLFormField # no specialized interface
 		{
 			$this->set('value', $fieldvalue);
 		}
-		
+
 		return $this;
 	}
 

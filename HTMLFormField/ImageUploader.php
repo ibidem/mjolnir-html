@@ -15,12 +15,12 @@ class HTMLFormField_ImageUploader extends \app\HTMLFormField implements \mjolnir
 	 * @var string
 	 */
 	protected $imageurl = null;
-	
+
 	/**
 	 * @var array
 	 */
 	protected $previewsize = [ 100, 100 ];
-	
+
 	/**
 	 * Set the preview image.
 	 *
@@ -31,15 +31,15 @@ class HTMLFormField_ImageUploader extends \app\HTMLFormField implements \mjolnir
 		if ( ! empty($imageurl))
 		{
 			$this->imageurl = $imageurl;
-			
+
 			$this->preview->set
 				(
-					'src', 
+					'src',
 					\app\URL::href
 						(
-							'mjolnir:thumbnail.route', 
-							[ 
-								'image'  => \app\CFS::config('mjolnir/base')['path'].$imageurl, 
+							'mjolnir:thumbnail.route',
+							[
+								'image'  => \app\CFS::config('mjolnir/base')['path'].$imageurl,
 								'width'  => $this->previewsize[0],
 								'height' => $this->previewsize[1],
 							]
@@ -54,26 +54,26 @@ class HTMLFormField_ImageUploader extends \app\HTMLFormField implements \mjolnir
 	 * @return static $this
 	 */
 	function previewsize($width, $height)
-	{		
+	{
 		$this->previewsize = [ $width, $height ];
-		
+
 		if ($this->imageurl !== null)
 		{
 			$this->preview->set
 				(
-					'src', 
+					'src',
 					\app\URL::href
 						(
-							'mjolnir:thumbnail.route', 
-							[ 
-								'image'  => \app\CFS::config('mjolnir/base')['path'].$this->imageurl, 
+							'mjolnir:thumbnail.route',
+							[
+								'image'  => \app\CFS::config('mjolnir/base')['path'].$this->imageurl,
 								'width'  => $width,
 								'height' => $height,
 							]
 						)
 				);
 		}
-		
+
 		$this->preview
 			->set('width', $width)
 			->set('height', $width);
@@ -84,18 +84,18 @@ class HTMLFormField_ImageUploader extends \app\HTMLFormField implements \mjolnir
 
 		return $this;
 	}
-	
+
 	/**
 	 * @return \mjolnir\types\HTMLTag
 	 */
 	function makepreview()
-	{		
+	{
 		return \app\HTMLTag::i('img')
 			->set('id', $this->input->get('id').'_preview')
 			->set('alt', '') # an empty value is the correct value
 			->set('src', $this->imageurl);
 	}
-	
+
 	/**
 	 * @return \mjolnir\types\HTMLTag
 	 */
@@ -106,7 +106,7 @@ class HTMLFormField_ImageUploader extends \app\HTMLFormField implements \mjolnir
 		if ($wrapper === null)
 		{
 			$this->ajax_dependencies();
-			
+
 			$langprefix = $this->langprefix('mjolnir:html/image-uploader/');
 
 			$wrapper = \app\HTMLTag::i('div')
@@ -121,7 +121,7 @@ class HTMLFormField_ImageUploader extends \app\HTMLFormField implements \mjolnir
 				->set('data-field-id', $this->input->get('id'));
 
 			$this->input->set('name', $this->get('name', 'image'));
-				
+
 			$wrapper->appendtagbody($this->input);
 
 			$wrapper->appendtagbody(\app\HTMLTag::i('div')->add('class', 'uploader-body')->tagbody_is(''));

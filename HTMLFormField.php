@@ -10,7 +10,7 @@
 class HTMLFormField extends \app\HTMLTag implements \mjolnir\types\HTMLFormField
 {
 	use \app\Trait_HTMLFormField;
-	
+
 	/**
 	 * @return static
 	 */
@@ -18,23 +18,23 @@ class HTMLFormField extends \app\HTMLTag implements \mjolnir\types\HTMLFormField
 	{
 		$instance = parent::instance();
 		$instance->tagname_is('input');
-		
+
 		return $instance;
 	}
-	
+
 	// ------------------------------------------------------------------------
 	// interface: Rendered
-	
+
 	/**
 	 * [!!] call autocompletefield before any other logic, when overwriting
-	 * 
+	 *
 	 * @return string
 	 */
 	function render()
 	{
 		$this->autocompletefield();
 		$fieldrender = $this->fieldrender();
-		
+
 		if ($this->hintrenderer !== null)
 		{
 			$callable = &$this->hintrenderer;
@@ -44,7 +44,7 @@ class HTMLFormField extends \app\HTMLTag implements \mjolnir\types\HTMLFormField
 		{
 			$hintsrender = null;
 		}
-		
+
 		if ($this->showerrors && $this->errorrenderer)
 		{
 			$callable = &$this->errorrenderer;
@@ -54,9 +54,9 @@ class HTMLFormField extends \app\HTMLTag implements \mjolnir\types\HTMLFormField
 		{
 			$errorrrender = null;
 		}
-		
+
 		$this->fieldtemplate !== null or $this->fieldtemplate = ':field';
-		
+
 		return \strtr
 			(
 				$this->fieldtemplate,
@@ -69,10 +69,10 @@ class HTMLFormField extends \app\HTMLTag implements \mjolnir\types\HTMLFormField
 				]
 			);
 	}
-	
+
 	// ------------------------------------------------------------------------
 	// etc
-	
+
 	/**
 	 * @return static $this
 	 */
@@ -80,10 +80,10 @@ class HTMLFormField extends \app\HTMLTag implements \mjolnir\types\HTMLFormField
 	{
 		$this->form = $form;
 		$this->set('form', $form->signature());
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * @return static $this
 	 */
@@ -91,10 +91,10 @@ class HTMLFormField extends \app\HTMLTag implements \mjolnir\types\HTMLFormField
 	{
 		return $this->form;
 	}
-	
+
 	// ------------------------------------------------------------------------
 	// Helpers
-	
+
 	/**
 	 * This helper will run once. Classes that overwrite render should call this
 	 * method before performing calculations.
@@ -109,9 +109,9 @@ class HTMLFormField extends \app\HTMLTag implements \mjolnir\types\HTMLFormField
 			{
 				$this->value_is($autovalue);
 			}
-			
+
 			$this->autocompleted = true;
 		}
 	}
-	
+
 } # class

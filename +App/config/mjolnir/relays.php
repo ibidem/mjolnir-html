@@ -13,5 +13,5 @@
 				'action' => 'json_upload_image',
 				'prefix' => 'json_',
 			),
-	
+
 	);

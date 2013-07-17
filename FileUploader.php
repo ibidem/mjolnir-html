@@ -37,21 +37,21 @@ class FileUploader extends \app\Instantiatable
 		$instance = parent::instance();
 
 		$fileuploader_config = \app\CFS::config('mjolnir/uploads');
-		
+
 		if ($extentions === null)
 		{
 			$filteredformats = \app\Arr::filter
 				(
-					$fileuploader_config['image.formats'], 
+					$fileuploader_config['image.formats'],
 					function ($i, $value)
 					{
 						return $value !== null;
 					}
 				);
-			
+
 			$extentions = \array_keys($filteredformats);
 		}
-		
+
 		$size_limit = $fileuploader_config['upload.limit'] * 1024 * 1024;
 		$instance->fileuploader = new \app\FileUploader_QQUploader($extentions, $size_limit);
 

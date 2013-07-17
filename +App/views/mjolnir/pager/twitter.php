@@ -35,7 +35,7 @@
 		# very inneficient to iterate 1mil+ times so we pre-compute the
 		# targets.
 		#
-		
+
 		$targets = [];
 		// inject first pages
 		for ($i = 1; $i <= $startpoint; ++$i) $targets[] = $i;

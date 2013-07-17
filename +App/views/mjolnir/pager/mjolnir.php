@@ -172,7 +172,7 @@
 					<?= Lang::key('mjolnir:pager/go') ?>
 				</button>
 			</div>
-		
+
 		<? endif; ?>
 	</div>
 

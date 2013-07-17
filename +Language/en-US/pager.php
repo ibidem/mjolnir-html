@@ -1,6 +1,6 @@
 <?php return
 [
-	
+
 'mjolnir:html/pager/page-x-of-y' => function ($in)
 	{
 		return "Page {$in['currentpage']} of {$in['pagecount']}";
@@ -29,5 +29,5 @@
 'mjolnir:html/pager/goto' => 'Goto',
 
 'mjolnir:html/pager/go' => 'Go',
-		
+
 ];

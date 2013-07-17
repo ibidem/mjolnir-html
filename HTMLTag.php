@@ -17,12 +17,12 @@ class HTMLTag extends \app\Instantiatable implements \mjolnir\types\HTMLTag
 	static function instance()
 	{
 		$instance = parent::instance();
-		
+
 		$instance->injectmetarenderers(\app\CFS::config('mjolnir/htmltag')['metarenderers']);
 
 		return $instance;
 	}
-	
+
 	/**
 	 * @return \mjolnir\types\HTMLTag
 	 */
@@ -31,13 +31,13 @@ class HTMLTag extends \app\Instantiatable implements \mjolnir\types\HTMLTag
 		$instance = static::instance();
 		$instance->tagname_is($tagname);
 		$instance->tagbody_is($tagbody);
-		
+
 		return $instance;
 	}
 
 	// ------------------------------------------------------------------------
 	// interface: Renderable
-	
+
 	/**
 	 * @return string
 	 */
@@ -47,12 +47,12 @@ class HTMLTag extends \app\Instantiatable implements \mjolnir\types\HTMLTag
 		$tagname !== null or $tagname = 'span';
 
 		$tagbody = $this->tagbody();
-		
+
 		if ( ! \is_array($tagbody))
 		{
 			$tagbody = [ $tagbody ];
 		}
-		
+
 		$totalbody = null;
 		foreach ($tagbody as $body)
 		{
@@ -100,7 +100,7 @@ class HTMLTag extends \app\Instantiatable implements \mjolnir\types\HTMLTag
 				{
 					continue;
 				}
-				
+
 				$metarenderer = $this->metarenderer($key, null);
 
 				if ($metarenderer !== null)

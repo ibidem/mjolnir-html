@@ -12,7 +12,7 @@ class HTMLFormField_Hidden extends \app\HTMLFormField
 	#
 	# Intentionally not creating specialized interface / trait for this class.
 	#
-	
+
 	/**
 	 * @return static
 	 */
@@ -22,19 +22,19 @@ class HTMLFormField_Hidden extends \app\HTMLFormField
 		$instance->tagname_is('input');
 		$instance->set('type', 'hidden');
 		$instance->disable_autocomplete();
-		
+
 		return $instance;
 	}
-	
+
 	/**
 	 * @return static $this
 	 */
 	function fieldtemplate_is($template)
 	{
-		// this is a hidden field it doesn't need a template and the markup 
+		// this is a hidden field it doesn't need a template and the markup
 		// might very well get in the way
-		
+
 		return $this;
 	}
-	
+
 } # class

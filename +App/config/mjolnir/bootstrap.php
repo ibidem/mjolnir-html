@@ -6,18 +6,18 @@
 					(
 						'thumbnail' => \app\URL::href
 							(
-								'mjolnir:thumbnail.route', 
+								'mjolnir:thumbnail.route',
 								[
-									'image' => ':image', 
-									'width' => ':width', 
+									'image' => ':image',
+									'width' => ':width',
 									'height' => ':height'
 								]
 							),
 						'video' => \app\URL::href
 							(
-								'mjolnir:video.route', 
+								'mjolnir:video.route',
 								[
-									'video' => ':video', 
+									'video' => ':video',
 								]
 							),
 					),
@@ -29,5 +29,5 @@
 							),
 					),
 			),
-		
+
 	); # config

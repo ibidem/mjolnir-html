@@ -8,7 +8,7 @@
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
 class HTMLFormField_Button extends \app\HTMLFormField # no specialized interface
-{	
+{
 	/**
 	 * @return static
 	 */
@@ -17,7 +17,7 @@ class HTMLFormField_Button extends \app\HTMLFormField # no specialized interface
 		$instance = parent::instance();
 		$instance->tagname_is('button');
 		$instance->tagbody_is('');
-		
+
 		return $instance;
 	}
 
@@ -29,5 +29,5 @@ class HTMLFormField_Button extends \app\HTMLFormField # no specialized interface
 		$this->tagbody_is($fieldvalue);
 		return $this;
 	}
-	
+
 } # class
