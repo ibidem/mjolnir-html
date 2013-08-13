@@ -46,6 +46,8 @@ class HTML extends \mjolnir\html\HTML
 	static function form($action, $standard = null) { return parent::form($action, $standard); }
 	/** @return \app\HTMLForm */
 	static function queryform($action = '', $standard = null) { return parent::queryform($action, $standard); }
+	/** @return \app\HTMLForm */
+	static function formfield($standard) { return parent::formfield($standard); }
 }
 
 /**
@@ -93,9 +95,10 @@ class HTML extends \mjolnir\html\HTML
  * @method \app\HTMLFormField datetime($label, $fieldname = null)
  * @method \app\HTMLFormField localdatetime($label, $fieldname = null)
  * @method \app\HTMLForm errors_are(array  & $errors = null)
- * @method \app\HTMLForm addfieldtemplate($template, $fieldtype = null)
+ * @method \app\HTMLForm addfieldtemplate($template, $fieldtypes = null)
  * @method \app\HTMLForm addhintrenderer($hintrenderer, $fieldtype = null)
  * @method \app\HTMLForm adderrorrenderer($errorrenderer, $fieldtype = null)
+ * @method \app\HTMLForm unsigned()
  */
 class HTMLForm extends \mjolnir\html\HTMLForm
 {
@@ -129,6 +132,7 @@ class HTMLForm extends \mjolnir\html\HTMLForm
  * @method \app\HTMLFormField_Button disable_autocomplete()
  * @method \app\HTMLFormField_Button enable_autocomplete()
  * @method \app\HTMLFormField_Button apply($standard)
+ * @method \app\HTMLFormField_Button editable($editable = true)
  */
 class HTMLFormField_Button extends \mjolnir\html\HTMLFormField_Button
 {
@@ -163,6 +167,7 @@ class HTMLFormField_Button extends \mjolnir\html\HTMLFormField_Button
  * @method \app\HTMLFormField_Checkbox disable_autocomplete()
  * @method \app\HTMLFormField_Checkbox enable_autocomplete()
  * @method \app\HTMLFormField_Checkbox apply($standard)
+ * @method \app\HTMLFormField_Checkbox editable($editable = true)
  * @method \app\HTMLFormField_Checkbox checked()
  * @method \app\HTMLFormField_Checkbox unchecked()
  * @method \app\HTMLFormField_Checkbox checked_state($state)
@@ -202,6 +207,7 @@ class HTMLFormField_Checkbox extends \mjolnir\html\HTMLFormField_Checkbox
  * @method \app\HTMLFormField_Composite disable_autocomplete()
  * @method \app\HTMLFormField_Composite enable_autocomplete()
  * @method \app\HTMLFormField_Composite apply($standard)
+ * @method \app\HTMLFormField_Composite editable($editable = true)
  * @method \app\HTMLFormField_Composite fieldmix($fieldmix)
  */
 class HTMLFormField_Composite extends \mjolnir\html\HTMLFormField_Composite
@@ -212,10 +218,38 @@ class HTMLFormField_Composite extends \mjolnir\html\HTMLFormField_Composite
 	static function i($tagname, $tagbody = null) { return parent::i($tagname, $tagbody); }
 }
 
+/**
+ * @method \app\HTMLFormField_Date form_is($form)
+ * @method \app\HTMLFormField_Date form()
+ * @method \app\HTMLFormField_Date tagname_is($tagname)
+ * @method \app\HTMLFormField_Date tagbody_is($string)
+ * @method \app\HTMLFormField_Date tagbody_render($renderable)
+ * @method \app\HTMLFormField_Date appendtagbody($tagbody)
+ * @method \app\HTMLFormField_Date set($name, $value)
+ * @method \app\HTMLFormField_Date add($name, $value)
+ * @method \app\HTMLFormField_Date metadata_is(array $metadata = null)
+ * @method \app\HTMLFormField_Date addmetarenderer($key, $metarenderer)
+ * @method \app\HTMLFormField_Date injectmetarenderers(array $metarenderers = null)
+ * @method \app\HTMLFormField_Date fieldlabel_is($fieldlabel)
+ * @method \app\HTMLFormField_Date hintrenderer_is($renderer)
+ * @method \app\HTMLFormField_Date errorrenderer_is($renderer)
+ * @method \app\HTMLFormField_Date fieldtemplate_is($fieldtemplate)
+ * @method \app\HTMLFormField_Date hint($hint)
+ * @method \app\HTMLFormField_Date adderror($message)
+ * @method \app\HTMLFormField_Date adderrors(array $errors = null)
+ * @method \app\HTMLFormField_Date noerrors()
+ * @method \app\HTMLFormField_Date showerrors()
+ * @method \app\HTMLFormField_Date disable_autocomplete()
+ * @method \app\HTMLFormField_Date enable_autocomplete()
+ * @method \app\HTMLFormField_Date apply($standard)
+ * @method \app\HTMLFormField_Date editable($editable = true)
+ */
 class HTMLFormField_Date extends \mjolnir\html\HTMLFormField_Date
 {
 	/** @return \app\HTMLFormField_Date */
 	static function instance() { return parent::instance(); }
+	/** @return \app\HTMLTag */
+	static function i($tagname, $tagbody = null) { return parent::i($tagname, $tagbody); }
 }
 
 /**
@@ -243,6 +277,7 @@ class HTMLFormField_Date extends \mjolnir\html\HTMLFormField_Date
  * @method \app\HTMLFormField_Hidden disable_autocomplete()
  * @method \app\HTMLFormField_Hidden enable_autocomplete()
  * @method \app\HTMLFormField_Hidden apply($standard)
+ * @method \app\HTMLFormField_Hidden editable($editable = true)
  */
 class HTMLFormField_Hidden extends \mjolnir\html\HTMLFormField_Hidden
 {
@@ -281,6 +316,7 @@ class HTMLFormField_Hidden extends \mjolnir\html\HTMLFormField_Hidden
  * @method \app\HTMLFormField_ImageUploader disable_autocomplete()
  * @method \app\HTMLFormField_ImageUploader enable_autocomplete()
  * @method \app\HTMLFormField_ImageUploader apply($standard)
+ * @method \app\HTMLFormField_ImageUploader editable($editable = true)
  * @method \app\HTMLTag preview()
  * @method \app\HTMLFormField_ImageUploader channel_is($channel = null)
  * @method \app\Channel channel()
@@ -320,6 +356,7 @@ class HTMLFormField_ImageUploader extends \mjolnir\html\HTMLFormField_ImageUploa
  * @method \app\HTMLFormField_Radio disable_autocomplete()
  * @method \app\HTMLFormField_Radio enable_autocomplete()
  * @method \app\HTMLFormField_Radio apply($standard)
+ * @method \app\HTMLFormField_Radio editable($editable = true)
  * @method \app\HTMLFormField_Radio checked()
  * @method \app\HTMLFormField_Radio unchecked()
  * @method \app\HTMLFormField_Radio checked_state($state)
@@ -359,6 +396,7 @@ class HTMLFormField_Radio extends \mjolnir\html\HTMLFormField_Radio
  * @method \app\HTMLFormField_Select disable_autocomplete()
  * @method \app\HTMLFormField_Select enable_autocomplete()
  * @method \app\HTMLFormField_Select apply($standard)
+ * @method \app\HTMLFormField_Select editable($editable = true)
  * @method \app\HTMLFormField_Select options_table(array $table, $valuekey = null, $labelkey = null, $groupkey = null)
  * @method \app\HTMLFormField_Select value_array(array $values = null)
  */
@@ -394,6 +432,7 @@ class HTMLFormField_Select extends \mjolnir\html\HTMLFormField_Select
  * @method \app\HTMLFormField_Textarea disable_autocomplete()
  * @method \app\HTMLFormField_Textarea enable_autocomplete()
  * @method \app\HTMLFormField_Textarea apply($standard)
+ * @method \app\HTMLFormField_Textarea editable($editable = true)
  */
 class HTMLFormField_Textarea extends \mjolnir\html\HTMLFormField_Textarea
 {
@@ -434,6 +473,7 @@ class HTMLFormField_Textarea extends \mjolnir\html\HTMLFormField_Textarea
  * @method \app\HTMLFormField_VideoUploader disable_autocomplete()
  * @method \app\HTMLFormField_VideoUploader enable_autocomplete()
  * @method \app\HTMLFormField_VideoUploader apply($standard)
+ * @method \app\HTMLFormField_VideoUploader editable($editable = true)
  * @method \app\HTMLTag preview()
  * @method \app\HTMLFormField_VideoUploader channel_is($channel = null)
  * @method \app\Channel channel()
