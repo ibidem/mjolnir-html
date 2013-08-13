@@ -1,4 +1,4 @@
-<?php
+<?php if (\class_exists('qqUploadedFileXhr')) { return; }
 
 /****************************************
 Example of how to use this uploader class...
