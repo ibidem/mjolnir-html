@@ -1,11 +1,23 @@
 <?php return array
 	(
+		// max file size of uploaded files
+		'upload.limit' => 20, # Megabytes
+
+		// allow image uploads?
+		'image.upload' => true,
+
 		'image.formats' => array
 			(
 				'jpeg' => 'image/jpeg',
 				'jpg' => 'image/jpeg',
 				'png' => 'image/png'
 			),
+
+		// allow video uploads?
+		'video.upload' => false,
+
+		// strategy to use when uploading
+		'video.upload.method' => null, // null, 'direct'
 
 		// video format uploaded files will be converted to,
 		// see: mjolnir/video-converter configuration for conversion settings
@@ -25,9 +37,6 @@
 				'webm' => true,
 				'mov' => true,
 			),
-
-		// max file size of uploaded files
-		'upload.limit' => 50, # Megabytes
 
 		// video processing (seconds)
 		'video.timeout' => 3600, // 1 hours
