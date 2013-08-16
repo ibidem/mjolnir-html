@@ -157,7 +157,7 @@ class HTMLForm extends \app\HTMLTag implements \mjolnir\types\HTMLForm
 						// treat value as fieldname
 						$composite->addfield($this->field(null, $value, 'text'));
 					}
-					else # key is not a int
+					else # key is not an int
 					{
 						// treat key as fieldname and value as fieldtype
 						$composite->addfield($this->field(null, $key, $value));
