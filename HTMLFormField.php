@@ -33,6 +33,27 @@ class HTMLFormField extends \app\HTMLTag implements \mjolnir\types\HTMLFormField
 	function render()
 	{
 		$this->autocompletefield();
+
+
+		$this->fieldtemplate !== null or $this->fieldtemplate = ':field';
+
+		return \strtr
+			(
+				$this->fieldtemplate,
+				$this->fieldfillers()
+			);
+	}
+
+	/**
+	 * Hook for adding additional fillers for hotwiring funcitonality.
+	 *
+	 * eg. say you need special classes on labels, you would overwrite this
+	 * method to enable your templates to understand new inputs
+	 *
+	 * @return array
+	 */
+	protected function fieldfillers()
+	{
 		$fieldrender = $this->fieldrender();
 
 		if ($this->hintrenderer !== null)
@@ -55,18 +76,13 @@ class HTMLFormField extends \app\HTMLTag implements \mjolnir\types\HTMLFormField
 			$errorrrender = null;
 		}
 
-		$this->fieldtemplate !== null or $this->fieldtemplate = ':field';
-
-		return \strtr
+		return array
 			(
-				$this->fieldtemplate,
-				[
-					':id'    => $this->get('id', null),
-					':field' => $fieldrender,
-					':label' => $this->fieldlabel(),
-					':hints' => $hintsrender,
-					':errors' => $errorrrender,
-				]
+				':id'     => $this->get('id', null),
+				':field'  => $fieldrender,
+				':label'  => $this->fieldlabel(),
+				':hints'  => $hintsrender,
+				':errors' => $errorrrender,
 			);
 	}
 
