@@ -34,7 +34,6 @@ class HTMLFormField extends \app\HTMLTag implements \mjolnir\types\HTMLFormField
 	{
 		$this->autocompletefield();
 
-
 		$this->fieldtemplate !== null or $this->fieldtemplate = ':field';
 
 		return \strtr

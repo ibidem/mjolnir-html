@@ -105,7 +105,11 @@ class HTMLTag extends \app\Instantiatable implements \mjolnir\types\HTMLTag
 
 				if ($metarenderer !== null)
 				{
-					$attributes .= ' '.$key.'="'.$metarenderer($this).'"';
+					// false = don't render the attribute
+					if ($metarenderer !== false)
+					{
+						$attributes .= ' '.$key.'="'.$metarenderer($this).'"';
+					}
 				}
 				else if (\is_array($value))
 				{

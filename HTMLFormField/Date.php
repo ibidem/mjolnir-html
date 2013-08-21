@@ -52,7 +52,7 @@ class HTMLFormField_Date extends \app\HTMLFormField # no specialized interface
 		{
 			// if we don't explicitly set it, the format will be Y-m-d H:i:s
 			// which won't work on this type of field
-			$this->set('value', $fieldvalue->format('Y-m-d'));
+			$this->set('value', $fieldvalue->format($this->dateformat));
 		}
 		else # not a DateTime object
 		{

@@ -38,9 +38,13 @@ class HTMLFormField_Checkbox extends \app\HTMLFormField implements \mjolnir\type
 
 			if ($fieldname !== null && ($autovalue = $this->form->autovalue($fieldname)) !== null)
 			{
-				if ($this->get('value', false) == $autovalue)
+				if ($autovalue)
 				{
 					$this->checked();
+				}
+				else # unchecked
+				{
+					$this->unchecked();
 				}
 			}
 
