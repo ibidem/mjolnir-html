@@ -7,9 +7,9 @@
  * @copyright  (c) 2012, 2013, Ibidem Team
  * @license    https://github.com/ibidem/ibidem/blob/master/LICENSE.md
  */
-class HTMLFormField_Radio extends \app\HTMLFormField implements \mjolnir\types\HTMLFormField_Boolean
+class HTMLFormField_Radio extends \app\HTMLFormField implements \mjolnir\types\HTMLFormField_Switch
 {
-	use \app\Trait_HTMLFormField_Boolean;
+	use \app\Trait_HTMLFormField_Switch;
 
 	#
 	# Radio intentionally doesn't inherit Checkbox
