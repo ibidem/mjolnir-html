@@ -38,11 +38,21 @@ class HTMLFormField_Checkbox extends \app\HTMLFormField implements \mjolnir\type
 
 			if ($fieldname !== null && ($autovalue = $this->form->autovalue($fieldname)) !== null)
 			{
-				if ($autovalue)
+				#
+				# The checkbox is simply a switch for a value. So if the
+				# autocomplete value is equal to the fields current value then
+				# the field is checked. Otherwise the field is unchecked.
+				#
+				# We test against false instead of null, since we don't want
+				# the field to change states
+				#
+
+				$value = $this->get('value', false);
+				if ($value == $autovalue)
 				{
 					$this->checked();
 				}
-				else # unchecked
+				else # autovalue != value && autovalue !== null
 				{
 					$this->unchecked();
 				}

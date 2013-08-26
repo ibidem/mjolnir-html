@@ -213,7 +213,7 @@ class HTMLForm extends \app\HTMLTag implements \mjolnir\types\HTMLForm
 	 *
 	 * @return mixed or null
 	 */
-	function autovalue($fieldname)
+	function autovalue($fieldname, $default = null)
 	{
 		if ($this->autocomplete !== null)
 		{
@@ -225,7 +225,7 @@ class HTMLForm extends \app\HTMLTag implements \mjolnir\types\HTMLForm
 		}
 
 		// no auto complete value found
-		return null;
+		return $default;
 	}
 
 	// ------------------------------------------------------------------------
