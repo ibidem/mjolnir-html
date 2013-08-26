@@ -67,7 +67,7 @@ class HTMLFormField_Select extends \app\HTMLFormField implements \mjolnir\types\
 	{
 		$this->autocompletefield();
 
-		$this->tagbody_is(null);
+		$this->tagbody_is('');
 
 		if ($this->options !== null)
 		{
@@ -94,7 +94,7 @@ class HTMLFormField_Select extends \app\HTMLFormField implements \mjolnir\types\
 				{
 					$option = \app\HTMLTag::i('option', $label)->set('value', $value);
 
-					if (\in_array(\strval($value), $this->values, false))
+					if ($this->values !== null && \in_array(\strval($value), $this->values, false))
 					{
 						$option->set('selected', '');
 					}
