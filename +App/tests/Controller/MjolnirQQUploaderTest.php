@@ -2,7 +2,7 @@
 
 use \mjolnir\html\Controller_MjolnirQQUploader;
 
-class Controller_MjolnirQQUploaderTest extends \PHPUnit_Framework_TestCase
+class Controller_MjolnirQQUploaderTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

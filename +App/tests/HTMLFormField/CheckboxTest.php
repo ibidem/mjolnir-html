@@ -2,7 +2,7 @@
 
 use \mjolnir\html\HTMLFormField_Checkbox;
 
-class HTMLFormField_CheckboxTest extends \PHPUnit_Framework_TestCase
+class HTMLFormField_CheckboxTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

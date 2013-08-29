@@ -2,7 +2,7 @@
 
 use \mjolnir\html\HTMLFormField_ImageUploader;
 
-class HTMLFormField_ImageUploaderTest extends \PHPUnit_Framework_TestCase
+class HTMLFormField_ImageUploaderTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

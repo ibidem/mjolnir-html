@@ -2,7 +2,7 @@
 
 use \mjolnir\html\HTMLFormField_Textarea;
 
-class HTMLFormField_TextareaTest extends \PHPUnit_Framework_TestCase
+class HTMLFormField_TextareaTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

@@ -2,7 +2,7 @@
 
 use \mjolnir\html\HTMLFormField_Button;
 
-class HTMLFormField_ButtonTest extends \PHPUnit_Framework_TestCase
+class HTMLFormField_ButtonTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

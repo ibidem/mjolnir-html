@@ -2,7 +2,7 @@
 
 use \mjolnir\html\FileUploader_QQUploader;
 
-class FileUploader_QQUploaderTest extends \PHPUnit_Framework_TestCase
+class FileUploader_QQUploaderTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

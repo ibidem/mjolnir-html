@@ -2,7 +2,7 @@
 
 use \mjolnir\html\HTMLFormField_Composite;
 
-class HTMLFormField_CompositeTest extends \PHPUnit_Framework_TestCase
+class HTMLFormField_CompositeTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

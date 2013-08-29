@@ -2,7 +2,7 @@
 
 use \mjolnir\html\HTMLFormField_Date;
 
-class HTMLFormField_DateTest extends \PHPUnit_Framework_TestCase
+class HTMLFormField_DateTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

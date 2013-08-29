@@ -2,7 +2,7 @@
 
 use \mjolnir\html\HTMLFormField_Radio;
 
-class HTMLFormField_RadioTest extends \PHPUnit_Framework_TestCase
+class HTMLFormField_RadioTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

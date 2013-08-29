@@ -2,7 +2,7 @@
 
 use \mjolnir\html\FileUploader;
 
-class FileUploaderTest extends \PHPUnit_Framework_TestCase
+class FileUploaderTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

@@ -2,7 +2,7 @@
 
 use \mjolnir\html\HTMLFormField_Hidden;
 
-class HTMLFormField_HiddenTest extends \PHPUnit_Framework_TestCase
+class HTMLFormField_HiddenTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()

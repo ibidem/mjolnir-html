@@ -2,7 +2,7 @@
 
 use \mjolnir\html\HH;
 
-class HHTest extends \PHPUnit_Framework_TestCase
+class HHTest extends \app\PHPUnit_Framework_TestCase
 {
 	/** @test */ function
 	can_be_loaded()
