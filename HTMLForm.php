@@ -300,7 +300,8 @@ class HTMLForm extends \app\HTMLTag implements \mjolnir\types\HTMLForm
 	{
 		if ($this->show_metainfo)
 		{
-			$this->appendtagbody($this->hidden('form')->value_is($this->signature()));
+			$this->appendtagbody($this->hidden('form')
+				->value_is($this->signature()));
 		}
 
 		return parent::render();
