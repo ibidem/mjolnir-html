@@ -115,7 +115,7 @@ class FileUploader_QQUploader extends \qqFileUploader
 		}
 		else # got error
 		{
-			\mjolnir\log('Could not save uploaded file.');
+			\mjolnir\log('Uploads', 'Could not save uploaded file: '.$base_path.$upload_path);
 			return [ 'error'=> \app\Lang::term('Could not save uploaded file.') ];
 		}
 
