@@ -36,6 +36,11 @@ class HTMLFormField extends \app\HTMLTag implements \mjolnir\types\HTMLFormField
 
 		$this->fieldtemplate !== null or $this->fieldtemplate = ':field';
 
+		if ($this->fieldconfigurer_callback !== null)
+		{
+			\call_user_func($this->fieldconfigurer_callback, $this);
+		}
+
 		return \strtr
 			(
 				$this->fieldtemplate,

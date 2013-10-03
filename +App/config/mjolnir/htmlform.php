@@ -87,6 +87,103 @@ return array
 									'checkbox'
 								);
 					},
+				'mjolnir:twbs3' => function (\mjolnir\types\HTMLForm $form)
+					{
+						return $form
+							->adderrorrenderer
+								(
+									function (array $errors = null)
+									{
+										if ($errors)
+										{
+											$out = '';
+											foreach ($errors as $error)
+											{
+												$out .= "<span class=\"help-block\"><span class=\"text-error\">$error</span></span>";
+											}
+
+											return $out.'';
+										}
+										else # no errors
+										{
+											return '';
+										}
+									}
+								)
+							->addhintrenderer
+								(
+									function (array $hints = null)
+									{
+										if ($hints)
+										{
+											$out = '';
+											foreach ($hints as $hint)
+											{
+												$out .= "<span class=\"help-block\">$hint</span>";
+											}
+
+											return $out;
+										}
+										else # no hints
+										{
+											return '';
+										}
+									}
+								)
+							->addfieldtemplate
+								(
+									'
+										<div class="form-group">
+											<label class="col-lg-2 control-label" for=":id">:label</label>
+											<div class="col-lg-10">
+												:field :hints :errors
+											</div>
+										</div>
+									'
+								)
+							->addfieldtemplate
+								(
+									'
+										<div class="form-group">
+											<div class="col-lg-offset-2 col-lg-10">
+												<div class="checkbox">
+													<label>:field :label</label>
+												</div>
+												:hints :errors
+											</div>
+										</div>
+									',
+									'checkbox'
+								)
+							->addfieldconfigurer
+								(
+									function (\mjolnir\types\HTMLFormField $field)
+										{
+											$field->add('class', 'form-control');
+										},
+									[
+										'select',
+										'date',
+										'text',
+										'password',
+										'image',
+										'search',
+										'number',
+										'identifier',
+										'currency',
+										'phonenumber',
+										'url',
+										'email',
+										'month',
+										'week',
+										'color',
+										'range',
+										'datetime',
+										'localdatetime',
+									]
+								);
+					},
+
 			),
 
 		'field.standards' => array

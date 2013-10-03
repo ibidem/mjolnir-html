@@ -106,6 +106,7 @@ class HTMLForm extends \app\HTMLTag implements \mjolnir\types\HTMLForm
 			->form_is($this)
 			->fieldlabel_is($label)
 			->fieldtemplate_is($this->fieldtemplate($fieldtype))
+			->fieldconfigurer_is($this->fieldconfigurer($fieldtype))
 			->hintrenderer_is($this->hintrenderer($fieldtype))
 			->errorrenderer_is($this->errorrenderer($fieldtype))
 			->adderrors($this->errors($fieldname));
