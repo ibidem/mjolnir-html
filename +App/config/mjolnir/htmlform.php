@@ -25,16 +25,27 @@ return array
 	(
 		'form.standards' => array
 			(
+				// no styling, just the field
 				'mjolnir:barebone' => function (\mjolnir\types\HTMLForm $form)
 					{
 						return $form->addfieldtemplate(':field');
 					},
+
+				// similar to barebone only the element will be inlined
 				'mjolnir:inline' => function (\mjolnir\types\HTMLForm $form)
 					{
 						return $form->apply('mjolnir:barebone')
 							->set('style', 'display: inline');
 					},
+
+				// legacy twitter 2.x reference name
 				'mjolnir:twitter' => function (\mjolnir\types\HTMLForm $form)
+					{
+						return $form->apply('mjolnir:twbs2');
+					},
+
+				// twitter bootstrap 2.x series style
+				'mjolnir:twbs2' => function (\mjolnir\types\HTMLForm $form)
 					{
 						return $form
 							->adderrorrenderer
@@ -87,6 +98,8 @@ return array
 									'checkbox'
 								);
 					},
+
+				// twitter 3.x series style
 				'mjolnir:twbs3' => function (\mjolnir\types\HTMLForm $form)
 					{
 						return $form
@@ -145,6 +158,20 @@ return array
 								(
 									'
 										<div class="form-group">
+											<label class="col-lg-2 control-label" for=":id">:label</label>
+											<div class="col-lg-2">
+												:field :hints :errors
+											</div>
+										</div>
+									',
+									[
+										'date', 'datetime', 'localdatetime'
+									]
+								)
+							->addfieldtemplate
+								(
+									'
+										<div class="form-group">
 											<div class="col-lg-offset-2 col-lg-10">
 												<div class="checkbox">
 													<label>:field :label</label>
@@ -180,6 +207,7 @@ return array
 										'range',
 										'datetime',
 										'localdatetime',
+										'textarea',
 									]
 								);
 					},
