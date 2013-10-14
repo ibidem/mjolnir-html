@@ -192,7 +192,7 @@ class HTMLForm extends \app\HTMLTag implements \mjolnir\types\HTMLForm
 	 *
 	 * @return static $this
 	 */
-	function autocomplete(array &$hints = null)
+	function autocomplete_array(array &$hints = null)
 	{
 		if ($this->autocomplete === null)
 		{
